@@ -9,23 +9,23 @@ namespace CardGameConsoleTestApp.Model
 {
     public static class DelegateFactory
     {
-        private static readonly IDictionary<string, Delegate> _delegates;
-        private static readonly string _fullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
+        private static readonly IDictionary<string, Delegate> DelegatesDictionary;
+        private static readonly string FullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
 
         static DelegateFactory()
         {
-            _delegates = new Dictionary<string, Delegate>();
+            DelegatesDictionary = new Dictionary<string, Delegate>();
         }
 
-        public static Delegate RunMethod(string className, string methodName)
+        public static Delegate GetDelegate(string className, string methodName)
         {
             var name = $"{className}{methodName}";
-            if (_delegates.ContainsKey(name))
+            if (DelegatesDictionary.ContainsKey(name))
             {
-                return _delegates[name];
+                return DelegatesDictionary[name];
             }
 
-            var memberInfo = Type.GetType(_fullyQualifiedName + "." + className);
+            var memberInfo = Type.GetType(FullyQualifiedName + "." + className);
             if (memberInfo == null)
             {
                 return null;
@@ -33,7 +33,7 @@ namespace CardGameConsoleTestApp.Model
             }
             MethodInfo method = memberInfo.GetMethod(methodName);
             Delegate result = CreateStaticDelegate(method);
-            _delegates.Add(name, result);
+            DelegatesDictionary.Add(name, result);
 
             return result;
         }

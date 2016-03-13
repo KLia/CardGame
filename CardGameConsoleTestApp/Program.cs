@@ -18,8 +18,8 @@ namespace CardGameConsoleTestApp
             }
 
 
-            var result = DelegateFactory.RunMethod("Triggers", "Heal");
-            minions[0].GetHit += (s,e) => DelegateFactory.RunMethod("Triggers", "Heal").DynamicInvoke(minions[0], 28);
+            //var result = DelegateFactory.GetDelegate("Triggers", "Heal");
+            minions[0].GetHit += (s,e) => DelegateFactory.GetDelegate("Triggers", "Heal").DynamicInvoke(minions[0], 28);
 
             minions[0].CurrentHealth -= 2;
             Console.WriteLine(minions[0].CurrentHealth);
