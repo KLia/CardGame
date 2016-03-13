@@ -1,6 +1,6 @@
 ﻿namespace CardGameConsoleTestApp.Model
 {
-    public class MinionLoader
+    public class DeckLoader
     {
         
     }
