@@ -1,7 +1,7 @@
 ﻿using System;
-using CardGameConsoleTestApp.DTO.Interfaces;
+using CardGameConsoleTestApp.Cards.Interfaces;
 
-namespace CardGameConsoleTestApp.DTO
+namespace CardGameConsoleTestApp.Cards
 {
     public abstract class Card : ICard
     {
@@ -18,14 +18,29 @@ namespace CardGameConsoleTestApp.DTO
         public string Name { get; set; }
         public int Cost { get; set; }
 
-        public abstract event EventHandler CardDrawn;
-        public abstract event EventHandler CardPlayed;
-        public abstract event EventHandler RoundStart;
-        public abstract event EventHandler RoundEnd;
+        public event EventHandler CardDrawn;
+        public event EventHandler CardPlayed;
+        public event EventHandler RoundStart;
+        public event EventHandler RoundEnd;
 
-        public abstract void OnCardDrawn(object sender, EventArgs e);
-        public abstract void OnCardPlayed(object sender, EventArgs e);
-        public abstract void OnRoundStart(object sender, EventArgs e);
-        public abstract void OnRoundEnd(object sender, EventArgs e);
+        public void OnCardDrawn(object sender, EventArgs e)
+        {
+            CardDrawn?.Invoke(sender, e);
+        }
+
+        public void OnCardPlayed(object sender, EventArgs e)
+        {
+            CardPlayed?.Invoke(sender, e);
+        }
+
+        public void OnRoundStart(object sender, EventArgs e)
+        {
+            RoundStart?.Invoke(sender, e);
+        }
+
+        public void OnRoundEnd(object sender, EventArgs e)
+        {
+            RoundEnd?.Invoke(sender, e);
+        }
     }
 }

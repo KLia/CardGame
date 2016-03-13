@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CardGameConsoleTestApp.DTO.Interfaces
+namespace CardGameConsoleTestApp.Cards.Interfaces
 {
     public interface ICard
     {

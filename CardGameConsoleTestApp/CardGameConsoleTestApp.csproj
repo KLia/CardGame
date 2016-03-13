@@ -51,14 +51,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Card.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DTO\Card.cs" />
-    <Compile Include="DTO\CardType.cs" />
-    <Compile Include="DTO\Interfaces\ICard.cs" />
-    <Compile Include="DTO\Interfaces\IDamageable.cs" />
-    <Compile Include="DTO\Interfaces\ITriggerable.cs" />
-    <Compile Include="DTO\Minion.cs" />
-    <Compile Include="DTO\Spell.cs" />
-    <Compile Include="DTO\TriggerType.cs" />
+    <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\CardType.cs" />
+    <Compile Include="Cards\Interfaces\ICard.cs" />
+    <Compile Include="Cards\Interfaces\IDamageable.cs" />
+    <Compile Include="Cards\Interfaces\ITriggerable.cs" />
+    <Compile Include="Cards\Minion.cs" />
+    <Compile Include="Cards\Spell.cs" />
+    <Compile Include="Cards\TriggerType.cs" />
     <Compile Include="Model\MinionLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

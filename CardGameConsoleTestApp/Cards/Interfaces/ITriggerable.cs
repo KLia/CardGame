@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CardGameConsoleTestApp.DTO.Interfaces
+namespace CardGameConsoleTestApp.Cards.Interfaces
 {
     public interface ITriggerable
     {

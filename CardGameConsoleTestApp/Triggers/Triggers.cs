@@ -1,4 +1,4 @@
-﻿using CardGameConsoleTestApp.DTO.Interfaces;
+﻿using CardGameConsoleTestApp.Cards.Interfaces;
 
 namespace CardGameConsoleTestApp.Triggers
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
+using CardGameConsoleTestApp.Cards;
 using CardGameConsoleTestApp.DBML;
-using CardGameConsoleTestApp.DTO;
 
 namespace CardGameConsoleTestApp.Controller
 {

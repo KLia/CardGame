@@ -1,4 +1,4 @@
-﻿namespace CardGameConsoleTestApp.DTO
+﻿namespace CardGameConsoleTestApp.Cards
 {
     public enum TriggerType
     {

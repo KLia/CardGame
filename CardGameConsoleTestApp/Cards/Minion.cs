@@ -1,7 +1,7 @@
 ﻿using System;
-using CardGameConsoleTestApp.DTO.Interfaces;
+using CardGameConsoleTestApp.Cards.Interfaces;
 
-namespace CardGameConsoleTestApp.DTO
+namespace CardGameConsoleTestApp.Cards
 {
     public class Minion : Card, IDamageable, ITriggerable
     {
@@ -64,34 +64,10 @@ namespace CardGameConsoleTestApp.DTO
 
         public bool IsDead { get; set; }
 
-        public override event EventHandler CardDrawn;
-        public override event EventHandler CardPlayed;
-        public override event EventHandler RoundStart;
-        public override event EventHandler RoundEnd;
         public event EventHandler Attacking;
         public event EventHandler Healed;
         public event EventHandler GetHit;
         public event EventHandler Death;
-
-        public override void OnCardDrawn(object sender, EventArgs e)
-        {
-            CardDrawn?.Invoke(sender, e);
-        }
-
-        public override void OnCardPlayed(object sender, EventArgs e)
-        {
-            CardPlayed?.Invoke(sender, e);
-        }
-
-        public override void OnRoundStart(object sender, EventArgs e)
-        {
-            RoundStart?.Invoke(sender, e);
-        }
-
-        public override void OnRoundEnd(object sender, EventArgs e)
-        {
-            RoundEnd?.Invoke(sender, e);
-        }
 
         public void OnAttacking(object sender, EventArgs e)
         {
