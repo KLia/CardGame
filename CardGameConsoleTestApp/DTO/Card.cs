@@ -18,10 +18,14 @@ namespace CardGameConsoleTestApp.DTO
         public string Name { get; set; }
         public int Cost { get; set; }
 
-        public event EventHandler CardDrawn;
-        public event EventHandler CardPlayed;
+        public abstract event EventHandler CardDrawn;
+        public abstract event EventHandler CardPlayed;
+        public abstract event EventHandler RoundStart;
+        public abstract event EventHandler RoundEnd;
 
-        public abstract void OnCardDrawn(EventArgs e);
-        public abstract void OnCardPlayed(EventArgs e);
+        public abstract void OnCardDrawn(object sender, EventArgs e);
+        public abstract void OnCardPlayed(object sender, EventArgs e);
+        public abstract void OnRoundStart(object sender, EventArgs e);
+        public abstract void OnRoundEnd(object sender, EventArgs e);
     }
 }

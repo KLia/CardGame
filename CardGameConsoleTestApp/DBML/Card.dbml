@@ -32,13 +32,6 @@
       <Association Name="Method_CardTrigger" Member="Method" ThisKey="MethodId" OtherKey="Id" Type="Method" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Method" Member="Methods">
-    <Type Name="Method">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
-      <Association Name="Method_CardTrigger" Member="CardTriggers" ThisKey="Id" OtherKey="MethodId" Type="CardTrigger" />
-    </Type>
-  </Table>
   <Table Name="dbo.CardTriggerParam" Member="CardTriggerParams">
     <Type Name="CardTriggerParam">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -46,6 +39,14 @@
       <Column Name="ParamName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="ParamValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="CardTrigger_CardTriggerParam" Member="CardTrigger" ThisKey="CardTriggerId" OtherKey="Id" Type="CardTrigger" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Method" Member="Methods">
+    <Type Name="Method">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Class" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
+      <Association Name="Method_CardTrigger" Member="CardTriggers" ThisKey="Id" OtherKey="MethodId" Type="CardTrigger" />
     </Type>
   </Table>
 </Database>

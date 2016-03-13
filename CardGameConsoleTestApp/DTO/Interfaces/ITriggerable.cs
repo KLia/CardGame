@@ -13,9 +13,9 @@ namespace CardGameConsoleTestApp.DTO.Interfaces
         event EventHandler GetHit;
         event EventHandler Death;
 
-        void OnAttacking(EventArgs e);
-        void OnHealed(EventArgs e);
-        void OnGetHit(EventArgs e);
-        void OnDeath(EventArgs e);
+        void OnAttacking(object sender, EventArgs e);
+        void OnHealed(object sender, EventArgs e);
+        void OnGetHit(object sender, EventArgs e);
+        void OnDeath(object sender, EventArgs e);
     }
 }

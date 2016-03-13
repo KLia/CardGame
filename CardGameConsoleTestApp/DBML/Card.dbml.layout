@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 8.5" name="Card">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.125, 8.5" name="Card">
   <DataContextMoniker Name="/CardDataContext" />
   <nestedChildShapes>
     <classShape Id="4b10391b-1fd2-41a7-98b0-517e6315a1f7" absoluteBounds="3.625, 0.5, 2, 1.5785953776041664">
@@ -27,37 +27,37 @@
         <elementListCompartment Id="46fbb28c-9522-4cd2-a8b3-1548d4c3d7d7" absoluteBounds="5.0150000000000006, 4.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="54fdab77-be93-4545-bd6a-2f67abe155c1" absoluteBounds="8.5, 5.125, 2, 1.1939925130208335">
-      <DataClassMoniker Name="/CardDataContext/Method" />
-      <nestedChildShapes>
-        <elementListCompartment Id="6f8deb23-07ed-4333-858a-50f6a40d8674" absoluteBounds="8.515, 5.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="e3e209ad-5756-4a8d-999e-9621d3a67d8b" absoluteBounds="8.625, 1.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/CardDataContext/CardTriggerParam" />
       <nestedChildShapes>
         <elementListCompartment Id="e2bfe84d-bffc-47e3-83e6-775c9f52c642" absoluteBounds="8.64, 2.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.75 : 2.8381982421875); (1.75 : 4.66429768880208); (5 : 4.66429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 2.8381982421875); (1.75 : 4.66429768880208); (5 : 4.66429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Card/Card_CardTrigger" />
       <nodes>
         <classShapeMoniker Id="8542c9f6-ab5e-41c7-a893-d2fac5858cfb" />
         <classShapeMoniker Id="777b6e27-0b7e-48da-a298-5df5c5b2c30b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 5.28929768880208); (7 : 5.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/CardDataContext/Method/Method_CardTrigger" />
-      <nodes>
-        <classShapeMoniker Id="54fdab77-be93-4545-bd6a-2f67abe155c1" />
-        <classShapeMoniker Id="777b6e27-0b7e-48da-a298-5df5c5b2c30b" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(7 : 4.46875); (10.59375 : 4.46875); (10.59375 : 3.32859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 4.40625); (9.21875 : 4.40625); (9.21875 : 3.32859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CardDataContext/CardTrigger/CardTrigger_CardTriggerParam" />
       <nodes>
         <classShapeMoniker Id="777b6e27-0b7e-48da-a298-5df5c5b2c30b" />
         <classShapeMoniker Id="e3e209ad-5756-4a8d-999e-9621d3a67d8b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c90dfaff-dc70-4739-87a2-157e70945311" absoluteBounds="9.875, 5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CardDataContext/Method" />
+      <nestedChildShapes>
+        <elementListCompartment Id="feff0062-9b42-4390-9337-c48295c19390" absoluteBounds="9.89, 5.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.875 : 5.22679768880208); (7 : 5.22679768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CardDataContext/Method/Method_CardTrigger" />
+      <nodes>
+        <classShapeMoniker Id="c90dfaff-dc70-4739-87a2-157e70945311" />
+        <classShapeMoniker Id="777b6e27-0b7e-48da-a298-5df5c5b2c30b" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

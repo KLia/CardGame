@@ -4,6 +4,11 @@ namespace CardGameConsoleTestApp.DTO
 {
     public class Spell : Card
     {
+        public override event EventHandler CardDrawn;
+        public override event EventHandler CardPlayed;
+        public override event EventHandler RoundStart;
+        public override event EventHandler RoundEnd;
+
         public Spell() : this("", 0)
         {
         }
@@ -12,14 +17,24 @@ namespace CardGameConsoleTestApp.DTO
         {
         }
 
-        public override void OnCardDrawn(EventArgs e)
+        public override void OnCardDrawn(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            CardDrawn?.Invoke(sender, e);
         }
 
-        public override void OnCardPlayed(EventArgs e)
+        public override void OnCardPlayed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            CardPlayed?.Invoke(sender, e);
+        }
+
+        public override void OnRoundStart(object sender, EventArgs e)
+        {
+            RoundStart?.Invoke(sender, e);
+        }
+
+        public override void OnRoundEnd(object sender, EventArgs e)
+        {
+            RoundEnd?.Invoke(sender, e);
         }
     }
 }
