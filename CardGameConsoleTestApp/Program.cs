@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net.Http.Headers;
 using CardGameConsoleTestApp.Controller;
 using CardGameConsoleTestApp.Model;
-using CardGameConsoleTestApp.Triggers;
 
 namespace CardGameConsoleTestApp
 {
@@ -19,14 +17,16 @@ namespace CardGameConsoleTestApp
 
 
             //var result = DelegateFactory.GetDelegate("Triggers", "Heal");
-            minions[0].GetHit += (s,e) => DelegateFactory.GetDelegate("Triggers", "Heal").DynamicInvoke(minions[0], 28);
+            minions[0].GetHit += (s,e) => DelegateFactory.RunMethod("Triggers", "Heal", new object[] {minions[1], 2});
 
+            Console.WriteLine(minions[0].CurrentHealth);
             minions[0].CurrentHealth -= 2;
             Console.WriteLine(minions[0].CurrentHealth);
             minions[0].CurrentHealth += 2;
             Console.WriteLine(minions[0].CurrentHealth);
 
-            CardController.GetInstance().LoadMinion(1);
+            minions[1].Healed += (s, e) => DelegateFactory.RunMethod("Triggers", "Heal", new object[] {minions[0], 1});
+            minions[1].CurrentHealth += 2;
 
             Console.ReadKey();
         }

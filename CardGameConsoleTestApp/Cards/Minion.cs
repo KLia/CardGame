@@ -1,5 +1,6 @@
 ﻿using System;
 using CardGameConsoleTestApp.Cards.Interfaces;
+using CardGameConsoleTestApp.Model;
 
 namespace CardGameConsoleTestApp.Cards
 {

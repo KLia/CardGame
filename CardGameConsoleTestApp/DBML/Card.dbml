@@ -9,18 +9,6 @@
       <Association Name="Card_CardName" Member="Card" ThisKey="CardId" OtherKey="Id" Type="Card" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Card" Member="Cards">
-    <Type Name="Card">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Cost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Attack" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Health" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="Card_CardName" Member="CardNames" ThisKey="Id" OtherKey="CardId" Type="CardName" />
-      <Association Name="Card_CardTrigger" Member="CardTriggers" ThisKey="Id" OtherKey="CardId" Type="CardTrigger" />
-    </Type>
-  </Table>
   <Table Name="dbo.CardTrigger" Member="CardTriggers">
     <Type Name="CardTrigger">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -28,8 +16,8 @@
       <Column Name="TriggerType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MethodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="CardTrigger_CardTriggerParam" Member="CardTriggerParams" ThisKey="Id" OtherKey="CardTriggerId" Type="CardTriggerParam" />
-      <Association Name="Card_CardTrigger" Member="Card" ThisKey="CardId" OtherKey="Id" Type="Card" IsForeignKey="true" />
       <Association Name="Method_CardTrigger" Member="Method" ThisKey="MethodId" OtherKey="Id" Type="Method" IsForeignKey="true" />
+      <Association Name="Card_CardTrigger" Member="Card" ThisKey="CardId" OtherKey="Id" Type="Card" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CardTriggerParam" Member="CardTriggerParams">
@@ -47,6 +35,37 @@
       <Column Name="Class" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(127) NOT NULL" CanBeNull="false" />
       <Association Name="Method_CardTrigger" Member="CardTriggers" ThisKey="Id" OtherKey="MethodId" Type="CardTrigger" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Card" Member="Cards">
+    <Type Name="Card">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Attack" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Health" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Card_CardName" Member="CardNames" ThisKey="Id" OtherKey="CardId" Type="CardName" />
+      <Association Name="Card_CardTrigger" Member="CardTriggers" ThisKey="Id" OtherKey="CardId" Type="CardTrigger" />
+      <Association Name="Card_DeckCard" Member="DeckCards" ThisKey="Id" OtherKey="CardId" Type="DeckCard" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeckCard" Member="DeckCards">
+    <Type Name="DeckCard">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeckId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Card_DeckCard" Member="Card" ThisKey="CardId" OtherKey="Id" Type="Card" IsForeignKey="true" />
+      <Association Name="Deck_DeckCard" Member="Deck" ThisKey="DeckId" OtherKey="Id" Type="Deck" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Deck" Member="Decks">
+    <Type Name="Deck">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Deck_DeckCard" Member="DeckCards" ThisKey="Id" OtherKey="DeckId" Type="DeckCard" />
     </Type>
   </Table>
 </Database>

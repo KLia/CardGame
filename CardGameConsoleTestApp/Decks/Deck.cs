@@ -5,18 +5,29 @@ namespace CardGameConsoleTestApp.Decks
 {
     public class Deck
     {
-        private IList<Card> Cards;
+        private readonly IList<Card> _cards;
+
         public string Name;
+        public IList<Card> Cards => _cards;
 
         public Deck()
         {
-            Cards = new List<Card>();
+            _cards = new List<Card>();
         }
 
         public Deck(IList<Card> cards)
         {
-            Cards = cards;
+            _cards = cards;
         }
 
+        public void AddCard(Card card)
+        {
+            _cards.Add(card);
+        }
+
+        public void RemoveCard(Card card)
+        {
+            _cards.Remove(card);
+        }
     }
 }

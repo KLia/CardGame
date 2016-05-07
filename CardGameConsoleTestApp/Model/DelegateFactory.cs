@@ -9,20 +9,20 @@ namespace CardGameConsoleTestApp.Model
 {
     public static class DelegateFactory
     {
-        private static readonly IDictionary<string, Delegate> DelegatesDictionary;
+        private static readonly IDictionary<string, MethodInfo> MethodsDictionary;
         private static readonly string FullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
 
         static DelegateFactory()
         {
-            DelegatesDictionary = new Dictionary<string, Delegate>();
+            MethodsDictionary = new Dictionary<string, MethodInfo>();
         }
 
-        public static Delegate GetDelegate(string className, string methodName)
+        private static MethodInfo GetMethodInfo(string className, string methodName)
         {
             var name = $"{className}{methodName}";
-            if (DelegatesDictionary.ContainsKey(name))
+            if (MethodsDictionary.ContainsKey(name))
             {
-                return DelegatesDictionary[name];
+                return MethodsDictionary[name];
             }
 
             var memberInfo = Type.GetType(FullyQualifiedName + "." + className);
@@ -31,28 +31,16 @@ namespace CardGameConsoleTestApp.Model
                 return null;
 
             }
-            MethodInfo method = memberInfo.GetMethod(methodName);
-            Delegate result = CreateStaticDelegate(method);
-            DelegatesDictionary.Add(name, result);
+            MethodInfo method = memberInfo.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static);
+            MethodsDictionary.Add(name, method);
 
-            return result;
+            return method;
         }
 
-        private static Delegate CreateStaticDelegate(MethodInfo method)
+        public static void RunMethod(string className, string methodName, object[] parameters)
         {
-            var paramTypes = method.GetParameters().Select(p => p.ParameterType);
-
-            Type delegateType = Expression.GetDelegateType(paramTypes.Append(method.ReturnType).ToArray());
-
-            return Delegate.CreateDelegate(delegateType, method, true);
-        }
-
-        private static IEnumerable<TSource> Append<TSource>(this IEnumerable<TSource> collection, TSource element)
-        {
-            if (collection == null) throw new ArgumentNullException(nameof(collection));
-
-            foreach (var element1 in collection) yield return element1;
-            yield return element;
+            MethodInfo method = GetMethodInfo(className, methodName);
+            method.Invoke(null, parameters);
         }
     }
 }
