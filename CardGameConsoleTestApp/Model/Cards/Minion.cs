@@ -1,8 +1,7 @@
 ﻿using System;
-using CardGameConsoleTestApp.Cards.Interfaces;
-using CardGameConsoleTestApp.Model;
+using CardGameConsoleTestApp.Model.Cards.Interfaces;
 
-namespace CardGameConsoleTestApp.Cards
+namespace CardGameConsoleTestApp.Model.Cards
 {
     public class Minion : Card, IDamageable, ITriggerable
     {
@@ -26,6 +25,7 @@ namespace CardGameConsoleTestApp.Cards
             IsDead = false;
         }
 
+        public int Id { get; set; }
         public int Attack { get; set; }
         public int CurrentAttack { get; set; }
 

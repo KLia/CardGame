@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace CardGameConsoleTestApp.Cards.Interfaces
+namespace CardGameConsoleTestApp.Model.Cards.Interfaces
 {
     public interface ITriggerable
     {
+        int Id { get; set; }
+
         event EventHandler Attacking;
         event EventHandler Healed;
         event EventHandler GetHit;

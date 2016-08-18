@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CardGameConsoleTestApp.DBML
+namespace CardGameConsoleTestApp.Cards
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -30,12 +30,6 @@ namespace CardGameConsoleTestApp.DBML
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertCard(Card instance);
-    partial void UpdateCard(Card instance);
-    partial void DeleteCard(Card instance);
-    partial void InsertMethod(Method instance);
-    partial void UpdateMethod(Method instance);
-    partial void DeleteMethod(Method instance);
     partial void InsertCardName(CardName instance);
     partial void UpdateCardName(CardName instance);
     partial void DeleteCardName(CardName instance);
@@ -45,12 +39,18 @@ namespace CardGameConsoleTestApp.DBML
     partial void InsertCardTriggerParam(CardTriggerParam instance);
     partial void UpdateCardTriggerParam(CardTriggerParam instance);
     partial void DeleteCardTriggerParam(CardTriggerParam instance);
-    partial void InsertDeck(Deck instance);
-    partial void UpdateDeck(Deck instance);
-    partial void DeleteDeck(Deck instance);
+    partial void InsertMethod(Method instance);
+    partial void UpdateMethod(Method instance);
+    partial void DeleteMethod(Method instance);
+    partial void InsertCard(Card instance);
+    partial void UpdateCard(Card instance);
+    partial void DeleteCard(Card instance);
     partial void InsertDeckCard(DeckCard instance);
     partial void UpdateDeckCard(DeckCard instance);
     partial void DeleteDeckCard(DeckCard instance);
+    partial void InsertDeck(Deck instance);
+    partial void UpdateDeck(Deck instance);
+    partial void DeleteDeck(Deck instance);
     #endregion
 		
 		public CardDataContext() : 
@@ -83,22 +83,6 @@ namespace CardGameConsoleTestApp.DBML
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Card> Cards
-		{
-			get
-			{
-				return this.GetTable<Card>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Method> Methods
-		{
-			get
-			{
-				return this.GetTable<Method>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CardName> CardNames
 		{
 			get
@@ -123,11 +107,19 @@ namespace CardGameConsoleTestApp.DBML
 			}
 		}
 		
-		public System.Data.Linq.Table<Deck> Decks
+		public System.Data.Linq.Table<Method> Methods
 		{
 			get
 			{
-				return this.GetTable<Deck>();
+				return this.GetTable<Method>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Card> Cards
+		{
+			get
+			{
+				return this.GetTable<Card>();
 			}
 		}
 		
@@ -137,6 +129,746 @@ namespace CardGameConsoleTestApp.DBML
 			{
 				return this.GetTable<DeckCard>();
 			}
+		}
+		
+		public System.Data.Linq.Table<Deck> Decks
+		{
+			get
+			{
+				return this.GetTable<Deck>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardName")]
+	public partial class CardName : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _CardId;
+		
+		private int _LanguageId;
+		
+		private string _Name;
+		
+		private EntityRef<Card> _Card;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCardIdChanging(int value);
+    partial void OnCardIdChanged();
+    partial void OnLanguageIdChanging(int value);
+    partial void OnLanguageIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public CardName()
+		{
+			this._Card = default(EntityRef<Card>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardId", DbType="Int NOT NULL")]
+		public int CardId
+		{
+			get
+			{
+				return this._CardId;
+			}
+			set
+			{
+				if ((this._CardId != value))
+				{
+					if (this._Card.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCardIdChanging(value);
+					this.SendPropertyChanging();
+					this._CardId = value;
+					this.SendPropertyChanged("CardId");
+					this.OnCardIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageId", DbType="Int NOT NULL")]
+		public int LanguageId
+		{
+			get
+			{
+				return this._LanguageId;
+			}
+			set
+			{
+				if ((this._LanguageId != value))
+				{
+					this.OnLanguageIdChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageId = value;
+					this.SendPropertyChanged("LanguageId");
+					this.OnLanguageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Card_CardName", Storage="_Card", ThisKey="CardId", OtherKey="Id", IsForeignKey=true)]
+		public Card Card
+		{
+			get
+			{
+				return this._Card.Entity;
+			}
+			set
+			{
+				Card previousValue = this._Card.Entity;
+				if (((previousValue != value) 
+							|| (this._Card.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Card.Entity = null;
+						previousValue.CardNames.Remove(this);
+					}
+					this._Card.Entity = value;
+					if ((value != null))
+					{
+						value.CardNames.Add(this);
+						this._CardId = value.Id;
+					}
+					else
+					{
+						this._CardId = default(int);
+					}
+					this.SendPropertyChanged("Card");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardTrigger")]
+	public partial class CardTrigger : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _CardId;
+		
+		private int _TriggerType;
+		
+		private int _MethodId;
+		
+		private EntitySet<CardTriggerParam> _CardTriggerParams;
+		
+		private EntityRef<Method> _Method;
+		
+		private EntityRef<Card> _Card;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCardIdChanging(int value);
+    partial void OnCardIdChanged();
+    partial void OnTriggerTypeChanging(int value);
+    partial void OnTriggerTypeChanged();
+    partial void OnMethodIdChanging(int value);
+    partial void OnMethodIdChanged();
+    #endregion
+		
+		public CardTrigger()
+		{
+			this._CardTriggerParams = new EntitySet<CardTriggerParam>(new Action<CardTriggerParam>(this.attach_CardTriggerParams), new Action<CardTriggerParam>(this.detach_CardTriggerParams));
+			this._Method = default(EntityRef<Method>);
+			this._Card = default(EntityRef<Card>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardId", DbType="Int NOT NULL")]
+		public int CardId
+		{
+			get
+			{
+				return this._CardId;
+			}
+			set
+			{
+				if ((this._CardId != value))
+				{
+					if (this._Card.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCardIdChanging(value);
+					this.SendPropertyChanging();
+					this._CardId = value;
+					this.SendPropertyChanged("CardId");
+					this.OnCardIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TriggerType", DbType="Int NOT NULL")]
+		public int TriggerType
+		{
+			get
+			{
+				return this._TriggerType;
+			}
+			set
+			{
+				if ((this._TriggerType != value))
+				{
+					this.OnTriggerTypeChanging(value);
+					this.SendPropertyChanging();
+					this._TriggerType = value;
+					this.SendPropertyChanged("TriggerType");
+					this.OnTriggerTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodId", DbType="Int NOT NULL")]
+		public int MethodId
+		{
+			get
+			{
+				return this._MethodId;
+			}
+			set
+			{
+				if ((this._MethodId != value))
+				{
+					if (this._Method.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMethodIdChanging(value);
+					this.SendPropertyChanging();
+					this._MethodId = value;
+					this.SendPropertyChanged("MethodId");
+					this.OnMethodIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CardTrigger_CardTriggerParam", Storage="_CardTriggerParams", ThisKey="Id", OtherKey="CardTriggerId")]
+		public EntitySet<CardTriggerParam> CardTriggerParams
+		{
+			get
+			{
+				return this._CardTriggerParams;
+			}
+			set
+			{
+				this._CardTriggerParams.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_CardTrigger", Storage="_Method", ThisKey="MethodId", OtherKey="Id", IsForeignKey=true)]
+		public Method Method
+		{
+			get
+			{
+				return this._Method.Entity;
+			}
+			set
+			{
+				Method previousValue = this._Method.Entity;
+				if (((previousValue != value) 
+							|| (this._Method.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Method.Entity = null;
+						previousValue.CardTriggers.Remove(this);
+					}
+					this._Method.Entity = value;
+					if ((value != null))
+					{
+						value.CardTriggers.Add(this);
+						this._MethodId = value.Id;
+					}
+					else
+					{
+						this._MethodId = default(int);
+					}
+					this.SendPropertyChanged("Method");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Card_CardTrigger", Storage="_Card", ThisKey="CardId", OtherKey="Id", IsForeignKey=true)]
+		public Card Card
+		{
+			get
+			{
+				return this._Card.Entity;
+			}
+			set
+			{
+				Card previousValue = this._Card.Entity;
+				if (((previousValue != value) 
+							|| (this._Card.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Card.Entity = null;
+						previousValue.CardTriggers.Remove(this);
+					}
+					this._Card.Entity = value;
+					if ((value != null))
+					{
+						value.CardTriggers.Add(this);
+						this._CardId = value.Id;
+					}
+					else
+					{
+						this._CardId = default(int);
+					}
+					this.SendPropertyChanged("Card");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CardTriggerParams(CardTriggerParam entity)
+		{
+			this.SendPropertyChanging();
+			entity.CardTrigger = this;
+		}
+		
+		private void detach_CardTriggerParams(CardTriggerParam entity)
+		{
+			this.SendPropertyChanging();
+			entity.CardTrigger = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardTriggerParam")]
+	public partial class CardTriggerParam : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _CardTriggerId;
+		
+		private string _ParamName;
+		
+		private int _ParamValue;
+		
+		private EntityRef<CardTrigger> _CardTrigger;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCardTriggerIdChanging(int value);
+    partial void OnCardTriggerIdChanged();
+    partial void OnParamNameChanging(string value);
+    partial void OnParamNameChanged();
+    partial void OnParamValueChanging(int value);
+    partial void OnParamValueChanged();
+    #endregion
+		
+		public CardTriggerParam()
+		{
+			this._CardTrigger = default(EntityRef<CardTrigger>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardTriggerId", DbType="Int NOT NULL")]
+		public int CardTriggerId
+		{
+			get
+			{
+				return this._CardTriggerId;
+			}
+			set
+			{
+				if ((this._CardTriggerId != value))
+				{
+					if (this._CardTrigger.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCardTriggerIdChanging(value);
+					this.SendPropertyChanging();
+					this._CardTriggerId = value;
+					this.SendPropertyChanged("CardTriggerId");
+					this.OnCardTriggerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParamName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string ParamName
+		{
+			get
+			{
+				return this._ParamName;
+			}
+			set
+			{
+				if ((this._ParamName != value))
+				{
+					this.OnParamNameChanging(value);
+					this.SendPropertyChanging();
+					this._ParamName = value;
+					this.SendPropertyChanged("ParamName");
+					this.OnParamNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParamValue", DbType="Int NOT NULL")]
+		public int ParamValue
+		{
+			get
+			{
+				return this._ParamValue;
+			}
+			set
+			{
+				if ((this._ParamValue != value))
+				{
+					this.OnParamValueChanging(value);
+					this.SendPropertyChanging();
+					this._ParamValue = value;
+					this.SendPropertyChanged("ParamValue");
+					this.OnParamValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CardTrigger_CardTriggerParam", Storage="_CardTrigger", ThisKey="CardTriggerId", OtherKey="Id", IsForeignKey=true)]
+		public CardTrigger CardTrigger
+		{
+			get
+			{
+				return this._CardTrigger.Entity;
+			}
+			set
+			{
+				CardTrigger previousValue = this._CardTrigger.Entity;
+				if (((previousValue != value) 
+							|| (this._CardTrigger.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CardTrigger.Entity = null;
+						previousValue.CardTriggerParams.Remove(this);
+					}
+					this._CardTrigger.Entity = value;
+					if ((value != null))
+					{
+						value.CardTriggerParams.Add(this);
+						this._CardTriggerId = value.Id;
+					}
+					else
+					{
+						this._CardTriggerId = default(int);
+					}
+					this.SendPropertyChanged("CardTrigger");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Method")]
+	public partial class Method : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Class;
+		
+		private string _Name;
+		
+		private EntitySet<CardTrigger> _CardTriggers;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnClassChanging(string value);
+    partial void OnClassChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Method()
+		{
+			this._CardTriggers = new EntitySet<CardTrigger>(new Action<CardTrigger>(this.attach_CardTriggers), new Action<CardTrigger>(this.detach_CardTriggers));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Class", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
+		public string Class
+		{
+			get
+			{
+				return this._Class;
+			}
+			set
+			{
+				if ((this._Class != value))
+				{
+					this.OnClassChanging(value);
+					this.SendPropertyChanging();
+					this._Class = value;
+					this.SendPropertyChanged("Class");
+					this.OnClassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_CardTrigger", Storage="_CardTriggers", ThisKey="Id", OtherKey="MethodId")]
+		public EntitySet<CardTrigger> CardTriggers
+		{
+			get
+			{
+				return this._CardTriggers;
+			}
+			set
+			{
+				this._CardTriggers.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CardTriggers(CardTrigger entity)
+		{
+			this.SendPropertyChanging();
+			entity.Method = this;
+		}
+		
+		private void detach_CardTriggers(CardTrigger entity)
+		{
+			this.SendPropertyChanging();
+			entity.Method = null;
 		}
 	}
 	
@@ -430,876 +1162,6 @@ namespace CardGameConsoleTestApp.DBML
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Method")]
-	public partial class Method : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Class;
-		
-		private string _Name;
-		
-		private EntitySet<CardTrigger> _CardTriggers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnClassChanging(string value);
-    partial void OnClassChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Method()
-		{
-			this._CardTriggers = new EntitySet<CardTrigger>(new Action<CardTrigger>(this.attach_CardTriggers), new Action<CardTrigger>(this.detach_CardTriggers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Class", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
-		public string Class
-		{
-			get
-			{
-				return this._Class;
-			}
-			set
-			{
-				if ((this._Class != value))
-				{
-					this.OnClassChanging(value);
-					this.SendPropertyChanging();
-					this._Class = value;
-					this.SendPropertyChanged("Class");
-					this.OnClassChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(127) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_CardTrigger", Storage="_CardTriggers", ThisKey="Id", OtherKey="MethodId")]
-		public EntitySet<CardTrigger> CardTriggers
-		{
-			get
-			{
-				return this._CardTriggers;
-			}
-			set
-			{
-				this._CardTriggers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_CardTriggers(CardTrigger entity)
-		{
-			this.SendPropertyChanging();
-			entity.Method = this;
-		}
-		
-		private void detach_CardTriggers(CardTrigger entity)
-		{
-			this.SendPropertyChanging();
-			entity.Method = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardName")]
-	public partial class CardName : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _CardId;
-		
-		private int _LanguageId;
-		
-		private string _Name;
-		
-		private EntityRef<Card> _Card;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCardIdChanging(int value);
-    partial void OnCardIdChanged();
-    partial void OnLanguageIdChanging(int value);
-    partial void OnLanguageIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public CardName()
-		{
-			this._Card = default(EntityRef<Card>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardId", DbType="Int NOT NULL")]
-		public int CardId
-		{
-			get
-			{
-				return this._CardId;
-			}
-			set
-			{
-				if ((this._CardId != value))
-				{
-					if (this._Card.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCardIdChanging(value);
-					this.SendPropertyChanging();
-					this._CardId = value;
-					this.SendPropertyChanged("CardId");
-					this.OnCardIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageId", DbType="Int NOT NULL")]
-		public int LanguageId
-		{
-			get
-			{
-				return this._LanguageId;
-			}
-			set
-			{
-				if ((this._LanguageId != value))
-				{
-					this.OnLanguageIdChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageId = value;
-					this.SendPropertyChanged("LanguageId");
-					this.OnLanguageIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Card_CardName", Storage="_Card", ThisKey="CardId", OtherKey="Id", IsForeignKey=true)]
-		public Card Card
-		{
-			get
-			{
-				return this._Card.Entity;
-			}
-			set
-			{
-				Card previousValue = this._Card.Entity;
-				if (((previousValue != value) 
-							|| (this._Card.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Card.Entity = null;
-						previousValue.CardNames.Remove(this);
-					}
-					this._Card.Entity = value;
-					if ((value != null))
-					{
-						value.CardNames.Add(this);
-						this._CardId = value.Id;
-					}
-					else
-					{
-						this._CardId = default(int);
-					}
-					this.SendPropertyChanged("Card");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardTrigger")]
-	public partial class CardTrigger : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _CardId;
-		
-		private int _TriggerType;
-		
-		private int _MethodId;
-		
-		private EntitySet<CardTriggerParam> _CardTriggerParams;
-		
-		private EntityRef<Card> _Card;
-		
-		private EntityRef<Method> _Method;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCardIdChanging(int value);
-    partial void OnCardIdChanged();
-    partial void OnTriggerTypeChanging(int value);
-    partial void OnTriggerTypeChanged();
-    partial void OnMethodIdChanging(int value);
-    partial void OnMethodIdChanged();
-    #endregion
-		
-		public CardTrigger()
-		{
-			this._CardTriggerParams = new EntitySet<CardTriggerParam>(new Action<CardTriggerParam>(this.attach_CardTriggerParams), new Action<CardTriggerParam>(this.detach_CardTriggerParams));
-			this._Card = default(EntityRef<Card>);
-			this._Method = default(EntityRef<Method>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardId", DbType="Int NOT NULL")]
-		public int CardId
-		{
-			get
-			{
-				return this._CardId;
-			}
-			set
-			{
-				if ((this._CardId != value))
-				{
-					if (this._Card.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCardIdChanging(value);
-					this.SendPropertyChanging();
-					this._CardId = value;
-					this.SendPropertyChanged("CardId");
-					this.OnCardIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TriggerType", DbType="Int NOT NULL")]
-		public int TriggerType
-		{
-			get
-			{
-				return this._TriggerType;
-			}
-			set
-			{
-				if ((this._TriggerType != value))
-				{
-					this.OnTriggerTypeChanging(value);
-					this.SendPropertyChanging();
-					this._TriggerType = value;
-					this.SendPropertyChanged("TriggerType");
-					this.OnTriggerTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodId", DbType="Int NOT NULL")]
-		public int MethodId
-		{
-			get
-			{
-				return this._MethodId;
-			}
-			set
-			{
-				if ((this._MethodId != value))
-				{
-					if (this._Method.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMethodIdChanging(value);
-					this.SendPropertyChanging();
-					this._MethodId = value;
-					this.SendPropertyChanged("MethodId");
-					this.OnMethodIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CardTrigger_CardTriggerParam", Storage="_CardTriggerParams", ThisKey="Id", OtherKey="CardTriggerId")]
-		public EntitySet<CardTriggerParam> CardTriggerParams
-		{
-			get
-			{
-				return this._CardTriggerParams;
-			}
-			set
-			{
-				this._CardTriggerParams.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Card_CardTrigger", Storage="_Card", ThisKey="CardId", OtherKey="Id", IsForeignKey=true)]
-		public Card Card
-		{
-			get
-			{
-				return this._Card.Entity;
-			}
-			set
-			{
-				Card previousValue = this._Card.Entity;
-				if (((previousValue != value) 
-							|| (this._Card.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Card.Entity = null;
-						previousValue.CardTriggers.Remove(this);
-					}
-					this._Card.Entity = value;
-					if ((value != null))
-					{
-						value.CardTriggers.Add(this);
-						this._CardId = value.Id;
-					}
-					else
-					{
-						this._CardId = default(int);
-					}
-					this.SendPropertyChanged("Card");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_CardTrigger", Storage="_Method", ThisKey="MethodId", OtherKey="Id", IsForeignKey=true)]
-		public Method Method
-		{
-			get
-			{
-				return this._Method.Entity;
-			}
-			set
-			{
-				Method previousValue = this._Method.Entity;
-				if (((previousValue != value) 
-							|| (this._Method.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Method.Entity = null;
-						previousValue.CardTriggers.Remove(this);
-					}
-					this._Method.Entity = value;
-					if ((value != null))
-					{
-						value.CardTriggers.Add(this);
-						this._MethodId = value.Id;
-					}
-					else
-					{
-						this._MethodId = default(int);
-					}
-					this.SendPropertyChanged("Method");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_CardTriggerParams(CardTriggerParam entity)
-		{
-			this.SendPropertyChanging();
-			entity.CardTrigger = this;
-		}
-		
-		private void detach_CardTriggerParams(CardTriggerParam entity)
-		{
-			this.SendPropertyChanging();
-			entity.CardTrigger = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CardTriggerParam")]
-	public partial class CardTriggerParam : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _CardTriggerId;
-		
-		private string _ParamName;
-		
-		private int _ParamValue;
-		
-		private EntityRef<CardTrigger> _CardTrigger;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCardTriggerIdChanging(int value);
-    partial void OnCardTriggerIdChanged();
-    partial void OnParamNameChanging(string value);
-    partial void OnParamNameChanged();
-    partial void OnParamValueChanging(int value);
-    partial void OnParamValueChanged();
-    #endregion
-		
-		public CardTriggerParam()
-		{
-			this._CardTrigger = default(EntityRef<CardTrigger>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardTriggerId", DbType="Int NOT NULL")]
-		public int CardTriggerId
-		{
-			get
-			{
-				return this._CardTriggerId;
-			}
-			set
-			{
-				if ((this._CardTriggerId != value))
-				{
-					if (this._CardTrigger.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCardTriggerIdChanging(value);
-					this.SendPropertyChanging();
-					this._CardTriggerId = value;
-					this.SendPropertyChanged("CardTriggerId");
-					this.OnCardTriggerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParamName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string ParamName
-		{
-			get
-			{
-				return this._ParamName;
-			}
-			set
-			{
-				if ((this._ParamName != value))
-				{
-					this.OnParamNameChanging(value);
-					this.SendPropertyChanging();
-					this._ParamName = value;
-					this.SendPropertyChanged("ParamName");
-					this.OnParamNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParamValue", DbType="Int NOT NULL")]
-		public int ParamValue
-		{
-			get
-			{
-				return this._ParamValue;
-			}
-			set
-			{
-				if ((this._ParamValue != value))
-				{
-					this.OnParamValueChanging(value);
-					this.SendPropertyChanging();
-					this._ParamValue = value;
-					this.SendPropertyChanged("ParamValue");
-					this.OnParamValueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CardTrigger_CardTriggerParam", Storage="_CardTrigger", ThisKey="CardTriggerId", OtherKey="Id", IsForeignKey=true)]
-		public CardTrigger CardTrigger
-		{
-			get
-			{
-				return this._CardTrigger.Entity;
-			}
-			set
-			{
-				CardTrigger previousValue = this._CardTrigger.Entity;
-				if (((previousValue != value) 
-							|| (this._CardTrigger.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CardTrigger.Entity = null;
-						previousValue.CardTriggerParams.Remove(this);
-					}
-					this._CardTrigger.Entity = value;
-					if ((value != null))
-					{
-						value.CardTriggerParams.Add(this);
-						this._CardTriggerId = value.Id;
-					}
-					else
-					{
-						this._CardTriggerId = default(int);
-					}
-					this.SendPropertyChanged("CardTrigger");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Deck")]
-	public partial class Deck : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _PlayerId;
-		
-		private string _Name;
-		
-		private EntitySet<DeckCard> _DeckCards;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnPlayerIdChanging(int value);
-    partial void OnPlayerIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Deck()
-		{
-			this._DeckCards = new EntitySet<DeckCard>(new Action<DeckCard>(this.attach_DeckCards), new Action<DeckCard>(this.detach_DeckCards));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerId", DbType="Int NOT NULL")]
-		public int PlayerId
-		{
-			get
-			{
-				return this._PlayerId;
-			}
-			set
-			{
-				if ((this._PlayerId != value))
-				{
-					this.OnPlayerIdChanging(value);
-					this.SendPropertyChanging();
-					this._PlayerId = value;
-					this.SendPropertyChanged("PlayerId");
-					this.OnPlayerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Deck_DeckCard", Storage="_DeckCards", ThisKey="Id", OtherKey="DeckId")]
-		public EntitySet<DeckCard> DeckCards
-		{
-			get
-			{
-				return this._DeckCards;
-			}
-			set
-			{
-				this._DeckCards.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DeckCards(DeckCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.Deck = this;
-		}
-		
-		private void detach_DeckCards(DeckCard entity)
-		{
-			this.SendPropertyChanging();
-			entity.Deck = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DeckCard")]
 	public partial class DeckCard : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1489,6 +1351,144 @@ namespace CardGameConsoleTestApp.DBML
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Deck")]
+	public partial class Deck : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _PlayerId;
+		
+		private string _Name;
+		
+		private EntitySet<DeckCard> _DeckCards;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnPlayerIdChanging(int value);
+    partial void OnPlayerIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Deck()
+		{
+			this._DeckCards = new EntitySet<DeckCard>(new Action<DeckCard>(this.attach_DeckCards), new Action<DeckCard>(this.detach_DeckCards));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerId", DbType="Int NOT NULL")]
+		public int PlayerId
+		{
+			get
+			{
+				return this._PlayerId;
+			}
+			set
+			{
+				if ((this._PlayerId != value))
+				{
+					this.OnPlayerIdChanging(value);
+					this.SendPropertyChanging();
+					this._PlayerId = value;
+					this.SendPropertyChanged("PlayerId");
+					this.OnPlayerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Deck_DeckCard", Storage="_DeckCards", ThisKey="Id", OtherKey="DeckId")]
+		public EntitySet<DeckCard> DeckCards
+		{
+			get
+			{
+				return this._DeckCards;
+			}
+			set
+			{
+				this._DeckCards.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DeckCards(DeckCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Deck = this;
+		}
+		
+		private void detach_DeckCards(DeckCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Deck = null;
 		}
 	}
 }

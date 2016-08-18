@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CardGameConsoleTestApp.Cards;
+using CardGameConsoleTestApp.Model.Cards;
 
-namespace CardGameConsoleTestApp.Decks
+namespace CardGameConsoleTestApp.Model.Decks
 {
     public class Deck
     {

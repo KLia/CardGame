@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CardGameConsoleTestApp.Cards.Interfaces
+namespace CardGameConsoleTestApp.Model.Cards.Interfaces
 {
     public interface ICard
     {

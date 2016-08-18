@@ -1,7 +1,7 @@
 ﻿using System;
-using CardGameConsoleTestApp.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Cards.Interfaces;
 
-namespace CardGameConsoleTestApp.Cards
+namespace CardGameConsoleTestApp.Model.Cards
 {
     public abstract class Card : ICard
     {

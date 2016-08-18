@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CardGameConsoleTestApp.Cards
+﻿namespace CardGameConsoleTestApp.Model.Cards
 {
     public class Spell : Card
     {

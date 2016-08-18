@@ -1,8 +1,8 @@
-﻿using CardGameConsoleTestApp.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Cards.Interfaces;
 
-namespace CardGameConsoleTestApp.Triggers
+namespace CardGameConsoleTestApp.Controller
 {
-    public static class Triggers
+    public static class TriggersController
     {
         public static void DealDamage(IDamageable target, int damage)
         {
