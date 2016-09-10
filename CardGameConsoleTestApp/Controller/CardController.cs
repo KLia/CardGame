@@ -59,35 +59,35 @@ namespace CardGameConsoleTestApp.Controller
             }
         }
 
-        public void LoadTriggerItem(ITriggerable triggerable)
+        public void LoadTriggerItem()
         {
-            using (var context = new CardDataContext())
-            {
-                var x = (from c in context.Cards
-                    join n in context.CardNames on c.Id equals n.CardId
-                    join tr in context.CardTriggers on c.Id equals tr.CardId
-                    where c.Id == triggerable.Id
-                    select new
-                {
-                    Id = c.Id,
-                    Name = n.Name,
-                    Trigger = (TriggerType)tr.TriggerType,
-                    Method = tr.Method.Name,
-                    MethodParams = (from tp in context.CardTriggerParams
-                                    where tp.CardTriggerId == tr.Id
-                                    select new
-                                    {
-                                        tp.ParamName,
-                                        tp.ParamValue
-                                    }).AsEnumerable()
-                });
+            //using (var context = new CardDataContext())
+            //{
+            //    var x = (from c in context.Cards
+            //        join n in context.CardNames on c.Id equals n.CardId
+            //        join tr in context.CardTriggers on c.Id equals tr.CardId
+            //        where c.Id == triggerable.Id
+            //        select new
+            //    {
+            //        Id = c.Id,
+            //        Name = n.Name,
+            //        Trigger = (TriggerType)tr.TriggerType,
+            //        Method = tr.Method.Name,
+            //        MethodParams = (from tp in context.CardTriggerParams
+            //                        where tp.CardTriggerId == tr.Id
+            //                        select new
+            //                        {
+            //                            tp.ParamName,
+            //                            tp.ParamValue
+            //                        }).AsEnumerable()
+            //    });
 
-                foreach (var y in x)
-                {
-                    var paramsera = y.MethodParams.ToDictionary(t => t.ParamName, t => t.ParamValue);
-                    Console.WriteLine($"{y.Id}, {y.Name}, {y.Trigger}, {y.Method}");
-                }
-            }
+            //    foreach (var y in x)
+            //    {
+            //        var paramsera = y.MethodParams.ToDictionary(t => t.ParamName, t => t.ParamValue);
+            //        Console.WriteLine($"{y.Id}, {y.Name}, {y.Trigger}, {y.Method}");
+            //    }
+            //}
         }
     }
 }
