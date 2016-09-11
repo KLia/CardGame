@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Players;
 
 namespace CardGameConsoleTestApp.Model.Engine
 {
@@ -8,7 +10,7 @@ namespace CardGameConsoleTestApp.Model.Engine
     {
         public static void Initialize()
         {
-            TurnStart += OnTurnStart;
+            TurnStart += card => OnTurnStart(card);
             onTurnStartListeners = new List<Tuple<ICard, TurnStartHandler>>();
 
             TurnEnd += OnTurnEnd;
@@ -36,7 +38,7 @@ namespace CardGameConsoleTestApp.Model.Engine
             onDeathEventListeners = new List<Tuple<ICard, DeathEventHandler>>();
 
             OtherDeath += OnOtherDeath;
-            onOtherDeathEventListeners =new List<Tuple<ICard, OtherDeathEventHandler>>();
+            onOtherDeathEventListeners = new List<Tuple<ICard, OtherDeathEventHandler>>();
 
             CardPlayed += OnCardPlayed;
             onCardPlayedListeners = new List<Tuple<ICard, CardPlayedHandler>>();
@@ -46,6 +48,9 @@ namespace CardGameConsoleTestApp.Model.Engine
 
             SpellCast += OnSpellCast;
             onSpellCastListeners = new List<Tuple<ICard, SpellCastHandler>>();
+
+            SpellTarget += OnSpellTarget;
+            onSpellTargetListeners = new List<Tuple<ICard, SpellTargetHandler>>();
         }
 
         public static void UnregisterForEvents(ICard card)
@@ -64,9 +69,10 @@ namespace CardGameConsoleTestApp.Model.Engine
             onCardPlayedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onOtherCardPlayedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onSpellCastListeners.RemoveAll(c => c.Item1.Id == card.Id);
+            onSpellTargetListeners.RemoveAll(c => c.Item1.Id == card.Id);
         }
 
-        public delegate void TurnStartHandler();
+        public delegate void TurnStartHandler(IPlayer card);
 
         public static TurnStartHandler TurnStart;
         internal static List<Tuple<ICard, TurnStartHandler>> onTurnStartListeners;
@@ -136,7 +142,10 @@ namespace CardGameConsoleTestApp.Model.Engine
         public static SpellCastHandler SpellCast;
         internal static List<Tuple<ICard, SpellCastHandler>> onSpellCastListeners;
 
+        public delegate void SpellTargetHandler();
 
+        public static SpellTargetHandler SpellTarget;
+        internal static List<Tuple<ICard, SpellTargetHandler>> onSpellTargetListeners;
 
         //Register for events
         public static void RegisterForEvent(ICard self, TurnStartHandler callback)
@@ -209,76 +218,81 @@ namespace CardGameConsoleTestApp.Model.Engine
             onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(self, callback));
         }
 
+        public static void RegisterForEvent(ICard self, SpellTargetHandler callback)
+        {
+            onSpellTargetListeners.Add(new Tuple<ICard, SpellTargetHandler>(self, callback));
+        }
+
 
         //Event Handlers
-        public static void OnTurnStart()
+        public static void OnTurnStart(IPlayer player)
         {
-            
+            if (!onTurnStartListeners.Any())
+            {
+                return;
+            }
+
+            var sortedListeners = onTurnStartListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var handler in sortedListeners.Select(c => c.Item2))
+            {
+                handler(player);
+            }
         }
 
         public static void OnTurnEnd()
         {
-            
         }
 
         public static void OnCardDrawn()
         {
-            
         }
 
         public static void OnAttack()
         {
-            
         }
 
         public static void OnOtherAttack()
         {
-            
         }
 
         public static void OnHealed()
         {
-            
         }
 
         public static void OnOtherHealed()
         {
-            
         }
 
         public static void OnGetHit()
         {
-            
         }
 
         public static void OnOtherGetHit()
         {
-            
         }
 
         public static void OnDeath()
         {
-            
         }
 
         public static void OnOtherDeath()
         {
-            
         }
 
         public static void OnCardPlayed()
         {
-            
         }
 
         public static void OnOtherCardPlayed()
         {
-            
         }
 
         public static void OnSpellCast()
         {
-            
+        }
+
+        public static void OnSpellTarget()
+        {
         }
     }
 }
