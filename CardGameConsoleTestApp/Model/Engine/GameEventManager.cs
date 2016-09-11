@@ -10,7 +10,7 @@ namespace CardGameConsoleTestApp.Model.Engine
     {
         public static void Initialize()
         {
-            TurnStart += card => OnTurnStart(card);
+            TurnStart += OnTurnStart;
             onTurnStartListeners = new List<Tuple<ICard, TurnStartHandler>>();
 
             TurnEnd += OnTurnEnd;
@@ -25,8 +25,11 @@ namespace CardGameConsoleTestApp.Model.Engine
             OtherAttack += OnOtherAttack;
             onOtherAttackListeners = new List<Tuple<ICard, OtherAttackEventHandler>>();
 
-            Healed += OnOtherHealed;
+            Healed += OnHealed;
             onHealedListeners = new List<Tuple<ICard, HealedEventHandler>>();
+
+            OtherHealed += OnOtherHealed;
+            onOtherHealedListeners = new List<Tuple<ICard, OtherHealedEventHandler>>();
 
             GetHit += OnGetHit;
             onGetHitListeners = new List<Tuple<ICard, GetHitEventHandler>>();
@@ -72,7 +75,9 @@ namespace CardGameConsoleTestApp.Model.Engine
             onSpellTargetListeners.RemoveAll(c => c.Item1.Id == card.Id);
         }
 
-        public delegate void TurnStartHandler(IPlayer card);
+
+        //Event Handlers
+        public delegate void TurnStartHandler();
 
         public static TurnStartHandler TurnStart;
         internal static List<Tuple<ICard, TurnStartHandler>> onTurnStartListeners;
@@ -148,84 +153,84 @@ namespace CardGameConsoleTestApp.Model.Engine
         internal static List<Tuple<ICard, SpellTargetHandler>> onSpellTargetListeners;
 
         //Register for events
-        public static void RegisterForEvent(ICard self, TurnStartHandler callback)
+        public static void RegisterForEventTurnStart(ICard self, TurnStartHandler callback)
         {
             onTurnStartListeners.Add(new Tuple<ICard, TurnStartHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, TurnEndHandler callback)
+        public static void RegisterForEventTurnEnd(ICard self, TurnEndHandler callback)
         {
             onTurnEndListeners.Add(new Tuple<ICard, TurnEndHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, CardDrawnHandler callback)
+        public static void RegisterForEventCardDrawn(ICard self, CardDrawnHandler callback)
         {
             onCardDrawnListeners.Add(new Tuple<ICard, CardDrawnHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, AttackEventHandler callback)
+        public static void RegisterForEventAttack(ICard self, AttackEventHandler callback)
         {
             onAttackListeners.Add(new Tuple<ICard, AttackEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, OtherAttackEventHandler callback)
+        public static void RegisterForEventOtherAttack(ICard self, OtherAttackEventHandler callback)
         {
             onOtherAttackListeners.Add(new Tuple<ICard, OtherAttackEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, HealedEventHandler callback)
+        public static void RegisterForEventHealed(ICard self, HealedEventHandler callback)
         {
             onHealedListeners.Add(new Tuple<ICard, HealedEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, OtherHealedEventHandler callback)
+        public static void RegisterForEventOtherHealed(ICard self, OtherHealedEventHandler callback)
         {
             onOtherHealedListeners.Add(new Tuple<ICard, OtherHealedEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, GetHitEventHandler callback)
+        public static void RegisterForEventGetHit(ICard self, GetHitEventHandler callback)
         {
             onGetHitListeners.Add(new Tuple<ICard, GetHitEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, OtherGetHitEventHandler callback)
+        public static void RegisterForEventOtherGetHit(ICard self, OtherGetHitEventHandler callback)
         {
             onOtherGetHitListeners.Add(new Tuple<ICard, OtherGetHitEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, DeathEventHandler callback)
+        public static void RegisterForEventDeath(ICard self, DeathEventHandler callback)
         {
             onDeathEventListeners.Add(new Tuple<ICard, DeathEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, OtherDeathEventHandler callback)
+        public static void RegisterForEventOtherDeath(ICard self, OtherDeathEventHandler callback)
         {
             onOtherDeathEventListeners.Add(new Tuple<ICard, OtherDeathEventHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, CardPlayedHandler callback)
+        public static void RegisterForEventCardPlayed(ICard self, CardPlayedHandler callback)
         {
             onCardPlayedListeners.Add(new Tuple<ICard, CardPlayedHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, OtherCardPlayedHandler callback)
+        public static void RegisterForEventOtherCardPlayed(ICard self, OtherCardPlayedHandler callback)
         {
             onOtherCardPlayedListeners.Add(new Tuple<ICard, OtherCardPlayedHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, SpellCastHandler callback)
+        public static void RegisterForEventSpellCast(ICard self, SpellCastHandler callback)
         {
             onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(self, callback));
         }
 
-        public static void RegisterForEvent(ICard self, SpellTargetHandler callback)
+        public static void RegisterForEventSpellTarget(ICard self, SpellTargetHandler callback)
         {
             onSpellTargetListeners.Add(new Tuple<ICard, SpellTargetHandler>(self, callback));
         }
 
 
-        //Event Handlers
-        public static void OnTurnStart(IPlayer player)
+        //Trigger the event handlers
+        public static void OnTurnStart()
         {
             if (!onTurnStartListeners.Any())
             {
@@ -235,12 +240,22 @@ namespace CardGameConsoleTestApp.Model.Engine
             var sortedListeners = onTurnStartListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
             foreach (var handler in sortedListeners.Select(c => c.Item2))
             {
-                handler(player);
+                handler();
             }
         }
 
         public static void OnTurnEnd()
         {
+            if (!onTurnEndListeners.Any())
+            {
+                return;
+            }
+
+            var sortedListeners = onTurnEndListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var handler in sortedListeners.Select(c => c.Item2))
+            {
+                handler();
+            }
         }
 
         public static void OnCardDrawn()

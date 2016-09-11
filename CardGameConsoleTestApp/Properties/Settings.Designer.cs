@@ -44,5 +44,16 @@ namespace CardGameConsoleTestApp.Properties {
                 return ((string)(this["CardGameConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP\\sqlexpress;Initial Catalog=CardGame;Integrated Security=" +
+            "True")]
+        public string CardGameConnectionString2 {
+            get {
+                return ((string)(this["CardGameConnectionString2"]));
+            }
+        }
     }
 }

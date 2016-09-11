@@ -1,4 +1,5 @@
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Players;
 
 namespace CardGameConsoleTestApp.Controller
 {

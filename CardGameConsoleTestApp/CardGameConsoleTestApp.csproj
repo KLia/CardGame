@@ -54,6 +54,9 @@
     <Compile Include="Model\Cards\Interfaces\IDamageable.cs" />
     <Compile Include="Model\Cards\Minion.cs" />
     <Compile Include="Model\Cards\Spell.cs" />
+    <Compile Include="Model\Engine\GameBoard.cs" />
+    <Compile Include="Model\Engine\GameConstants.cs" />
+    <Compile Include="Model\Engine\GameState.cs" />
     <Compile Include="Model\Cards\TriggerType.cs" />
     <Compile Include="DBML\Card.designer.cs">
       <AutoGen>True</AutoGen>
@@ -65,6 +68,10 @@
     <Compile Include="Model\Decks\IDeck.cs" />
     <Compile Include="Model\Engine\GameEngine.cs" />
     <Compile Include="Model\Engine\GameEventManager.cs" />
+    <Compile Include="Model\Engine\Interfaces\IGameEngine.cs" />
+    <Compile Include="Model\Engine\Interfaces\IGameBoard.cs" />
+    <Compile Include="Model\Engine\Interfaces\IGameState.cs" />
+    <Compile Include="Model\Players\IPlayer.cs" />
     <Compile Include="Model\Players\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,10 +80,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Model\DelegateFactory.cs" />
+    <Compile Include="Model\Engine\DelegateFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="DBML\Card.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Card.designer.cs</LastGenOutput>
