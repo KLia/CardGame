@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Cards\ValueObjects\TriggerMethodParam.cs" />
     <Compile Include="Controller\TriggersController.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardSubType.cs" />
     <Compile Include="Controller\CardController.cs" />
