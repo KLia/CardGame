@@ -29,7 +29,7 @@ namespace CardGameConsoleTestApp.Model.Engine
                 return null;
 
             }
-            MethodInfo method = memberInfo.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static);
+            var method = memberInfo.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static);
             MethodsDictionary.Add(name, method);
 
             return method;
@@ -37,7 +37,7 @@ namespace CardGameConsoleTestApp.Model.Engine
 
         public static void RunMethod(string className, string methodName, object[] parameters)
         {
-            MethodInfo method = GetMethodInfo(className, methodName);
+            var method = GetMethodInfo(className, methodName);
             method.Invoke(null, parameters);
         }
     }

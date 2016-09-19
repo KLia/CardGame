@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
 using CardGameConsoleTestApp.Model.Cards.ValueObjects;
 
@@ -6,15 +7,20 @@ namespace CardGameConsoleTestApp.Model.Cards
 {
     public class Minion : Card, IDamageable
     {
-        public Minion() : this("", 0, 0, 0, CardType.Minion, CardSubType.None)
+        public Minion() : this("", 0, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(string name, int cost) : this(name, cost, 0, 0, CardType.Minion, CardSubType.None)
+        public Minion(List<CardTrigger> triggers) : this("", 0, 0, 0, CardSubType.None, triggers)
         {
         }
 
-        public Minion(string name, int cost, int attack, int health, CardType minion, CardSubType subType) : base(name, cost, CardType.Minion, subType)
+        public Minion(string name, int cost) : this(name, cost, 0, 0, CardSubType.None, null)
+        {
+        }
+
+        public Minion(string name, int cost, int attack, int health, CardSubType subType, List<CardTrigger> triggers) : 
+            base(name, cost, CardType.Minion, subType, triggers)
         {
             Attack = attack;
             CurrentAttack = attack;

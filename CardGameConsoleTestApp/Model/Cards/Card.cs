@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CardGameConsoleTestApp.Controller;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
 using CardGameConsoleTestApp.Model.Cards.ValueObjects;
+using CardGameConsoleTestApp.Model.Engine;
 
 namespace CardGameConsoleTestApp.Model.Cards
 {
@@ -11,7 +12,7 @@ namespace CardGameConsoleTestApp.Model.Cards
         private static int _id = 0;
         public static int _playOrder = 0;
 
-        protected Card(string name, int cost, CardType type, CardSubType subType)
+        protected Card(string name, int cost, CardType type, CardSubType subType, List<CardTrigger> triggers)
         {
             _id++;
             Id = _id;
@@ -19,6 +20,8 @@ namespace CardGameConsoleTestApp.Model.Cards
             Cost = cost;
             Type = type;
             SubType = subType;
+
+            Triggers = triggers;
         }
 
         public int Id { get; }
@@ -30,6 +33,6 @@ namespace CardGameConsoleTestApp.Model.Cards
         public CardType Type { get; set; }
         public CardSubType SubType { get; set; }
 
-        public List<Tuple<Delegate, object>> Triggers;
+        public List<CardTrigger> Triggers { get; set; }
     }
 }

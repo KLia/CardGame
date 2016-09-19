@@ -5,6 +5,7 @@ using CardGameConsoleTestApp.DBML;
 using CardGameConsoleTestApp.Model.Cards;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
 using CardGameConsoleTestApp.Model.Cards.ValueObjects;
+using CardGameConsoleTestApp.Model.Engine;
 
 namespace CardGameConsoleTestApp.Controller
 {
@@ -25,18 +26,41 @@ namespace CardGameConsoleTestApp.Controller
         {
             using (var context = new CardDataContext())
             {
-                var minions = (from c in context.Cards
+                var minions = from c in context.Cards
                     join n in context.CardNames on c.Id equals n.CardId
                     where c.Type == (int) CardType.Minion
-                    && n.LanguageId == languageId
+                          && n.LanguageId == languageId
                     select new Minion()
                     {
                         Name = n.Name,
                         Cost = c.Cost,
                         Attack = c.Attack,
                         Health = c.Health,
-                        CurrentHealth = c.Health
-                    });
+                        CurrentHealth = c.Health,
+                        Triggers = new List<Model.Cards.ValueObjects.CardTrigger>
+                        {
+                            new Model.Cards.ValueObjects.CardTrigger
+                            {
+                                Type = TriggerType.OnTurnStart,
+                                MethodName = "DealDamage",
+                                MethodClass = "Triggers",
+                                MethodParams = new List<TriggerMethodParam>
+                                {
+                                    new TriggerMethodParam
+                                    {
+                                        ParamName = "target",
+                                        ParamValue = null
+                                    },
+                                    new TriggerMethodParam
+                                    {
+                                        ParamName = "damage",
+                                        ParamValue = "2"
+                                    }
+                                }
+                            }
+                        }
+                    };
+                                 
 
                 return minions.ToList();
             }
