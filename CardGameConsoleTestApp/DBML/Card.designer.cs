@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CardGameConsoleTestApp.DBML
+namespace CardGameBackend.DBML
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -54,7 +54,7 @@ namespace CardGameConsoleTestApp.DBML
     #endregion
 		
 		public CardDataContext() : 
-				base(global::CardGameConsoleTestApp.Properties.Settings.Default.CardGameConnectionString, mappingSource)
+				base(global::CardGameBackend.Properties.Settings.Default.CardGameConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Engine.Interfaces;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Engine.Interfaces;
 
-namespace CardGameConsoleTestApp.Model.Engine
+namespace CardGameBackend.Model.Engine
 {
     public class GameBoard : IGameBoard
     {

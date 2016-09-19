@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CardGame" Class="CardDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KEITH-LAPTOP;Initial Catalog=CardGame;Persist Security Info=True;User ID=cardgame" SettingsObjectName="CardGameConsoleTestApp.Properties.Settings" SettingsPropertyName="CardGameConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KEITH-LAPTOP\SQLEXPRESS;Initial Catalog=CardGame;Persist Security Info=True;User ID=cardgame" SettingsObjectName="CardGameBackend.Properties.Settings" SettingsPropertyName="CardGameConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Card" Member="Cards">
     <Type Name="Card">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

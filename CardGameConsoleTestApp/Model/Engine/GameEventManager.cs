@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Players;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Players;
 
-namespace CardGameConsoleTestApp.Model.Engine
+namespace CardGameBackend.Model.Engine
 {
     public class GameEventManager
     {

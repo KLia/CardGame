@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Decks;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Decks;
 
-namespace CardGameConsoleTestApp.Model.Players
+namespace CardGameBackend.Model.Players
 {
     public interface IPlayer
     {

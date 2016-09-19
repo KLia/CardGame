@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Engine;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Engine;
+using CardGameBackend.Model.Cards;
 
-namespace CardGameConsoleTestApp.Model.Decks
+namespace CardGameBackend.Model.Decks
 {
     public class Deck : IDeck
     {

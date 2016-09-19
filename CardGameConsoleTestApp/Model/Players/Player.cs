@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Decks;
-using CardGameConsoleTestApp.Model.Engine;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Decks;
+using CardGameBackend.Model.Engine;
 
-namespace CardGameConsoleTestApp.Model.Players
+namespace CardGameBackend.Model.Players
 {
     public class Player : IPlayer
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CardGameConsoleTestApp.Model.Cards.ValueObjects
+namespace CardGameBackend.Model.Cards.ValueObjects
 {
     public class CardTrigger
     {

@@ -1,4 +1,4 @@
-﻿namespace CardGameConsoleTestApp.Model.Cards.Interfaces
+﻿namespace CardGameBackend.Model.Cards.Interfaces
 {
     public interface IDamageable
     {

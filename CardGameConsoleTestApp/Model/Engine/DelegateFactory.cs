@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
 
-namespace CardGameConsoleTestApp.Model.Engine
+namespace CardGameBackend.Model.Engine
 {
     public static class DelegateFactory
     {

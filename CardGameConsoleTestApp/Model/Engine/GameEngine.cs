@@ -1,8 +1,8 @@
 ﻿using System;
-using CardGameConsoleTestApp.Model.Engine.Interfaces;
-using CardGameConsoleTestApp.Model.Players;
+using CardGameBackend.Model.Engine.Interfaces;
+using CardGameBackend.Model.Players;
 
-namespace CardGameConsoleTestApp.Model.Engine
+namespace CardGameBackend.Model.Engine
 {
     public class GameEngine : IGameEngine
     {

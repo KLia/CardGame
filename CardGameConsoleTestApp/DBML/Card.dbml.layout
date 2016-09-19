@@ -44,42 +44,42 @@
         <elementListCompartment Id="9a4fd33f-a1d4-400a-a169-c398214c47d1" absoluteBounds="3.515, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.75 : 6.53049967447917); (1.75 : 7.53929768880208); (3.5 : 7.53929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 6.53049967447917); (1.75 : 7.53929768880208); (3.5 : 7.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Card/Card_CardName" />
       <nodes>
         <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
         <classShapeMoniker Id="42929d8a-a2f5-485f-83ef-3e8840acbc33" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.70119466145833); (6.5 : 5.70119466145833)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 5.70119466145833); (6.5 : 5.70119466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Card/Card_CardTrigger" />
       <nodes>
         <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
         <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.65625 : 2.1362939453125); (5.65625 : 5.41874180338542); (6.5 : 5.41874180338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.65625 : 2.1362939453125); (5.65625 : 5.41874180338542); (6.5 : 5.41874180338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Method/Method_CardTrigger" />
       <nodes>
         <classShapeMoniker Id="653d1c29-67c7-43ed-ba0b-6830191140b0" />
         <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 5.41429768880208); (9.25 : 5.41429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.5 : 5.41429768880208); (9.25 : 5.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/CardTrigger/CardTrigger_CardTriggerParam" />
       <nodes>
         <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
         <classShapeMoniker Id="602dc533-1257-4ed5-997f-124d80dc5447" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.75564697265625); (3.5 : 4.75564697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.75564697265625); (3.5 : 4.75564697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Card/Card_DeckCard" />
       <nodes>
         <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
         <classShapeMoniker Id="668d9821-8201-4713-94dc-4f741ecbe896" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.6675439453125); (3.59375 : 2.6675439453125); (3.59375 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.6675439453125); (3.59375 : 2.6675439453125); (3.59375 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CardDataContext/Deck/Deck_DeckCard" />
       <nodes>
         <classShapeMoniker Id="c0384a14-3894-4f9c-8316-21b3990010d3" />

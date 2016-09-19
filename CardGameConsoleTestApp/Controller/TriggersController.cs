@@ -1,7 +1,7 @@
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Players;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Players;
 
-namespace CardGameConsoleTestApp.Controller
+namespace CardGameBackend.Controller
 {
     public static class TriggersController
     {

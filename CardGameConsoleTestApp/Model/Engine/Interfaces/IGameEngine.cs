@@ -1,4 +1,4 @@
-﻿namespace CardGameConsoleTestApp.Model.Engine
+﻿namespace CardGameBackend.Model.Engine
 {
     public interface IGameEngine
     {

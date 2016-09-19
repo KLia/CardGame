@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards.ValueObjects;
+using CardGameBackend.Model.Cards.ValueObjects;
 
-namespace CardGameConsoleTestApp.Model.Cards
+namespace CardGameBackend.Model.Cards
 {
     public class Spell : Card
     {

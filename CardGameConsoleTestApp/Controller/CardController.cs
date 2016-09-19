@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CardGameConsoleTestApp.DBML;
-using CardGameConsoleTestApp.Model.Cards;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Cards.ValueObjects;
-using CardGameConsoleTestApp.Model.Engine;
+using CardGameBackend.DBML;
+using CardGameBackend.Model.Cards;
+using CardGameBackend.Model.Cards.ValueObjects;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Engine;
 
-namespace CardGameConsoleTestApp.Controller
+namespace CardGameBackend.Controller
 {
     public class CardController
     {

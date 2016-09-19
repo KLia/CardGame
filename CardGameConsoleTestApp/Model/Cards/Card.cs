@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGameConsoleTestApp.Controller;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Cards.ValueObjects;
-using CardGameConsoleTestApp.Model.Engine;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Cards.ValueObjects;
+using CardGameBackend.Controller;
+using CardGameBackend.Model.Engine;
 
-namespace CardGameConsoleTestApp.Model.Cards
+namespace CardGameBackend.Model.Cards
 {
     public abstract class Card : ICard
     {

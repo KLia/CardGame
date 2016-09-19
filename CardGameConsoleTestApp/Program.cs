@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Decks;
-using CardGameConsoleTestApp.Model.Engine;
-using CardGameConsoleTestApp.Model.Players;
-using static CardGameConsoleTestApp.Controller.CardController;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Decks;
+using CardGameBackend.Model.Engine;
+using CardGameBackend.Model.Players;
+using static CardGameBackend.Controller.CardController;
 
-namespace CardGameConsoleTestApp
+namespace CardGameBackend
 {
     internal class Program
     {

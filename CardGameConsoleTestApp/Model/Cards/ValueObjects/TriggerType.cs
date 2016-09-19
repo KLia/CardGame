@@ -1,4 +1,4 @@
-﻿namespace CardGameConsoleTestApp.Model.Cards.ValueObjects
+﻿namespace CardGameBackend.Model.Cards.ValueObjects
 {
     public enum TriggerType
     {

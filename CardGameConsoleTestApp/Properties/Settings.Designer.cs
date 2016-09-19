@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CardGameConsoleTestApp.Properties {
+namespace CardGameBackend.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,8 +26,19 @@ namespace CardGameConsoleTestApp.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP;Initial Catalog=CardGame;Persist Security Info=True;User" +
-            " ID=cardgame;Password=password123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP\\sqlexpress;Initial Catalog=CardGame;Integrated Security=" +
+            "True")]
+        public string CardGameConnectionString2 {
+            get {
+                return ((string)(this["CardGameConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP\\SQLEXPRESS;Initial Catalog=CardGame;Persist Security Inf" +
+            "o=True;User ID=cardgame;Password=password123")]
         public string CardGameConnectionString {
             get {
                 return ((string)(this["CardGameConnectionString"]));
@@ -37,22 +48,11 @@ namespace CardGameConsoleTestApp.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP;Initial Catalog=CardGame;Persist Security Info=True;User" +
-            " ID=cardgame")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP\\SQLEXPRESS;Initial Catalog=CardGame;Persist Security Inf" +
+            "o=True;User ID=cardgame")]
         public string CardGameConnectionString1 {
             get {
                 return ((string)(this["CardGameConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KEITH-LAPTOP\\sqlexpress;Initial Catalog=CardGame;Integrated Security=" +
-            "True")]
-        public string CardGameConnectionString2 {
-            get {
-                return ((string)(this["CardGameConnectionString2"]));
             }
         }
     }

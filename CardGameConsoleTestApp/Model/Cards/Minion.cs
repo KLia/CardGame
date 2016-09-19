@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGameConsoleTestApp.Model.Cards.Interfaces;
-using CardGameConsoleTestApp.Model.Cards.ValueObjects;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Cards.ValueObjects;
 
-namespace CardGameConsoleTestApp.Model.Cards
+namespace CardGameBackend.Model.Cards
 {
     public class Minion : Card, IDamageable
     {

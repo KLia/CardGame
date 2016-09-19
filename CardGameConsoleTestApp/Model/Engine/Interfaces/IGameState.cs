@@ -1,6 +1,6 @@
-﻿using CardGameConsoleTestApp.Model.Players;
+﻿using CardGameBackend.Model.Players;
 
-namespace CardGameConsoleTestApp.Model.Engine.Interfaces
+namespace CardGameBackend.Model.Engine.Interfaces
 {
     public interface IGameState
     {
