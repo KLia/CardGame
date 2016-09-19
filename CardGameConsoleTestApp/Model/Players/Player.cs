@@ -20,20 +20,39 @@ namespace CardGameConsoleTestApp.Model.Players
             Id = id;
             Name = name;
             Deck = deck;
+            CardsInHand = new List<ICard>();
+            CardsInGraveyard = new List<ICard>();
         }
 
-        public void DrawCard()
+        public ICard DrawCard(bool isMulligan = false)
         {
             //todo = handle case of no more cards to draw
             var card = Deck.DrawCard();
             CardsInHand.Add(card);
+
+            if (!isMulligan)
+            {
+                GameEventManager.OnCardDrawn(this, card);
+            }
+
+            return card;
         }
 
-        public void DrawCards(int count)
+        public List<ICard> DrawCards(int count, bool isMulligan=false)
         {
             //todo = handle case of no more cards to draw
             var cards = Deck.DrawCards(count);
             CardsInHand.AddRange(cards);
+
+            if (!isMulligan)
+            {
+                foreach (var card in cards)
+                {
+                    GameEventManager.CardDrawn(this, card);
+                }
+            }
+
+            return cards;
         }
     }
 }

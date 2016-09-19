@@ -23,8 +23,8 @@ namespace CardGameConsoleTestApp.Model.Engine
             GameState.Player2.Deck.Shuffle();
 
             //draw cards
-            GameState.Player1.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START);
-            GameState.Player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START);
+            GameState.Player1.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
+            GameState.Player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
         }
 
         public void StartTurn()

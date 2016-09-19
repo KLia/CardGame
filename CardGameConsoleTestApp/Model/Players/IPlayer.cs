@@ -15,7 +15,7 @@ namespace CardGameConsoleTestApp.Model.Players
         IDeck Deck { get; set; }
         List<ICard> CardsInHand { get; set; }
         List<ICard> CardsInGraveyard { get; set; }
-        void DrawCard();
-        void DrawCards(int count);
+        ICard DrawCard(bool isMulligan = false);
+        List<ICard> DrawCards(int count, bool isMulligan = false);
     }
 }

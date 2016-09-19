@@ -19,9 +19,10 @@ namespace CardGameConsoleTestApp.Model.Cards
             _id++;
             Name = name;
             Cost = cost;
+            Id = _id;
         }
 
-        public int Id => _id;
+        public int Id { get; }
         public int PlayOrder { get; set; }
 
         public string Name { get; set; }

@@ -87,7 +87,7 @@ namespace CardGameConsoleTestApp.Model.Engine
         public static TurnEndHandler TurnEnd;
         internal static List<Tuple<ICard, TurnEndHandler>> onTurnEndListeners;
 
-        public delegate void CardDrawnHandler();
+        public delegate void CardDrawnHandler(IPlayer player, ICard card);
 
         public static CardDrawnHandler CardDrawn;
         internal static List<Tuple<ICard, CardDrawnHandler>> onCardDrawnListeners;
@@ -258,8 +258,15 @@ namespace CardGameConsoleTestApp.Model.Engine
             }
         }
 
-        public static void OnCardDrawn()
+        public static void OnCardDrawn(IPlayer player, ICard card)
         {
+            if (!onCardDrawnListeners.Any())
+            {
+                return;
+            }
+
+            var cardListener = onCardDrawnListeners.Find(c => c.Item1.Id == card.Id);
+            cardListener?.Item2(player, card);
         }
 
         public static void OnAttack()
