@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameConsoleTestApp", "CardGameConsoleTestApp\CardGameConsoleTestApp.csproj", "{FFD5F017-3994-4D9B-B27D-1A22C68A660C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameBackend", "CardGameConsoleTestApp\CardGameBackend.csproj", "{FFD5F017-3994-4D9B-B27D-1A22C68A660C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameTest", "CardGameTest\CardGameTest.csproj", "{8CE467AA-EB46-4239-8970-3EBF12A366D5}"
 EndProject
