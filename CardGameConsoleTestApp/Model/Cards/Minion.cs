@@ -1,19 +1,20 @@
 ﻿using System;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Cards.ValueObjects;
 
 namespace CardGameConsoleTestApp.Model.Cards
 {
     public class Minion : Card, IDamageable
     {
-        public Minion() : this("", 0, 0, 0)
+        public Minion() : this("", 0, 0, 0, CardType.Minion, CardSubType.None)
         {
         }
 
-        public Minion(string name, int cost) : this(name, cost, 0, 0)
+        public Minion(string name, int cost) : this(name, cost, 0, 0, CardType.Minion, CardSubType.None)
         {
         }
 
-        public Minion(string name, int cost, int attack, int health) : base(name, cost)
+        public Minion(string name, int cost, int attack, int health, CardType minion, CardSubType subType) : base(name, cost, CardType.Minion, subType)
         {
             Attack = attack;
             CurrentAttack = attack;

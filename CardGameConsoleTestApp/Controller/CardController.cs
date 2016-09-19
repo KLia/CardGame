@@ -4,6 +4,7 @@ using System.Linq;
 using CardGameConsoleTestApp.DBML;
 using CardGameConsoleTestApp.Model.Cards;
 using CardGameConsoleTestApp.Model.Cards.Interfaces;
+using CardGameConsoleTestApp.Model.Cards.ValueObjects;
 
 namespace CardGameConsoleTestApp.Controller
 {

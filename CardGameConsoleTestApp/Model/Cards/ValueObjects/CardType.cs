@@ -1,4 +1,4 @@
-﻿namespace CardGameConsoleTestApp.Model.Cards
+﻿namespace CardGameConsoleTestApp.Model.Cards.ValueObjects
 {
     public enum CardType
     {
