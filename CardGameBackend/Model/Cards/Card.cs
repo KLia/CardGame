@@ -10,7 +10,6 @@ namespace CardGameBackend.Model.Cards
     public abstract class Card : ICard
     {
         private static int _id = 0;
-        public static int _playOrder = 0;
 
         protected Card(string name, int cost, CardType type, CardSubType subType, List<CardTrigger> triggers)
         {
@@ -25,6 +24,7 @@ namespace CardGameBackend.Model.Cards
         }
 
         public int Id { get; }
+
         public int PlayOrder { get; set; }
 
         public string Name { get; set; }
