@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using CardGameBackend.Model.Cards.Interfaces;
 using CardGameBackend.Model.Cards.ValueObjects;
+using CardGameBackend.Model.Players;
 
 namespace CardGameBackend.Model.Cards
 {
     public class Minion : Card, IDamageable
     {
-        public Minion() : this("", 0, 0, 0, CardSubType.None, null)
+        public Minion() : this("", 0, null, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(List<CardTrigger> triggers) : this("", 0, 0, 0, CardSubType.None, triggers)
+        public Minion(IPlayer player, List<CardTrigger> triggers) : this("", 0, player, 0, 0, CardSubType.None, triggers)
         {
         }
 
-        public Minion(string name, int cost) : this(name, cost, 0, 0, CardSubType.None, null)
+        public Minion(string name, int cost, IPlayer player) : this(name, cost, player, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(string name, int cost, int attack, int health, CardSubType subType, List<CardTrigger> triggers) : 
-            base(name, cost, CardType.Minion, subType, triggers)
+        public Minion(string name, int cost, IPlayer player, int attack, int health, CardSubType subType, List<CardTrigger> triggers) : 
+            base(name, cost, player, CardType.Minion, subType, triggers)
         {
             Attack = attack;
             CurrentAttack = attack;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CardGameBackend.Model.Cards;
 using CardGameBackend.Model.Cards.Interfaces;
 using CardGameBackend.Model.Players;
 
@@ -87,7 +88,7 @@ namespace CardGameBackend.Model.Engine
         public static TurnEndHandler TurnEnd;
         internal static List<Tuple<ICard, TurnEndHandler>> onTurnEndListeners;
 
-        public delegate void CardDrawnHandler(IPlayer player, ICard card);
+        public delegate void CardDrawnHandler(ICard card);
 
         public static CardDrawnHandler CardDrawn;
         internal static List<Tuple<ICard, CardDrawnHandler>> onCardDrawnListeners;
@@ -132,22 +133,22 @@ namespace CardGameBackend.Model.Engine
         public static OtherDeathEventHandler OtherDeath;
         internal static List<Tuple<ICard, OtherDeathEventHandler>> onOtherDeathEventListeners;
 
-        public delegate void CardPlayedHandler();
+        public delegate void CardPlayedHandler(Minion card);
 
         public static CardPlayedHandler CardPlayed;
         internal static List<Tuple<ICard, CardPlayedHandler>> onCardPlayedListeners;
 
-        public delegate void OtherCardPlayedHandler();
+        public delegate void OtherCardPlayedHandler(ICard card);
 
         public static OtherCardPlayedHandler OtherCardPlayed;
         internal static List<Tuple<ICard, OtherCardPlayedHandler>> onOtherCardPlayedListeners;
 
-        public delegate void SpellCastHandler();
+        public delegate void SpellCastHandler(Spell spell, IDamageable target, out bool abort);
 
         public static SpellCastHandler SpellCast;
         internal static List<Tuple<ICard, SpellCastHandler>> onSpellCastListeners;
 
-        public delegate void SpellTargetHandler();
+        public delegate void SpellTargetHandler(IDamageable target);
 
         public static SpellTargetHandler SpellTarget;
         internal static List<Tuple<ICard, SpellTargetHandler>> onSpellTargetListeners;
@@ -237,10 +238,10 @@ namespace CardGameBackend.Model.Engine
                 return;
             }
 
-            var sortedListeners = onTurnStartListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
-            foreach (var handler in sortedListeners.Select(c => c.Item2))
+            var listeners = onTurnStartListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var listener in listeners.Select(c => c.Item2))
             {
-                handler();
+                listener();
             }
         }
 
@@ -251,22 +252,22 @@ namespace CardGameBackend.Model.Engine
                 return;
             }
 
-            var sortedListeners = onTurnEndListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
-            foreach (var handler in sortedListeners.Select(c => c.Item2))
+            var listeners = onTurnEndListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var listener in listeners.Select(c => c.Item2))
             {
-                handler();
+                listener();
             }
         }
 
-        public static void OnCardDrawn(IPlayer player, ICard card)
+        public static void OnCardDrawn(ICard card)
         {
             if (!onCardDrawnListeners.Any())
             {
                 return;
             }
 
-            var cardListener = onCardDrawnListeners.Find(c => c.Item1.Id == card.Id);
-            cardListener?.Item2(player, card);
+            var listener = onCardDrawnListeners.Find(c => c.Item1.Id == card.Id);
+            listener?.Item2(card);
         }
 
         public static void OnAttack()
@@ -301,20 +302,60 @@ namespace CardGameBackend.Model.Engine
         {
         }
 
-        public static void OnCardPlayed()
+        public static void OnCardPlayed(ICard card)
         {
+            if (!onCardDrawnListeners.Any())
+            {
+                return;
+            }
+
+            var listener = onCardDrawnListeners.Find(c => c.Item1.Id == card.Id);
+            listener?.Item2(card);
         }
 
-        public static void OnOtherCardPlayed()
+        public static void OnOtherCardPlayed(ICard card)
         {
+            if (!onOtherCardPlayedListeners.Any())
+            {
+                return;
+            }
+
+            var listeners = onOtherCardPlayedListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var listener in listeners)
+            {
+                listener.Item2(card);
+            }
         }
 
-        public static void OnSpellCast()
+        public static void OnSpellCast(Spell spell, IDamageable target, out bool abort)
         {
+            abort = false; 
+
+            if (!onSpellCastListeners.Any())
+            {
+                return;
+            }
+
+            var listeners = onSpellCastListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            foreach (var listener in listeners)
+            {
+                listener.Item2(spell, target, out abort);
+            }
         }
 
-        public static void OnSpellTarget()
+        public static void OnSpellTarget(IDamageable target)
         {
+            if (!onSpellTargetListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onSpellTargetListeners.Find(c => c.Item1.Id == card.Id);
+                listener.Item2(target);
+            }
         }
     }
 }

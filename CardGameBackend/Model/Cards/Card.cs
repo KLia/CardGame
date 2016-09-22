@@ -4,6 +4,7 @@ using CardGameBackend.Model.Cards.Interfaces;
 using CardGameBackend.Model.Cards.ValueObjects;
 using CardGameBackend.Controller;
 using CardGameBackend.Model.Engine;
+using CardGameBackend.Model.Players;
 
 namespace CardGameBackend.Model.Cards
 {
@@ -11,10 +12,11 @@ namespace CardGameBackend.Model.Cards
     {
         private static int _id = 0;
 
-        protected Card(string name, int cost, CardType type, CardSubType subType, List<CardTrigger> triggers)
+        protected Card(string name, int cost, IPlayer player, CardType type, CardSubType subType, List<CardTrigger> triggers)
         {
             _id++;
             Id = _id;
+            Player = player;
             Name = name;
             Cost = cost;
             Type = type;
@@ -26,6 +28,7 @@ namespace CardGameBackend.Model.Cards
         public int Id { get; }
 
         public int PlayOrder { get; set; }
+        public IPlayer Player { get; set; }
 
         public string Name { get; set; }
         public int Cost { get; set; }

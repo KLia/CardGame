@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
 using CardGameBackend.Model.Cards.ValueObjects;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Players;
 
 namespace CardGameBackend.Model.Cards
 {
-    public class Spell : Card
+    public abstract class Spell : Card
     {
-        public Spell() : this("", 0, CardSubType.None, null)
+        protected Spell() : this("", 0, null, CardSubType.None, null)
         {
         }
 
-        public Spell(string name, int cost, CardSubType subType, List<CardTrigger> triggers) : base(name, cost, CardType.Spell, subType, triggers)
+        protected Spell(string name, int cost, IPlayer player, CardSubType subType, List<CardTrigger> triggers)
+            : base(name, cost, player, CardType.Spell, subType, triggers)
         {
         }
+
+        public abstract void Activate(IDamageable target = null);
     }
 }

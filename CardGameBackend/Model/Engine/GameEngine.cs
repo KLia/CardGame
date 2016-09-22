@@ -1,4 +1,7 @@
 ﻿using System;
+using CardGameBackend.Model.Cards;
+using CardGameBackend.Model.Cards.Interfaces;
+using CardGameBackend.Model.Cards.ValueObjects;
 using CardGameBackend.Model.Engine.Interfaces;
 using CardGameBackend.Model.Players;
 
@@ -6,8 +9,9 @@ namespace CardGameBackend.Model.Engine
 {
     public class GameEngine : IGameEngine
     {
+        private static int _playOrder = 0;
         public static Random RngRandom { get; private set; }
-        public static IGameState GameState { get; private set; }
+        public IGameState GameState { get; }
 
         public GameEngine(IGameBoard board, IPlayer player1, IPlayer player2, IPlayer currentPlayer, int seed = 1)
         {
@@ -40,6 +44,67 @@ namespace CardGameBackend.Model.Engine
             //finally swap CurrentPlayer and increment turn number
             GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
             GameState.Turn++;
+        }
+
+        /// <summary>
+        /// Called whenever a player plays a card from their hand
+        /// </summary>
+        /// <param name="player">The player playing the card</param>
+        /// <param name="card">The card being played</param>
+        /// <param name="boardPos">The new position on the board where the card is dropped</param>
+        public void PlayCard(IPlayer player, ICard card, int boardPos, IDamageable target = null)
+        {
+            if (GameState.CurrentPlayer != player)
+            {
+                throw new InvalidOperationException("It is not currently your turn");
+            }
+
+            if (!player.CardsInHand.Contains(card))
+            {
+                throw new InvalidOperationException("The card you're trying to play is not in your hand");
+            }
+
+            if (player.Mana < card.Cost)
+            {
+                throw new InvalidOperationException("Not enough Mana");
+            }
+
+            //move from hand to board, assign PlayOrder and decrease mana
+            card.PlayOrder = _playOrder++;
+            player.CardsInHand.Remove(card);
+            player.Mana -= card.Cost;
+
+            //play events
+            switch (card.Type)
+            {
+                case CardType.Minion:
+                    var playerHand = GameState.CurrentPlayer == GameState.Player1
+                        ? GameState.Board.Player1PlayZone
+                        : GameState.Board.Player2PlayZone;
+
+                    playerHand.Insert(boardPos, card);
+                    GameEventManager.OnCardPlayed(card);
+                    GameEventManager.OnOtherCardPlayed(card);
+                    break;
+
+                case CardType.Spell:
+                    bool abort;
+                    GameEventManager.OnSpellCast((Spell) card, target, out abort);
+
+                    if (!abort)
+                    {
+                        ((Spell) card).Activate(target);
+
+                        if (target != null)
+                        {
+                            GameEventManager.OnSpellTarget(target);
+                        }
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

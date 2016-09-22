@@ -68,20 +68,21 @@ namespace CardGameBackend.Controller
 
         public IList<Spell> GetAllSpellsList(int languageId)
         {
-            using (var context = new CardDataContext())
-            {
-                var spells = (from c in context.Cards
-                    join n in context.CardNames on c.Id equals n.CardId
-                    where c.Type == (int) CardType.Spell
-                    && n.LanguageId == languageId
-                    select new Spell()
-                    {
-                        Name = n.Name,
-                        Cost = c.Cost
-                    });
+            //using (var context = new CardDataContext())
+            //{
+            //    var spells = (from c in context.Cards
+            //        join n in context.CardNames on c.Id equals n.CardId
+            //        where c.Type == (int) CardType.Spell
+            //        && n.LanguageId == languageId
+            //        select new Spell()
+            //        {
+            //            Name = n.Name,
+            //            Cost = c.Cost
+            //        });
 
-                return spells.ToList();
-            }
+            //    return spells.ToList();
+            //}
+            return null;
         }
 
         public void LoadTriggerItem()

@@ -16,8 +16,8 @@ namespace CardGameBackend
             var minions = GetInstance().GetAllMinionsList(1);
             var deck1 = new Deck(new List<ICard>(minions));
             var deck2 = new Deck(new List<ICard>(minions));
-            var p1 = new Player(1, "P1", deck1);
-            var p2 = new Player(2, "P2", deck2);
+            var p1 = new Player(1, "P1", GameConstants.STARTING_MANA, deck1);
+            var p2 = new Player(2, "P2", GameConstants.STARTING_MANA, deck2);
 
             var gameEngine = new GameEngine(null, p1, p2, p1);
             //=========================================//
@@ -30,7 +30,7 @@ namespace CardGameBackend
             GameEventManager.RegisterForEventTurnStart(minions[0], () => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] { minions[0], 2 }));
             GameEventManager.RegisterForEventTurnStart(minions[1], () => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] { minions[1], 5 }));
             GameEventManager.RegisterForEventTurnEnd(minions[0], () => DelegateFactory.RunMethod("TriggersController", "DealDamage", new object[] { minions[0], 12 }));
-            GameEventManager.RegisterForEventCardDrawn(minions[1],(player, card) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {card, 1}));
+            GameEventManager.RegisterForEventCardDrawn(minions[1],(card) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {card, 1}));
 
             //var result = DelegateFactory.GetDelegate("TriggersController", "Heal");
             //minions[0].GetHit += (s,e) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {minions[1], 2});

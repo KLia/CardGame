@@ -10,18 +10,18 @@ namespace CardGameBackend.Model.Players
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Mana { get; set; }
         public IDeck Deck { get; set; }
 
         public List<ICard> CardsInHand { get; set; }
-        public List<ICard> CardsInGraveyard { get; set; }
 
-        public Player(int id, string name, IDeck deck)
+        public Player(int id, string name, int mana, IDeck deck)
         {
             Id = id;
             Name = name;
+            Mana = mana;
             Deck = deck;
             CardsInHand = new List<ICard>();
-            CardsInGraveyard = new List<ICard>();
         }
 
         public ICard DrawCard(bool isMulligan = false)
@@ -32,13 +32,13 @@ namespace CardGameBackend.Model.Players
 
             if (!isMulligan)
             {
-                GameEventManager.OnCardDrawn(this, card);
+                GameEventManager.OnCardDrawn(card);
             }
 
             return card;
         }
 
-        public List<ICard> DrawCards(int count, bool isMulligan=false)
+        public List<ICard> DrawCards(int count, bool isMulligan = false)
         {
             //todo = handle case of no more cards to draw
             var cards = Deck.DrawCards(count);
@@ -48,7 +48,7 @@ namespace CardGameBackend.Model.Players
             {
                 foreach (var card in cards)
                 {
-                    GameEventManager.CardDrawn(this, card);
+                    GameEventManager.CardDrawn(card);
                 }
             }
 

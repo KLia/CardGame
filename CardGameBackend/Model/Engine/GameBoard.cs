@@ -15,5 +15,8 @@ namespace CardGameBackend.Model.Engine
 
         public List<ICard> Player1PlayZone { get; set; }
         public List<ICard> Player2PlayZone { get; set; }
+
+        public List<ICard> Player1Graveyard { get; set; }
+        public List<ICard> Player2Graveyard { get; set; }
     }
 }
