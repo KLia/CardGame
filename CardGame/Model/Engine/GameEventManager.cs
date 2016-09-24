@@ -112,12 +112,12 @@ namespace CardGame.Model.Engine
         public static OtherHealedEventHandler OtherHealed;
         internal static List<Tuple<ICard, OtherHealedEventHandler>> onOtherHealedListeners;
 
-        public delegate void GetHitEventHandler();
+        public delegate void GetHitEventHandler(IDamageable target, int damage);
 
         public static GetHitEventHandler GetHit;
         internal static List<Tuple<ICard, GetHitEventHandler>> onGetHitListeners;
 
-        public delegate void OtherGetHitEventHandler();
+        public delegate void OtherGetHitEventHandler(IDamageable target, int damage);
 
         public static OtherGetHitEventHandler OtherGetHit;
         internal static List<Tuple<ICard, OtherGetHitEventHandler>> onOtherGetHitListeners;
@@ -153,79 +153,79 @@ namespace CardGame.Model.Engine
         internal static List<Tuple<ICard, SpellTargetHandler>> onSpellTargetListeners;
 
         //Register for events
-        public static void RegisterForEventTurnStart(ICard self, TurnStartHandler callback)
+        public static void RegisterForEventTurnStart(ICard card, TurnStartHandler callback)
         {
-            onTurnStartListeners.Add(new Tuple<ICard, TurnStartHandler>(self, callback));
+            onTurnStartListeners.Add(new Tuple<ICard, TurnStartHandler>(card, callback));
         }
 
-        public static void RegisterForEventTurnEnd(ICard self, TurnEndHandler callback)
+        public static void RegisterForEventTurnEnd(ICard card, TurnEndHandler callback)
         {
-            onTurnEndListeners.Add(new Tuple<ICard, TurnEndHandler>(self, callback));
+            onTurnEndListeners.Add(new Tuple<ICard, TurnEndHandler>(card, callback));
         }
 
-        public static void RegisterForEventCardDrawn(ICard self, CardDrawnHandler callback)
+        public static void RegisterForEventCardDrawn(ICard card, CardDrawnHandler callback)
         {
-            onCardDrawnListeners.Add(new Tuple<ICard, CardDrawnHandler>(self, callback));
+            onCardDrawnListeners.Add(new Tuple<ICard, CardDrawnHandler>(card, callback));
         }
 
-        public static void RegisterForEventAttack(ICard self, AttackEventHandler callback)
+        public static void RegisterForEventAttack(ICard card, AttackEventHandler callback)
         {
-            onAttackListeners.Add(new Tuple<ICard, AttackEventHandler>(self, callback));
+            onAttackListeners.Add(new Tuple<ICard, AttackEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventOtherAttack(ICard self, OtherAttackEventHandler callback)
+        public static void RegisterForEventOtherAttack(ICard card, OtherAttackEventHandler callback)
         {
-            onOtherAttackListeners.Add(new Tuple<ICard, OtherAttackEventHandler>(self, callback));
+            onOtherAttackListeners.Add(new Tuple<ICard, OtherAttackEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventHealed(ICard self, HealedEventHandler callback)
+        public static void RegisterForEventHealed(ICard card, HealedEventHandler callback)
         {
-            onHealedListeners.Add(new Tuple<ICard, HealedEventHandler>(self, callback));
+            onHealedListeners.Add(new Tuple<ICard, HealedEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventOtherHealed(ICard self, OtherHealedEventHandler callback)
+        public static void RegisterForEventOtherHealed(ICard card, OtherHealedEventHandler callback)
         {
-            onOtherHealedListeners.Add(new Tuple<ICard, OtherHealedEventHandler>(self, callback));
+            onOtherHealedListeners.Add(new Tuple<ICard, OtherHealedEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventGetHit(ICard self, GetHitEventHandler callback)
+        public static void RegisterForEventGetHit(ICard card, GetHitEventHandler callback)
         {
-            onGetHitListeners.Add(new Tuple<ICard, GetHitEventHandler>(self, callback));
+            onGetHitListeners.Add(new Tuple<ICard, GetHitEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventOtherGetHit(ICard self, OtherGetHitEventHandler callback)
+        public static void RegisterForEventOtherGetHit(ICard card, OtherGetHitEventHandler callback)
         {
-            onOtherGetHitListeners.Add(new Tuple<ICard, OtherGetHitEventHandler>(self, callback));
+            onOtherGetHitListeners.Add(new Tuple<ICard, OtherGetHitEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventDeath(ICard self, DeathEventHandler callback)
+        public static void RegisterForEventDeath(ICard card, DeathEventHandler callback)
         {
-            onDeathEventListeners.Add(new Tuple<ICard, DeathEventHandler>(self, callback));
+            onDeathEventListeners.Add(new Tuple<ICard, DeathEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventOtherDeath(ICard self, OtherDeathEventHandler callback)
+        public static void RegisterForEventOtherDeath(ICard card, OtherDeathEventHandler callback)
         {
-            onOtherDeathEventListeners.Add(new Tuple<ICard, OtherDeathEventHandler>(self, callback));
+            onOtherDeathEventListeners.Add(new Tuple<ICard, OtherDeathEventHandler>(card, callback));
         }
 
-        public static void RegisterForEventCardPlayed(ICard self, CardPlayedHandler callback)
+        public static void RegisterForEventCardPlayed(ICard card, CardPlayedHandler callback)
         {
-            onCardPlayedListeners.Add(new Tuple<ICard, CardPlayedHandler>(self, callback));
+            onCardPlayedListeners.Add(new Tuple<ICard, CardPlayedHandler>(card, callback));
         }
 
-        public static void RegisterForEventOtherCardPlayed(ICard self, OtherCardPlayedHandler callback)
+        public static void RegisterForEventOtherCardPlayed(ICard card, OtherCardPlayedHandler callback)
         {
-            onOtherCardPlayedListeners.Add(new Tuple<ICard, OtherCardPlayedHandler>(self, callback));
+            onOtherCardPlayedListeners.Add(new Tuple<ICard, OtherCardPlayedHandler>(card, callback));
         }
 
-        public static void RegisterForEventSpellCast(ICard self, SpellCastHandler callback)
+        public static void RegisterForEventSpellCast(ICard card, SpellCastHandler callback)
         {
-            onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(self, callback));
+            onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(card, callback));
         }
 
-        public static void RegisterForEventSpellTarget(ICard self, SpellTargetHandler callback)
+        public static void RegisterForEventSpellTarget(ICard card, SpellTargetHandler callback)
         {
-            onSpellTargetListeners.Add(new Tuple<ICard, SpellTargetHandler>(self, callback));
+            onSpellTargetListeners.Add(new Tuple<ICard, SpellTargetHandler>(card, callback));
         }
 
 
@@ -285,12 +285,34 @@ namespace CardGame.Model.Engine
         {
         }
 
-        public static void OnGetHit()
+        public static void OnGetHit(IDamageable target, int damage)
         {
+            if (!onGetHitListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onGetHitListeners.Find(c => c.Item1.Id == card.Id);
+                listener.Item2(target, damage);
+            }
         }
 
-        public static void OnOtherGetHit()
+        public static void OnOtherGetHit(IDamageable target, int damage)
         {
+            if (!onOtherGetHitListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onOtherGetHitListeners.Find(c => c.Item1.Id == card.Id);
+                listener.Item2(target, damage);
+            }
         }
 
         public static void OnDeath()

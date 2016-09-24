@@ -6,10 +6,12 @@ namespace CardGame.Controller
     {
         public static void DealDamage(IDamageable target, int damage)
         {
-            target.CurrentHealth -= damage;
+            target.Health -= damage;
             if (target.CurrentHealth < 0)
             {
                 target.CurrentHealth = 0;
+                target.TemporaryHealthBuff = 0;
+                target.PermanentHealthBuff = 0;
                 target.IsDead = true;
             }
         }

@@ -34,7 +34,6 @@ namespace CardGame.Controller
                         Cost = c.Cost,
                         Attack = c.Attack,
                         Health = c.Health,
-                        CurrentHealth = c.Health,
                         Triggers = new List<CardTrigger>
                         {
                             new CardTrigger

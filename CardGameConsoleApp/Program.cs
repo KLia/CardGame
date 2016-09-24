@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using CardGame.Controller;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
@@ -27,10 +28,11 @@ namespace CardGameConsoleApp
                 Console.WriteLine($"Name: {m.Name}; Cost: {m.Cost}; Attack: {m.Attack}; Health: {m.Health}");
             }
 
-            GameEventManager.RegisterForEventTurnStart(minions[0], () => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] { minions[0], 2 }));
-            GameEventManager.RegisterForEventTurnStart(minions[1], () => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] { minions[1], 5 }));
-            GameEventManager.RegisterForEventTurnEnd(minions[0], () => DelegateFactory.RunMethod("TriggersController", "DealDamage", new object[] { minions[0], 12 }));
-            GameEventManager.RegisterForEventCardDrawn(minions[1], (card) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] { card, 1 }));
+            var fullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
+        GameEventManager.RegisterForEventTurnStart(minions[0], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { minions[0], 2 }));
+            GameEventManager.RegisterForEventTurnStart(minions[1], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { minions[1], 5 }));
+            GameEventManager.RegisterForEventTurnEnd(minions[0], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "DealDamage", new object[] { minions[0], 12 }));
+            GameEventManager.RegisterForEventCardDrawn(minions[1], (card) => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { card, 1 }));
 
             //var result = DelegateFactory.GetDelegate("TriggersController", "Heal");
             //minions[0].GetHit += (s,e) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {minions[1], 2});

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Reflection;
 
 namespace CardGame.Model.Engine
@@ -8,14 +7,13 @@ namespace CardGame.Model.Engine
     public static class DelegateFactory
     {
         private static readonly IDictionary<string, MethodInfo> MethodsDictionary;
-        private static readonly string FullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
 
         static DelegateFactory()
         {
             MethodsDictionary = new Dictionary<string, MethodInfo>();
         }
 
-        private static MethodInfo GetMethodInfo(string className, string methodName)
+        private static MethodInfo GetMethodInfo(string fullyQualifiedName, string className, string methodName)
         {
             var name = $"{className}{methodName}";
             if (MethodsDictionary.ContainsKey(name))
@@ -23,7 +21,7 @@ namespace CardGame.Model.Engine
                 return MethodsDictionary[name];
             }
 
-            var memberInfo = Type.GetType(FullyQualifiedName + "." + className);
+            var memberInfo = Type.GetType(fullyQualifiedName + "." + className);
             if (memberInfo == null)
             {
                 return null;
@@ -35,9 +33,9 @@ namespace CardGame.Model.Engine
             return method;
         }
 
-        public static void RunMethod(string className, string methodName, object[] parameters)
+        public static void RunMethod(string fullyQualifiedName, string className, string methodName, object[] parameters)
         {
-            var method = GetMethodInfo(className, methodName);
+            var method = GetMethodInfo(fullyQualifiedName, className, methodName);
             method.Invoke(null, parameters);
         }
     }
