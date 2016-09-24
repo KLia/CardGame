@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.625" name="Card">
+  <DataContextMoniker Name="/CardDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" absoluteBounds="0.75, 4.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CardDataContext/Card" />
+      <nestedChildShapes>
+        <elementListCompartment Id="61877c86-b206-46e9-bd95-55b491aae06a" absoluteBounds="0.765, 4.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="653d1c29-67c7-43ed-ba0b-6830191140b0" absoluteBounds="3.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CardDataContext/Method" />
+      <nestedChildShapes>
+        <elementListCompartment Id="020295fc-abb4-4ba3-a8b5-9b01a7bed61e" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="42929d8a-a2f5-485f-83ef-3e8840acbc33" absoluteBounds="3.5, 6.75, 2, 1.5785953776041657">
+      <DataClassMoniker Name="/CardDataContext/CardName" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fed2808b-c103-4b09-a969-75efd857e731" absoluteBounds="3.515, 7.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="46918038-e010-44fe-94fb-4e9d263781fd" absoluteBounds="6.5, 4.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CardDataContext/CardTrigger" />
+      <nestedChildShapes>
+        <elementListCompartment Id="96774b9b-127d-4ea0-9129-e2f7efe27e1b" absoluteBounds="6.515, 5.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="602dc533-1257-4ed5-997f-124d80dc5447" absoluteBounds="9.25, 4.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CardDataContext/CardTriggerParam" />
+      <nestedChildShapes>
+        <elementListCompartment Id="847b0eae-e20c-4797-919b-086eb5312051" absoluteBounds="9.265, 5.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c0384a14-3894-4f9c-8316-21b3990010d3" absoluteBounds="0.75, 1.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CardDataContext/Deck" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af1bae0d-ea61-48d5-a5a8-1439cf0872c0" absoluteBounds="0.765, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="668d9821-8201-4713-94dc-4f741ecbe896" absoluteBounds="3.5, 3.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/CardDataContext/DeckCard" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9a4fd33f-a1d4-400a-a169-c398214c47d1" absoluteBounds="3.515, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.75 : 6.53049967447917); (1.75 : 7.53929768880208); (3.5 : 7.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/Card/Card_CardName" />
+      <nodes>
+        <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
+        <classShapeMoniker Id="42929d8a-a2f5-485f-83ef-3e8840acbc33" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.70119466145833); (6.5 : 5.70119466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/Card/Card_CardTrigger" />
+      <nodes>
+        <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
+        <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.65625 : 2.1362939453125); (5.65625 : 5.41874180338542); (6.5 : 5.41874180338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/Method/Method_CardTrigger" />
+      <nodes>
+        <classShapeMoniker Id="653d1c29-67c7-43ed-ba0b-6830191140b0" />
+        <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 5.41429768880208); (9.25 : 5.41429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/CardTrigger/CardTrigger_CardTriggerParam" />
+      <nodes>
+        <classShapeMoniker Id="46918038-e010-44fe-94fb-4e9d263781fd" />
+        <classShapeMoniker Id="602dc533-1257-4ed5-997f-124d80dc5447" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.75564697265625); (3.5 : 4.75564697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/Card/Card_DeckCard" />
+      <nodes>
+        <classShapeMoniker Id="bd68afeb-dd4d-4a09-89da-b71d3ba122ea" />
+        <classShapeMoniker Id="668d9821-8201-4713-94dc-4f741ecbe896" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.6675439453125); (3.59375 : 2.6675439453125); (3.59375 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CardDataContext/Deck/Deck_DeckCard" />
+      <nodes>
+        <classShapeMoniker Id="c0384a14-3894-4f9c-8316-21b3990010d3" />
+        <classShapeMoniker Id="668d9821-8201-4713-94dc-4f741ecbe896" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
