@@ -62,8 +62,8 @@ namespace CardGame.Model.Cards
             {
                 IsDead = true;
                 //OnDeath events
-                GameEventManager.OnDeath();
-                GameEventManager.OnOtherDeath();
+                GameEventManager.OnDeath(this);
+                GameEventManager.OnOtherDeath(this);
 
                 //Unregister GameEvents
                 GameEventManager.UnregisterForEvents(this);

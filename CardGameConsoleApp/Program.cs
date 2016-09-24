@@ -28,18 +28,33 @@ namespace CardGameConsoleApp
                 Console.WriteLine($"Name: {m.Name}; Cost: {m.Cost}; Attack: {m.Attack}; Health: {m.Health}");
             }
 
+            //===Game Events===========================//
             var fullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
-        GameEventManager.RegisterForEventTurnStart(minions[0], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { minions[0], 2 }));
-            GameEventManager.RegisterForEventTurnStart(minions[1], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { minions[1], 5 }));
-            GameEventManager.RegisterForEventTurnEnd(minions[0], () => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "DealDamage", new object[] { minions[0], 12 }));
-            GameEventManager.RegisterForEventCardDrawn(minions[1], (card) => DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal", new object[] { card, 1 }));
+            GameEventManager.RegisterForEventTurnStart(minions[0],
+                () =>
+                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                        new object[] {minions[0], 2}));
 
-            //var result = DelegateFactory.GetDelegate("TriggersController", "Heal");
-            //minions[0].GetHit += (s,e) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {minions[1], 2});
+            GameEventManager.RegisterForEventDeath(minions[0], (target) => { Console.WriteLine($"{((ICard)target).Id} is DEAD"); });
+
+            GameEventManager.RegisterForEventTurnStart(minions[1],
+                () =>
+                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                        new object[] {minions[1], 5}));
+
+            GameEventManager.RegisterForEventTurnEnd(minions[0],
+                () =>
+                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "DealDamage",
+                        new object[] {minions[0], 12}));
+            GameEventManager.RegisterForEventCardDrawn(minions[1],
+                (card) =>
+                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                        new object[] {card, 1}));
+            //=========================================//
 
             Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
-            minions[0].CurrentHealth -= 2;
+            minions[0].TakeDamage(2);
             Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
             minions[0].CurrentHealth += 2;
@@ -54,10 +69,7 @@ namespace CardGameConsoleApp
             p1.DrawCards(2);
             Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
-
-
-            //minions[1].Healed += (s, e) => DelegateFactory.RunMethod("TriggersController", "Heal", new object[] {minions[0], 1});
-
+            
             Console.ReadKey();
         }
     }

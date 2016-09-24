@@ -122,12 +122,12 @@ namespace CardGame.Model.Engine
         public static OtherGetHitEventHandler OtherGetHit;
         internal static List<Tuple<ICard, OtherGetHitEventHandler>> onOtherGetHitListeners;
 
-        public delegate void DeathEventHandler();
+        public delegate void DeathEventHandler(IDamageable card);
 
         public static DeathEventHandler Death;
         internal static List<Tuple<ICard, DeathEventHandler>> onDeathEventListeners;
 
-        public delegate void OtherDeathEventHandler();
+        public delegate void OtherDeathEventHandler(IDamageable card);
 
         public static OtherDeathEventHandler OtherDeath;
         internal static List<Tuple<ICard, OtherDeathEventHandler>> onOtherDeathEventListeners;
@@ -315,12 +315,34 @@ namespace CardGame.Model.Engine
             }
         }
 
-        public static void OnDeath()
+        public static void OnDeath(IDamageable target)
         {
+            if (!onDeathEventListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onDeathEventListeners.Find(c => c.Item1.Id == card.Id);
+                listener?.Item2(target);
+            }
         }
 
-        public static void OnOtherDeath()
+        public static void OnOtherDeath(IDamageable target)
         {
+            if (!onOtherDeathEventListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onOtherDeathEventListeners.Find(c => c.Item1.Id == card.Id);
+                listener?.Item2(target);
+            }
         }
 
         public static void OnCardPlayed(ICard card)
