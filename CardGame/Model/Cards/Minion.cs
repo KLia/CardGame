@@ -56,12 +56,19 @@ namespace CardGame.Model.Cards
 
         public void AttackTarget(IDamageable target)
         {
-            if (CanAttack)
+            if (!CanAttack)
             {
-                var abort = false;
-                GameEventManager.OnAttack(this, target);
-                GameEventManager.OnOtherAttack(this, target, out abort);
+                throw new InvalidOperationException("Cannot attack yet");
             }
+
+            if (target == this)
+            {
+                throw new InvalidOperationException("Cannot attack yourself");
+            }
+
+            var abort = false;
+            GameEventManager.OnAttack(this, target);
+            GameEventManager.OnOtherAttack(this, target, out abort);
         }
 
         public void TakeDamage(int damage)
