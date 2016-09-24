@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Card">
+  <DataContextMoniker Name="/CardDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d04c2646-3bf0-4df0-82c6-cf6f26009168" absoluteBounds="0.75, 2.125, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CardDataContext/Card" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d15e6d9b-8a6e-4b57-be5f-34d41a0a1375" absoluteBounds="0.765, 2.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="42d67784-652f-40b7-803f-f467e46d6455" absoluteBounds="3.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CardDataContext/Method" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dc5d7380-2d5f-4c74-be73-32b551fb5344" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3006e7fc-cad2-4456-8077-735a0820bda3" absoluteBounds="3.375, 5.25, 2, 1.5785953776041657">
+      <DataClassMoniker Name="/CardDataContext/CardName" />
+      <nestedChildShapes>
+        <elementListCompartment Id="22e197ac-17ed-4660-9d52-869fc25a8fb3" absoluteBounds="3.39, 5.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1f5d6313-40b9-4cd3-87cb-2c189f55e4ae" absoluteBounds="7.875, 1.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CardDataContext/CardTrigger" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1162fe15-4183-4ab4-b719-a0c8476217a5" absoluteBounds="7.89, 2.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7449e42e-36c4-4cbc-b287-ae902c3123f3" absoluteBounds="7.25, 4.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CardDataContext/CardTriggerParam" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b3c26eae-00dd-4c45-8d3f-d26880d82968" absoluteBounds="7.2650000000000006, 4.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.75 : 4.28049967447917); (1.75 : 6.03929768880208); (3.375 : 6.03929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CardDataContext/Card/Card_CardName" />
+      <nodes>
+        <classShapeMoniker Id="d04c2646-3bf0-4df0-82c6-cf6f26009168" />
+        <classShapeMoniker Id="3006e7fc-cad2-4456-8077-735a0820bda3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.70119466145833); (7.875 : 2.70119466145833)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CardDataContext/Card/Card_CardTrigger" />
+      <nodes>
+        <classShapeMoniker Id="d04c2646-3bf0-4df0-82c6-cf6f26009168" />
+        <classShapeMoniker Id="1f5d6313-40b9-4cd3-87cb-2c189f55e4ae" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 1.88064697265625); (7.875 : 1.88064697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CardDataContext/Method/Method_CardTrigger" />
+      <nodes>
+        <classShapeMoniker Id="42d67784-652f-40b7-803f-f467e46d6455" />
+        <classShapeMoniker Id="1f5d6313-40b9-4cd3-87cb-2c189f55e4ae" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.16247258831203 : 3.20359537760417); (8.16247258831203 : 4.375)]" fixedFrom="Algorithm" fixedTo="Caller">
+      <AssociationMoniker Name="/CardDataContext/CardTrigger/CardTrigger_CardTriggerParam" />
+      <nodes>
+        <classShapeMoniker Id="1f5d6313-40b9-4cd3-87cb-2c189f55e4ae" />
+        <classShapeMoniker Id="7449e42e-36c4-4cbc-b287-ae902c3123f3" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
