@@ -52,6 +52,7 @@
       <DependentUpon>Card.dbml</DependentUpon>
     </Compile>
     <Compile Include="Model\Cards\Card.cs" />
+    <Compile Include="Model\Cards\Interfaces\IAttacker.cs" />
     <Compile Include="Model\Cards\Interfaces\ICard.cs" />
     <Compile Include="Model\Cards\Interfaces\IDamageable.cs" />
     <Compile Include="Model\Cards\Minion.cs" />

@@ -2,7 +2,7 @@
 {
     public interface IDamageable
     {
-        int Health { get; set; }
+        int BaseHealth { get; set; }
         int TemporaryHealthBuff { get; set; }
         int PermanentHealthBuff { get; set; }
         int CurrentHealth { get; set; }

@@ -16,6 +16,6 @@ namespace CardGame.Model.Cards
         {
         }
 
-        public abstract void Activate(IDamageable target = null);
+        public abstract void Cast(IDamageable target = null);
     }
 }

@@ -92,12 +92,12 @@ namespace CardGame.Model.Engine
         public static CardDrawnHandler CardDrawn;
         internal static List<Tuple<ICard, CardDrawnHandler>> onCardDrawnListeners;
 
-        public delegate void AttackEventHandler();
+        public delegate void AttackEventHandler(IAttacker attacker, IDamageable target);
 
         public static AttackEventHandler Attack;
         internal static List<Tuple<ICard, AttackEventHandler>> onAttackListeners;
 
-        public delegate void OtherAttackEventHandler();
+        public delegate void OtherAttackEventHandler(IAttacker attacker, IDamageable target, out bool abort);
 
         public static OtherAttackEventHandler OtherAttack;
         internal static List<Tuple<ICard, OtherAttackEventHandler>> onOtherAttackListeners;
@@ -269,12 +269,40 @@ namespace CardGame.Model.Engine
             listener?.Item2(card);
         }
 
-        public static void OnAttack()
+        public static void OnAttack(IAttacker attacker, IDamageable target)
         {
+            if (!onAttackListeners.Any())
+            {
+                return;
+            }
+
+            var card = attacker as ICard;
+            if (card != null)
+            {
+                var listener = onAttackListeners.Find(c => c.Item1.Id == card.Id);
+                listener.Item2(attacker, target);
+            }
         }
 
-        public static void OnOtherAttack()
+        public static void OnOtherAttack(IAttacker attacker, IDamageable target, out bool abort)
         {
+            abort = false;
+
+            if (!onOtherAttackListeners.Any())
+            {
+                return;
+            }
+
+            var card = attacker as ICard;
+            if (card != null)
+            {
+                //order the list and check that the effect is not triggered on the attacking card
+                var listeners = onOtherAttackListeners.OrderBy(c => c.Item1.PlayOrder).Where(c=> c.Item1.Id != card.Id).ToList();
+                foreach (var listener in listeners)
+                {
+                    listener.Item2(attacker, target, out abort);
+                }
+            }
         }
 
         public static void OnHealed()
@@ -310,8 +338,12 @@ namespace CardGame.Model.Engine
             var card = target as ICard;
             if (card != null)
             {
-                var listener = onOtherGetHitListeners.Find(c => c.Item1.Id == card.Id);
-                listener.Item2(target, damage);
+                //order the list and check that the trigger doesn't happen on the card getting hit
+                var listeners = onOtherGetHitListeners.OrderBy(c=> c.Item1.PlayOrder).Where(c=>c.Item1.Id != card.Id).ToList();
+                foreach (var listener in listeners)
+                {
+                    listener.Item2(target, damage);
+                }
             }
         }
 
@@ -340,8 +372,11 @@ namespace CardGame.Model.Engine
             var card = target as ICard;
             if (card != null)
             {
-                var listener = onOtherDeathEventListeners.Find(c => c.Item1.Id == card.Id);
-                listener?.Item2(target);
+                var listeners = onOtherDeathEventListeners.OrderBy(c=>c.Item1.PlayOrder).Where(c=>c.Item1.Id != card.Id).ToList();
+                foreach (var listener in listeners)
+                {
+                    listener.Item2(target);
+                }
             }
         }
 
@@ -363,7 +398,7 @@ namespace CardGame.Model.Engine
                 return;
             }
 
-            var listeners = onOtherCardPlayedListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
+            var listeners = onOtherCardPlayedListeners.OrderBy(c => c.Item1.PlayOrder).Where(c=>c.Item1.Id != card.Id).ToList();
             foreach (var listener in listeners)
             {
                 listener.Item2(card);

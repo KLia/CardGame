@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CardGame.Model.Cards.Interfaces
 {
-    interface IAttacker
+    public interface IAttacker
     {
+        int CurrentAttack { get; }
+        void AttackTarget(IDamageable target);
     }
 }

@@ -25,50 +25,52 @@ namespace CardGameConsoleApp
 
             foreach (var m in minions)
             {
-                Console.WriteLine($"Name: {m.Name}; Cost: {m.Cost}; Attack: {m.Attack}; Health: {m.Health}");
+                Console.WriteLine($"Name: {m.Name}; Cost: {m.Cost}; BaseAttack: {m.BaseAttack}; BaseHealth: {m.BaseHealth}");
             }
 
             //===Game Events===========================//
             var fullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
+            var className = "TriggersController";
+
             GameEventManager.RegisterForEventTurnStart(minions[0],
                 () =>
-                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                    DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {minions[0], 2}));
 
             GameEventManager.RegisterForEventDeath(minions[0], (target) => { Console.WriteLine($"{((ICard)target).Id} is DEAD"); });
 
             GameEventManager.RegisterForEventTurnStart(minions[1],
                 () =>
-                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                    DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {minions[1], 5}));
 
             GameEventManager.RegisterForEventTurnEnd(minions[0],
                 () =>
-                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "DealDamage",
+                    DelegateFactory.RunMethod(fullyQualifiedName, className, "DealDamage",
                         new object[] {minions[0], 12}));
             GameEventManager.RegisterForEventCardDrawn(minions[1],
                 (card) =>
-                    DelegateFactory.RunMethod(fullyQualifiedName, "TriggersController", "Heal",
+                    DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {card, 1}));
             //=========================================//
 
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             minions[0].TakeDamage(2);
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             minions[0].CurrentHealth += 2;
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             gameEngine.StartTurn();
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             gameEngine.EndTurn();
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             p1.DrawCards(2);
-            Console.WriteLine($"Minion 0 Health: {minions[0].CurrentHealth}");
-            Console.WriteLine($"Minion 1 Health: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion 0 BaseHealth: {minions[0].CurrentHealth}");
+            Console.WriteLine($"Minion 1 BaseHealth: {minions[1].CurrentHealth}");
             
             Console.ReadKey();
         }

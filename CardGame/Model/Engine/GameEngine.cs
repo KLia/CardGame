@@ -93,7 +93,7 @@ namespace CardGame.Model.Engine
 
                     if (!abort)
                     {
-                        ((Spell) card).Activate(target);
+                        ((Spell) card).Cast(target);
 
                         if (target != null)
                         {
