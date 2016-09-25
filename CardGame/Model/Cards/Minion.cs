@@ -91,7 +91,6 @@ namespace CardGame.Model.Cards
 
             var abort = false;
             GameEventManager.OnAttack(this, target, out abort);
-            GameEventManager.OnOtherAttack(this, target, out abort);
 
             if (!abort)
             {
@@ -129,6 +128,9 @@ namespace CardGame.Model.Cards
 
             //Unregister GameEvents
             GameEventManager.UnregisterForEvents(this);
+
+            //move to graveyard
+
         }
 
 

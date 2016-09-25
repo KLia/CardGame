@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using CardGame.Model.Cards;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Engine.Interfaces;
+using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Engine
@@ -64,7 +66,7 @@ namespace CardGame.Model.Engine
                 throw new InvalidOperationException("The card you're trying to play is not in your hand");
             }
 
-            if (player.Mana < card.BaseCost)
+            if (player.Mana < card.CurrentCost)
             {
                 throw new InvalidOperationException("Not enough Mana");
             }
@@ -77,20 +79,21 @@ namespace CardGame.Model.Engine
 
             //move from hand to board, assign PlayOrder and decrease mana
             card.PlayOrder = _playOrder++;
-            player.CardsInHand.Remove(card);
-            player.Mana -= card.BaseCost;
+            player.Mana -= card.CurrentCost;
 
             //play events
             switch (card.Type)
             {
                 case CardType.Minion:
-                    player.CardsInPlay.Insert(boardPos, card);
+                    MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Board, boardPos);
                     GameEventManager.OnCardPlayed(card);
                     GameEventManager.OnOtherCardPlayed(card);
                     break;
 
                 case CardType.Spell:
                     bool abort;
+
+                    MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Graveyard);
                     GameEventManager.OnSpellCast((Spell) card, target, out abort);
 
                     if (!abort)
@@ -106,6 +109,43 @@ namespace CardGame.Model.Engine
 
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void MoveCard(ICard card, IPlayer sourcePlayer, GameBoardZone sourceZone, IPlayer destPlayer, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)
+        {
+            var source  = sourceZone.GetPlayerBoardZone(sourcePlayer);
+            var dest = destZone.GetPlayerBoardZone(destPlayer);
+
+            if (!source.Contains(card))
+            {
+                throw new InvalidOperationException("Card does not exist in source");
+            }
+
+            if (destZone == GameBoardZone.Hand && dest.Count >= GameConstants.MAX_CARDS_IN_HAND)
+            {
+                throw new InvalidOperationException("Hand is full");
+            }
+
+            if (destZone == GameBoardZone.Board && dest.Count >= GameConstants.MAX_CARDS_IN_PLAY)
+            {
+                throw new InvalidOperationException("Board is full");
+            }
+
+            //remove the card if we are not copying
+            if (!isCopy)
+            {
+                source.Remove(card);
+            }
+
+            //insert into the correct position
+            if (boardPos > -1 && boardPos < dest.Count)
+            {
+                dest.Insert(boardPos, card);
+            }
+            else
+            {
+                dest.Add(card);
             }
         }
     }

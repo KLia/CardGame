@@ -8,7 +8,7 @@ namespace CardGame.Model.Decks
     public class Deck : IDeck
     {
         public string Name;
-        public IList<ICard> Cards { get; }
+        public List<ICard> Cards { get; }
         private int _topDeckIndex;
         
         public Deck()
@@ -16,7 +16,7 @@ namespace CardGame.Model.Decks
             Cards = new List<ICard>();
         }
 
-        public Deck(IList<ICard> cards)
+        public Deck(List<ICard> cards)
         {
             Cards = cards;
             _topDeckIndex = cards.Count;

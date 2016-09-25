@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
+using CardGame.Model.Engine;
 
 namespace CardGame.Model.Players.Interfaces
 {

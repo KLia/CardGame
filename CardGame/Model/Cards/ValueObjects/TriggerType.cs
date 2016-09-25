@@ -6,16 +6,11 @@
         OnTurnEnd = 2,
         OnCardDrawn = 3,
         OnAttack = 4,
-        OnOtherAttack = 5,
-        OnHealed = 6,
-        OnOtherHealed = 7,
-        OnGetHit = 8,
-        OnOtherGetHit = 9,
-        OnDeath = 10,
-        OnOtherDeath = 11,
-        OnCardPlayed = 12,
-        OnOtherCardPlayed = 13,
-        OnSpellCast = 14,
-        OnSpellTarget = 15
+        OnHealed = 5,
+        OnGetHit = 6,
+        OnDeath = 7,
+        OnCardPlayed = 8,
+        OnSpellCast = 9,
+        OnSpellTarget = 10
     }
 }

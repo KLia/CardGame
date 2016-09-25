@@ -67,7 +67,8 @@
     <Compile Include="Model\Decks\IDeck.cs" />
     <Compile Include="Model\Engine\DelegateFactory.cs" />
     <Compile Include="Model\Engine\GameBoard.cs" />
-    <Compile Include="Model\Engine\GameConstants.cs" />
+    <Compile Include="Model\Engine\GameBoardZone.cs" />
+    <Compile Include="Model\Engine\ValueObjects\GameConstants.cs" />
     <Compile Include="Model\Engine\GameEngine.cs" />
     <Compile Include="Model\Engine\GameEventManager.cs" />
     <Compile Include="Model\Engine\GameState.cs" />

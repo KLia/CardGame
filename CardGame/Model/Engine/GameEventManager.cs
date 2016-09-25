@@ -22,9 +22,6 @@ namespace CardGame.Model.Engine
             Attack += OnAttack;
             onAttackListeners = new List<Tuple<ICard, AttackEventHandler>>();
 
-            OtherAttack += OnOtherAttack;
-            onOtherAttackListeners = new List<Tuple<ICard, OtherAttackEventHandler>>();
-
             Healed += OnHealed;
             onHealedListeners = new List<Tuple<ICard, HealedEventHandler>>();
 
@@ -62,7 +59,6 @@ namespace CardGame.Model.Engine
             onTurnEndListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onCardDrawnListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onAttackListeners.RemoveAll(c => c.Item1.Id == card.Id);
-            onOtherAttackListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onHealedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onOtherHealedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onGetHitListeners.RemoveAll(c => c.Item1.Id == card.Id);
@@ -98,9 +94,6 @@ namespace CardGame.Model.Engine
         internal static List<Tuple<ICard, AttackEventHandler>> onAttackListeners;
 
         public delegate void OtherAttackEventHandler(IAttacker attacker, IDamageable target, out bool abort);
-
-        public static OtherAttackEventHandler OtherAttack;
-        internal static List<Tuple<ICard, OtherAttackEventHandler>> onOtherAttackListeners;
 
         public delegate void HealedEventHandler(IDamageable target, int heal);
 
@@ -171,11 +164,6 @@ namespace CardGame.Model.Engine
         public static void RegisterForEventAttack(ICard card, AttackEventHandler callback)
         {
             onAttackListeners.Add(new Tuple<ICard, AttackEventHandler>(card, callback));
-        }
-
-        public static void RegisterForEventOtherAttack(ICard card, OtherAttackEventHandler callback)
-        {
-            onOtherAttackListeners.Add(new Tuple<ICard, OtherAttackEventHandler>(card, callback));
         }
 
         public static void RegisterForEventHealed(ICard card, HealedEventHandler callback)
@@ -281,25 +269,10 @@ namespace CardGame.Model.Engine
             var card = attacker as ICard;
             if (card != null)
             {
-                var listener = onAttackListeners.Find(c => c.Item1.Id == card.Id);
-                listener.Item2(attacker, target, out abort);
-            }
-        }
+                var mainCard = onAttackListeners.Find(c => c.Item1.Id == card.Id);
+                var listeners = onAttackListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
+                listeners.Insert(0, mainCard);
 
-        public static void OnOtherAttack(IAttacker attacker, IDamageable target, out bool abort)
-        {
-            abort = false;
-
-            if (!onOtherAttackListeners.Any())
-            {
-                return;
-            }
-
-            var card = attacker as ICard;
-            if (card != null)
-            {
-                //order the list and check that the effect is not triggered on the attacking card
-                var listeners = onOtherAttackListeners.OrderBy(c => c.Item1.PlayOrder).Where(c=> c.Item1.Id != card.Id).ToList();
                 foreach (var listener in listeners)
                 {
                     listener.Item2(attacker, target, out abort);

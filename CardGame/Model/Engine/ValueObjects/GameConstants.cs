@@ -1,4 +1,4 @@
-﻿namespace CardGame.Model.Engine
+﻿namespace CardGame.Model.Engine.ValueObjects
 {
     public class GameConstants
     {

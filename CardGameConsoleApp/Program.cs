@@ -5,6 +5,7 @@ using CardGame.Controller;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
 using CardGame.Model.Engine;
+using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players;
 
 namespace CardGameConsoleApp
@@ -30,7 +31,7 @@ namespace CardGameConsoleApp
 
             //===Game Events===========================//
             var fullyQualifiedName = ConfigurationManager.AppSettings["TriggerNamespace"];
-            var className = "TriggersController";
+            const string className = "TriggersController";
 
             GameEventManager.RegisterForEventTurnStart(minions[0],
                 () =>
