@@ -3,7 +3,7 @@
   <Table Name="dbo.Card" Member="Cards">
     <Type Name="Card">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Cost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BaseCost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SubType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Attack" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />

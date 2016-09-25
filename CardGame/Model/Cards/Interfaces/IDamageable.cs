@@ -9,5 +9,6 @@
         bool IsDead { get; set; }
 
         void TakeDamage (int damage);
+        void GetHealed(int heal);
     }
 }

@@ -9,13 +9,15 @@ namespace CardGame.Model.Cards
     {
         private static int _id = 0;
 
-        protected Card(string name, int cost, IPlayer player, CardType type, CardSubType subType, List<CardTrigger> triggers)
+        protected Card(string name, int baseCost, IPlayer player, CardType type, CardSubType subType, List<CardTrigger> triggers)
         {
             _id++;
             Id = _id;
             Player = player;
             Name = name;
-            Cost = cost;
+            BaseCost = baseCost;
+            TemporaryCostBuff = 0;
+            PermanentCostBuff = 0;
             Type = type;
             SubType = subType;
 
@@ -28,11 +30,13 @@ namespace CardGame.Model.Cards
         public IPlayer Player { get; set; }
 
         public string Name { get; set; }
-        public int Cost { get; set; }
+        public int BaseCost { get; set; }
+        public int TemporaryCostBuff { get; set; }
+        public int PermanentCostBuff { get; set; }
+        public int CurrentCost => BaseCost + TemporaryCostBuff + PermanentCostBuff;
 
         public CardType Type { get; set; }
         public CardSubType SubType { get; set; }
-
         public List<CardTrigger> Triggers { get; set; }
     }
 }

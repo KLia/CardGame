@@ -64,7 +64,7 @@ namespace CardGame.Model.Engine
                 throw new InvalidOperationException("The card you're trying to play is not in your hand");
             }
 
-            if (player.Mana < card.Cost)
+            if (player.Mana < card.BaseCost)
             {
                 throw new InvalidOperationException("Not enough Mana");
             }
@@ -72,7 +72,7 @@ namespace CardGame.Model.Engine
             //move from hand to board, assign PlayOrder and decrease mana
             card.PlayOrder = _playOrder++;
             player.CardsInHand.Remove(card);
-            player.Mana -= card.Cost;
+            player.Mana -= card.BaseCost;
 
             //play events
             switch (card.Type)

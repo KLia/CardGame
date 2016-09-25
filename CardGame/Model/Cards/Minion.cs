@@ -18,13 +18,13 @@ namespace CardGame.Model.Cards
         {
         }
 
-        public Minion(string name, int cost, IPlayer player) : this(name, cost, player, 0, 0, CardSubType.None, null)
+        public Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(string name, int cost, IPlayer player, int attack, int baseHealth, CardSubType subType,
+        public Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType,
             List<CardTrigger> triggers) :
-            base(name, cost, player, CardType.Minion, subType, triggers)
+            base(name, baseCost, player, CardType.Minion, subType, triggers)
         {
             BaseAttack = attack;
             TemporaryAttackBuff = 0;
@@ -37,7 +37,7 @@ namespace CardGame.Model.Cards
             CurrentHealth = MaxHealth;
             IsDead = false;
 
-            CanAttack = false;
+            StatusEffects |= StatusEffect.Exhausted;
         }
 
         public int BaseAttack { get; set; }
@@ -52,8 +52,24 @@ namespace CardGame.Model.Cards
         public int CurrentHealth { get; set; }
         public bool IsDead { get; set; }
 
-        public bool CanAttack { get; set; }
+        public bool CanAttack => StatusEffects.HasFlag(StatusEffect.Exhausted);
+        private StatusEffect StatusEffects { get; set; }
 
+        public void ApplyStatusEffects(StatusEffect effects)
+        {
+            StatusEffects |= effects;
+        }
+
+        public void RemoveStatusEffects(StatusEffect effects)
+        {
+            StatusEffects = StatusEffects & ~effects;
+        }
+
+
+        /// <summary>
+        /// IAttacker AttackTarget
+        /// </summary>
+        /// <param name="target">The IDamageable entity that receives damage</param>
         public void AttackTarget(IDamageable target)
         {
             if (!CanAttack)
@@ -69,8 +85,18 @@ namespace CardGame.Model.Cards
             var abort = false;
             GameEventManager.OnAttack(this, target);
             GameEventManager.OnOtherAttack(this, target, out abort);
+
+            if (!abort)
+            {
+                //give damage equal to this minions attack
+                target.TakeDamage(CurrentAttack);
+            }
         }
 
+        /// <summary>
+        /// IDamageable TakeDamage
+        /// </summary>
+        /// <param name="damage">The damage given to this target</param>
         public void TakeDamage(int damage)
         {
             //Apply damage
@@ -92,6 +118,30 @@ namespace CardGame.Model.Cards
                 GameEventManager.UnregisterForEvents(this);
             }
         }
+        
+        /// <summary>
+        /// IDamageable GetHealed
+        /// </summary>
+        /// <param name="heal">The amount of health points to heal</param>
+        public void GetHealed(int heal)
+        {
+            if (CurrentHealth == MaxHealth)
+            {
+                //do nothing
+                return;
+            }
 
+            if (CurrentHealth + heal > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+            else
+            {
+                CurrentHealth += heal;
+            }
+
+            GameEventManager.Healed(this, heal);
+            GameEventManager.OtherHealed(this, heal);
+        }
     }
 }

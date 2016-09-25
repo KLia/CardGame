@@ -10,7 +10,10 @@ namespace CardGame.Model.Cards.Interfaces
         int PlayOrder { get; set; }
         IPlayer Player { get; set; }
         string Name { get; set; }
-        int Cost { get; set; }
+        int BaseCost { get; set; }
+        int CurrentCost { get; }
+        int TemporaryCostBuff { get; set; }
+        int PermanentCostBuff { get; set; }
         CardType Type { get; set; }
         CardSubType SubType { get; set; }
         List<CardTrigger> Triggers { get; set; }

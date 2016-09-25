@@ -11,8 +11,8 @@ namespace CardGame.Model.Cards
         {
         }
 
-        protected Spell(string name, int cost, IPlayer player, CardSubType subType, List<CardTrigger> triggers)
-            : base(name, cost, player, CardType.Spell, subType, triggers)
+        protected Spell(string name, int baseCost, IPlayer player, CardSubType subType, List<CardTrigger> triggers)
+            : base(name, baseCost, player, CardType.Spell, subType, triggers)
         {
         }
 

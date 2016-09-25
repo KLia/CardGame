@@ -102,12 +102,12 @@ namespace CardGame.Model.Engine
         public static OtherAttackEventHandler OtherAttack;
         internal static List<Tuple<ICard, OtherAttackEventHandler>> onOtherAttackListeners;
 
-        public delegate void HealedEventHandler();
+        public delegate void HealedEventHandler(IDamageable target, int heal);
 
         public static HealedEventHandler Healed;
         internal static List<Tuple<ICard, HealedEventHandler>> onHealedListeners;
 
-        public delegate void OtherHealedEventHandler();
+        public delegate void OtherHealedEventHandler(IDamageable target, int heal);
 
         public static OtherHealedEventHandler OtherHealed;
         internal static List<Tuple<ICard, OtherHealedEventHandler>> onOtherHealedListeners;
@@ -305,12 +305,38 @@ namespace CardGame.Model.Engine
             }
         }
 
-        public static void OnHealed()
+        public static void OnHealed(IDamageable target, int heal)
         {
+            if (!onHealedListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                var listener = onHealedListeners.Find(c => c.Item1.Id == card.Id);
+                listener.Item2(target, heal);
+            }
         }
 
-        public static void OnOtherHealed()
+        public static void OnOtherHealed(IDamageable target, int heal)
         {
+            if (!onOtherHealedListeners.Any())
+            {
+                return;
+            }
+
+            var card = target as ICard;
+            if (card != null)
+            {
+                //order the list and check that the trigger doesn't happen on the card getting hit
+                var listeners = onOtherHealedListeners.OrderBy(c => c.Item1.PlayOrder).Where(c => c.Item1.Id != card.Id).ToList();
+                foreach (var listener in listeners)
+                {
+                    listener.Item2(target, heal);
+                }
+            }
         }
 
         public static void OnGetHit(IDamageable target, int damage)

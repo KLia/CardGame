@@ -203,7 +203,7 @@ namespace CardGame.DBML
 					this.OnCostChanging(value);
 					this.SendPropertyChanging();
 					this._Cost = value;
-					this.SendPropertyChanged("Cost");
+					this.SendPropertyChanged("BaseCost");
 					this.OnCostChanged();
 				}
 			}

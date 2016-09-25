@@ -31,7 +31,7 @@ namespace CardGame.Controller
                     select new Minion()
                     {
                         Name = n.Name,
-                        Cost = c.Cost,
+                        BaseCost = c.Cost,
                         BaseAttack = c.Attack,
                         BaseHealth = c.Health,
                         Triggers = new List<CardTrigger>
@@ -74,7 +74,7 @@ namespace CardGame.Controller
             //        select new Spell()
             //        {
             //            Name = n.Name,
-            //            Cost = c.Cost
+            //            BaseCost = c.BaseCost
             //        });
 
             //    return spells.ToList();
