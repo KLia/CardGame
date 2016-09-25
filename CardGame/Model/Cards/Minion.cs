@@ -140,8 +140,8 @@ namespace CardGame.Model.Cards
                 CurrentHealth += heal;
             }
 
-            GameEventManager.Healed(this, heal);
-            GameEventManager.OtherHealed(this, heal);
+            GameEventManager.OnHealed(this, heal);
+            GameEventManager.OnOtherHealed(this, heal);
         }
     }
 }
