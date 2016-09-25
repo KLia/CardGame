@@ -35,13 +35,13 @@ namespace CardGame.Model.Engine
 
         public void StartTurn()
         {
-            GameEventManager.OnTurnStart();
+            GameEventManager.TurnStart();
         }
 
         public void EndTurn()
         {
             //trigger end turn events first
-            GameEventManager.OnTurnEnd();
+            GameEventManager.TurnEnd();
 
             //swap CurrentPlayer and increment turn number
             GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player ? GameState.Opponent : GameState.Player;
@@ -86,15 +86,15 @@ namespace CardGame.Model.Engine
             {
                 case CardType.Minion:
                     MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Board, boardPos);
-                    GameEventManager.OnCardPlayed(card);
-                    GameEventManager.OnOtherCardPlayed(card);
+                    GameEventManager.CardPlayed(card);
+                    GameEventManager.OtherCardPlayed(card);
                     break;
 
                 case CardType.Spell:
                     bool abort;
 
                     MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Graveyard);
-                    GameEventManager.OnSpellCast((Spell) card, target, out abort);
+                    GameEventManager.SpellCast((Spell) card, target, out abort);
 
                     if (!abort)
                     {
@@ -102,7 +102,7 @@ namespace CardGame.Model.Engine
 
                         if (target != null)
                         {
-                            GameEventManager.OnSpellTarget(target);
+                            GameEventManager.SpellTarget(target);
                         }
                     }
                     break;
