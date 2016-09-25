@@ -53,6 +53,10 @@ namespace CardGame.Model.Cards
         public bool IsDead { get; set; }
 
         public bool CanAttack => StatusEffects.HasFlag(StatusEffect.Exhausted);
+
+        /// <summary>
+        /// Add StatusEffects to this Minion
+        /// </summary>
         private StatusEffect StatusEffects { get; set; }
 
         public void ApplyStatusEffects(StatusEffect effects)
@@ -60,6 +64,9 @@ namespace CardGame.Model.Cards
             StatusEffects |= effects;
         }
 
+        /// <summary>
+        /// Remove StatusEffects from this Minion
+        /// </summary>
         public void RemoveStatusEffects(StatusEffect effects)
         {
             StatusEffects = StatusEffects & ~effects;
