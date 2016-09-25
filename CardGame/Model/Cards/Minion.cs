@@ -90,7 +90,7 @@ namespace CardGame.Model.Cards
             }
 
             var abort = false;
-            GameEventManager.OnAttack(this, target);
+            GameEventManager.OnAttack(this, target, out abort);
             GameEventManager.OnOtherAttack(this, target, out abort);
 
             if (!abort)

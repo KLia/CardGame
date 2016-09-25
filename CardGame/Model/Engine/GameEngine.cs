@@ -13,22 +13,22 @@ namespace CardGame.Model.Engine
         public static Random RngRandom { get; private set; }
         public IGameState GameState { get; }
 
-        public GameEngine(IGameBoard board, IPlayer player1, IPlayer player2, IPlayer currentPlayer, int seed = 1)
+        public GameEngine(IGameBoard board, IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
         {
             RngRandom = new Random(seed);
             GameEventManager.Initialize();
-            GameState = new GameState(board, player1, player2, currentPlayer);
+            GameState = new GameState(board, player, opponent, currentPlayer);
         }
 
-        public void StartGame()
+        public void StartGame(IPlayer player1, IPlayer player2)
         {
             //shuffle players' decks
-            GameState.Player1.Deck.Shuffle();
-            GameState.Player2.Deck.Shuffle();
+            player1.Deck.Shuffle();
+            player2.Deck.Shuffle();
 
             //draw cards
-            GameState.Player1.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
-            GameState.Player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
+            player1.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
+            player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
         }
 
         public void StartTurn()
@@ -41,8 +41,8 @@ namespace CardGame.Model.Engine
             //trigger end turn events first
             GameEventManager.OnTurnEnd();
 
-            //finally swap CurrentPlayer and increment turn number
-            GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
+            //swap CurrentPlayer and increment turn number
+            GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player ? GameState.Opponent : GameState.Player;
             GameState.Turn++;
         }
 
@@ -78,7 +78,7 @@ namespace CardGame.Model.Engine
             switch (card.Type)
             {
                 case CardType.Minion:
-                    var playerHand = GameState.CurrentPlayer == GameState.Player1
+                    var playerHand = GameState.CurrentPlayer == GameState.Player
                         ? GameState.Board.Player1PlayZone
                         : GameState.Board.Player2PlayZone;
 

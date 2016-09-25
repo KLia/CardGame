@@ -92,7 +92,7 @@ namespace CardGame.Model.Engine
         public static CardDrawnHandler CardDrawn;
         internal static List<Tuple<ICard, CardDrawnHandler>> onCardDrawnListeners;
 
-        public delegate void AttackEventHandler(IAttacker attacker, IDamageable target);
+        public delegate void AttackEventHandler(IAttacker attacker, IDamageable target, out bool abort);
 
         public static AttackEventHandler Attack;
         internal static List<Tuple<ICard, AttackEventHandler>> onAttackListeners;
@@ -269,8 +269,10 @@ namespace CardGame.Model.Engine
             listener?.Item2(card);
         }
 
-        public static void OnAttack(IAttacker attacker, IDamageable target)
+        public static void OnAttack(IAttacker attacker, IDamageable target, out bool abort)
         {
+            abort = false;
+
             if (!onAttackListeners.Any())
             {
                 return;
@@ -280,7 +282,7 @@ namespace CardGame.Model.Engine
             if (card != null)
             {
                 var listener = onAttackListeners.Find(c => c.Item1.Id == card.Id);
-                listener.Item2(attacker, target);
+                listener.Item2(attacker, target, out abort);
             }
         }
 
