@@ -2,7 +2,7 @@
 {
     public class GameConstants
     {
-        public static int MAX_CARDS_ON_BOARD = 7;
+        public static int MAX_CARDS_IN_PLAY = 7;
         public static int MAX_CARDS_IN_HAND = 10;
         public static int MAX_CARDS_IN_DECK = 30;
 

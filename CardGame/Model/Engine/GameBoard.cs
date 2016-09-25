@@ -8,9 +8,9 @@ namespace CardGame.Model.Engine
     {
         public GameBoard()
         {
-            Player1PlayZone = new List<ICard>(GameConstants.MAX_CARDS_ON_BOARD);
+            Player1PlayZone = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
 
-            Player2PlayZone = new List<ICard>(GameConstants.MAX_CARDS_ON_BOARD);
+            Player2PlayZone = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
         }
 
         public List<ICard> Player1PlayZone { get; set; }

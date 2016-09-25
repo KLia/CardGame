@@ -13,11 +13,11 @@ namespace CardGame.Model.Engine
         public static Random RngRandom { get; private set; }
         public IGameState GameState { get; }
 
-        public GameEngine(IGameBoard board, IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
+        public GameEngine(IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
         {
             RngRandom = new Random(seed);
             GameEventManager.Initialize();
-            GameState = new GameState(board, player, opponent, currentPlayer);
+            GameState = new GameState(player, opponent, currentPlayer);
         }
 
         public void StartGame(IPlayer player1, IPlayer player2)
@@ -69,6 +69,12 @@ namespace CardGame.Model.Engine
                 throw new InvalidOperationException("Not enough Mana");
             }
 
+            if (player.CardsInPlay.Count == GameConstants.MAX_CARDS_IN_PLAY)
+            {
+                throw new InvalidOperationException(
+                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
+            }
+
             //move from hand to board, assign PlayOrder and decrease mana
             card.PlayOrder = _playOrder++;
             player.CardsInHand.Remove(card);
@@ -78,11 +84,7 @@ namespace CardGame.Model.Engine
             switch (card.Type)
             {
                 case CardType.Minion:
-                    var playerHand = GameState.CurrentPlayer == GameState.Player
-                        ? GameState.Board.Player1PlayZone
-                        : GameState.Board.Player2PlayZone;
-
-                    playerHand.Insert(boardPos, card);
+                    player.CardsInPlay.Insert(boardPos, card);
                     GameEventManager.OnCardPlayed(card);
                     GameEventManager.OnOtherCardPlayed(card);
                     break;

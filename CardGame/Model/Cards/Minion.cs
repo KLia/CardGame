@@ -116,16 +116,22 @@ namespace CardGame.Model.Cards
             //Check for Death
             if (CurrentHealth <= 0)
             {
-                IsDead = true;
-                //OnDeath events
-                GameEventManager.OnDeath(this);
-                GameEventManager.OnOtherDeath(this);
-
-                //Unregister GameEvents
-                GameEventManager.UnregisterForEvents(this);
+                Kill();
             }
         }
-        
+
+        private void Kill()
+        {
+            IsDead = true;
+            //OnDeath events
+            GameEventManager.OnDeath(this);
+            GameEventManager.OnOtherDeath(this);
+
+            //Unregister GameEvents
+            GameEventManager.UnregisterForEvents(this);
+        }
+
+
         /// <summary>
         /// IDamageable GetHealed
         /// </summary>

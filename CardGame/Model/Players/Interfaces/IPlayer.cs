@@ -11,6 +11,8 @@ namespace CardGame.Model.Players.Interfaces
         int Mana { get; set; }
         IDeck Deck { get; set; }
         List<ICard> CardsInHand { get; set; }
+        List<ICard> CardsInPlay { get; set; }
+        List<ICard> CardsInGraveyard { get; set; }
         ICard DrawCard(bool isMulligan = false);
         List<ICard> DrawCards(int count, bool isMulligan = false);
     }

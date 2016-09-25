@@ -20,7 +20,7 @@ namespace CardGameConsoleApp
             var p1 = new Player(1, "P1", GameConstants.STARTING_MANA, deck1);
             var p2 = new Player(2, "P2", GameConstants.STARTING_MANA, deck2);
 
-            var gameEngine = new GameEngine(null, p1, p2, p1);
+            var gameEngine = new GameEngine(p1, p2, p1);
             //=========================================//
 
             foreach (var m in minions)
