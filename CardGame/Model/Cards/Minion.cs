@@ -171,7 +171,12 @@ namespace CardGame.Model.Cards
             }
         }
 
-        private void Die()
+        /// <summary>
+        /// IDamageable Die
+        /// The minion dies when health reaches 0.
+        /// Trigger Death events, unregister all the events associated with it and move the card to the graveyard
+        /// </summary>
+        public void Die()
         {
             IsDead = true;
             CurrentHealth = 0;
