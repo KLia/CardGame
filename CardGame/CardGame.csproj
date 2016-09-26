@@ -43,14 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\CardController.cs" />
-    <Compile Include="Controller\DeckController.cs" />
-    <Compile Include="Controller\TriggersController.cs" />
-    <Compile Include="DBML\Card.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Card.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Model\Cards\Card.cs" />
     <Compile Include="Model\Cards\Interfaces\IAttacker.cs" />
     <Compile Include="Model\Cards\Interfaces\ICard.cs" />
@@ -65,7 +57,6 @@
     <Compile Include="Model\Cards\ValueObjects\TriggerType.cs" />
     <Compile Include="Model\Decks\Deck.cs" />
     <Compile Include="Model\Decks\IDeck.cs" />
-    <Compile Include="Model\Engine\DelegateFactory.cs" />
     <Compile Include="Model\Engine\GameBoard.cs" />
     <Compile Include="Model\Engine\GameBoardZone.cs" />
     <Compile Include="Model\Engine\ValueObjects\GameConstants.cs" />
@@ -87,11 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DBML\Card.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Card.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
@@ -99,11 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DBML\Card.dbml.layout">
-      <DependentUpon>Card.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

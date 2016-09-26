@@ -51,7 +51,7 @@ namespace CardGame.Model.Decks
 
         public ICard DrawCard()
         {
-            if (_topDeckIndex < 0)
+            if (_topDeckIndex <= 0)
             {
                 throw new Exception("Cannot draw anymore cards. Deck is empty");
             }

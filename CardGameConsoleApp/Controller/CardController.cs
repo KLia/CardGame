@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CardGame.DBML;
 using CardGame.Model.Cards;
 using CardGame.Model.Cards.ValueObjects;
+using CardGameConsoleApp.DBML;
 using CardTrigger = CardGame.Model.Cards.ValueObjects.CardTrigger;
 
-namespace CardGame.Controller
+namespace CardGameConsoleApp.Controller
 {
     public class CardController
     {
@@ -20,21 +20,21 @@ namespace CardGame.Controller
             return _cardController ?? (_cardController = new CardController());
         }
 
-        public IList<Minion> GetAllMinionsList(int languageId)
+        public IList<SampleMinion> GetAllMinionsList(int languageId)
         {
             using (var context = new CardDataContext())
             {
                 var minions = from c in context.Cards
-                    join n in context.CardNames on c.Id equals n.CardId
-                    where c.Type == (int) CardType.Minion
-                          && n.LanguageId == languageId
-                    select new Minion()
-                    {
-                        Name = n.Name,
-                        BaseCost = c.Cost,
-                        BaseAttack = c.Attack,
-                        BaseHealth = c.Health,
-                        Triggers = new List<CardTrigger>
+                              join n in context.CardNames on c.Id equals n.CardId
+                              where c.Type == (int)CardType.Minion
+                                    && n.LanguageId == languageId
+                              select new SampleMinion()
+                              {
+                                  Name = n.Name,
+                                  BaseCost = c.Cost,
+                                  BaseAttack = c.Attack,
+                                  BaseHealth = c.Health,
+                                  Triggers = new List<CardTrigger>
                         {
                             new CardTrigger
                             {
@@ -56,8 +56,8 @@ namespace CardGame.Controller
                                 }
                             }
                         }
-                    };
-                                 
+                              };
+
 
                 return minions.ToList();
             }

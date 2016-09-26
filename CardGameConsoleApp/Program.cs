@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using CardGame.Controller;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players;
+using CardGameConsoleApp.Controller;
+using CardGameConsoleApp.Delegates;
 
 namespace CardGameConsoleApp
 {
@@ -18,10 +19,12 @@ namespace CardGameConsoleApp
             var minions = CardController.GetInstance().GetAllMinionsList(1);
             var deck1 = new Deck(new List<ICard>(minions));
             var deck2 = new Deck(new List<ICard>(minions));
-            var p1 = new Player(1, "P1", GameConstants.STARTING_MANA, deck1);
-            var p2 = new Player(2, "P2", GameConstants.STARTING_MANA, deck2);
+            var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);
+            var p2 = new Player(2, "P2", /*GameConstants.STARTING_MANA*/10, deck2);
 
-            var gameEngine = new GameEngine(p1, p2, p1);
+            GameEngine.Initialize(p1, p2, p1);
+            p1.CardsInHand.Add(minions[0]);
+            p2.CardsInHand.Add(minions[1]);
             //=========================================//
 
             foreach (var m in minions)
@@ -55,6 +58,8 @@ namespace CardGameConsoleApp
                         new object[] {card, 1}));
             //=========================================//
 
+            p1.PlayCard(minions[0], 0);
+            p2.PlayCard(minions[1], 0);
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
             minions[0].TakeDamage(2);
@@ -63,13 +68,20 @@ namespace CardGameConsoleApp
             minions[0].CurrentHealth += 2;
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
-            gameEngine.StartTurn();
+            GameEngine.StartTurn();
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
-            gameEngine.EndTurn();
+            GameEngine.EndTurn();
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
-            p1.DrawCards(2);
+            try
+            {
+                p1.DrawCards(2);
+            }
+            catch
+            {
+                
+            }
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
             

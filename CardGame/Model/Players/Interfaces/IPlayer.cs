@@ -16,5 +16,6 @@ namespace CardGame.Model.Players.Interfaces
         List<ICard> CardsInGraveyard { get; set; }
         ICard DrawCard(bool isMulligan = false);
         List<ICard> DrawCards(int count, bool isMulligan = false);
+        void PlayCard(ICard card, int boardPos, IDamageable target = null);
     }
 }

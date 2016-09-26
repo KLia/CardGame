@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace CardGame.Model.Engine
+namespace CardGameConsoleApp.Delegates
 {
     public static class DelegateFactory
     {

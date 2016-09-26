@@ -8,7 +8,7 @@ namespace CardGame.Model.Cards.Interfaces
     {
         int Id { get; }
         int PlayOrder { get; set; }
-        IPlayer Player { get; set; }
+        IPlayer PlayerOwner { get; set; }
         string Name { get; set; }
         int BaseCost { get; set; }
         int CurrentCost { get; }

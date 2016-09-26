@@ -7,22 +7,22 @@ using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
-    public class Minion : Card, IAttacker, IDamageable
+    public abstract class Minion : Card, IAttacker, IDamageable
     {
-        public Minion() : this("", 0, null, 0, 0, CardSubType.None, null)
+        protected Minion() : this("", 0, null, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(IPlayer player, List<CardTrigger> triggers)
+        protected Minion(IPlayer player, List<CardTrigger> triggers)
             : this("", 0, player, 0, 0, CardSubType.None, triggers)
         {
         }
 
-        public Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None, null)
+        protected Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None, null)
         {
         }
 
-        public Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType,
+        protected Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType,
             List<CardTrigger> triggers) :
             base(name, baseCost, player, CardType.Minion, subType, triggers)
         {
@@ -53,6 +53,11 @@ namespace CardGame.Model.Cards
         public bool IsDead { get; set; }
 
         public bool CanAttack => StatusEffects.HasFlag(StatusEffect.Exhausted);
+
+        /// <summary>
+        /// Attach all the event triggers associated with this card
+        /// </summary>
+        public abstract void AttachEvents();
 
         /// <summary>
         /// Add StatusEffects to this Minion
@@ -121,6 +126,8 @@ namespace CardGame.Model.Cards
         private void Kill()
         {
             IsDead = true;
+            CurrentHealth = 0;
+
             //OnDeath events
             GameEventManager.Death(this);
 
@@ -128,7 +135,7 @@ namespace CardGame.Model.Cards
             GameEventManager.UnregisterForEvents(this);
 
             //move to graveyard
-            //todo - move to graveyard
+            GameEngine.MoveCard(this, PlayerOwner, GameBoardZone.Board, PlayerOwner, GameBoardZone.Graveyard);
         }
 
 

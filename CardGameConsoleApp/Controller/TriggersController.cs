@@ -1,6 +1,6 @@
 using CardGame.Model.Cards.Interfaces;
 
-namespace CardGame.Controller
+namespace CardGameConsoleApp.Controller
 {
     public static class TriggersController
     {

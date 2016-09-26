@@ -1,4 +1,4 @@
-﻿namespace CardGame.Controller
+﻿namespace CardGameConsoleApp.Controller
 {
     public class DeckController
     {

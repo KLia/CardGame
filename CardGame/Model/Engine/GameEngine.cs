@@ -11,18 +11,17 @@ namespace CardGame.Model.Engine
 {
     public class GameEngine : IGameEngine
     {
-        private static int _playOrder = 0;
         public static Random RngRandom { get; private set; }
-        public IGameState GameState { get; }
+        public static  IGameState GameState { get; private set; }
 
-        public GameEngine(IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
+        public static void Initialize(IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
         {
             RngRandom = new Random(seed);
             GameEventManager.Initialize();
             GameState = new GameState(player, opponent, currentPlayer);
         }
 
-        public void StartGame(IPlayer player1, IPlayer player2)
+        public static void StartGame(IPlayer player1, IPlayer player2)
         {
             //shuffle players' decks
             player1.Deck.Shuffle();
@@ -33,7 +32,7 @@ namespace CardGame.Model.Engine
             player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
         }
 
-        public void StartTurn()
+        public static void StartTurn()
         {
             var currentPlayer = GameState.CurrentPlayer;
             GameEventManager.TurnStart(currentPlayer);
@@ -41,7 +40,7 @@ namespace CardGame.Model.Engine
             currentPlayer.DrawCard();
         }
 
-        public void EndTurn()
+        public static void EndTurn()
         {
             //trigger end turn events first
             GameEventManager.TurnEnd(GameState.CurrentPlayer);
@@ -57,64 +56,18 @@ namespace CardGame.Model.Engine
         /// <param name="player">The player playing the card</param>
         /// <param name="card">The card being played</param>
         /// <param name="boardPos">The new position on the board where the card is dropped</param>
-        public void PlayCard(IPlayer player, ICard card, int boardPos, IDamageable target = null)
+        /// <param name="target">The target card</param>
+        public static void PlayCard(IPlayer player, ICard card, int boardPos, IDamageable target = null)
         {
             if (GameState.CurrentPlayer != player)
             {
                 throw new InvalidOperationException("It is not currently your turn");
             }
 
-            if (!player.CardsInHand.Contains(card))
-            {
-                throw new InvalidOperationException("The card you're trying to play is not in your hand");
-            }
-
-            if (player.Mana < card.CurrentCost)
-            {
-                throw new InvalidOperationException("Not enough Mana");
-            }
-
-            if (player.CardsInPlay.Count == GameConstants.MAX_CARDS_IN_PLAY)
-            {
-                throw new InvalidOperationException(
-                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
-            }
-
-            //move from hand to board, assign PlayOrder and decrease mana
-            card.PlayOrder = _playOrder++;
-            player.Mana -= card.CurrentCost;
-
-            //play events
-            switch (card.Type)
-            {
-                case CardType.Minion:
-                    MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Board, boardPos);
-                    GameEventManager.CardPlayed(card);
-                    break;
-
-                case CardType.Spell:
-                    bool abort;
-
-                    MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Graveyard);
-                    GameEventManager.SpellCast((Spell) card, target, out abort);
-
-                    if (!abort)
-                    {
-                        ((Spell) card).Cast(target);
-
-                        if (target != null)
-                        {
-                            GameEventManager.SpellTarget(target);
-                        }
-                    }
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            player.PlayCard(card, boardPos, target);
         }
 
-        public void MoveCard(ICard card, IPlayer sourcePlayer, GameBoardZone sourceZone, IPlayer destPlayer, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)
+        public static void MoveCard(ICard card, IPlayer sourcePlayer, GameBoardZone sourceZone, IPlayer destPlayer, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)
         {
             var source  = sourceZone.GetPlayerBoardZone(sourcePlayer);
             var dest = destZone.GetPlayerBoardZone(destPlayer);
