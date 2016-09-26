@@ -40,9 +40,41 @@ namespace CardGame.Model.Cards
             StatusEffects |= StatusEffect.Exhausted;
         }
 
+        private int _tempHealthBuff = 0;
+        private int _permHealthBuff = 0;
+
         public int BaseAttack { get; set; }
-        public int TemporaryAttackBuff { get; set; }
-        public int PermanentAttackBuff { get; set; }
+
+        public int TemporaryAttackBuff
+        {
+            get { return _tempHealthBuff; }
+            set
+            {
+                if (value == 0)
+                {
+                    value = -_tempHealthBuff;
+                }
+
+                _tempHealthBuff = value;
+                ApplyHealthBuff(value);
+            }
+        }
+
+        public int PermanentAttackBuff
+        {
+            get { return _permHealthBuff; }
+            set
+            {
+                if (value == 0)
+                {
+                    value = -_permHealthBuff;
+                }
+
+                _permHealthBuff = value;
+                ApplyHealthBuff(value);
+            }
+        }
+
         public int CurrentAttack => Math.Min(0, BaseAttack + TemporaryAttackBuff + PermanentAttackBuff);
 
         public int BaseHealth { get; set; }
@@ -77,6 +109,22 @@ namespace CardGame.Model.Cards
             StatusEffects = StatusEffects & ~effects;
         }
 
+
+        /// <summary>
+        /// Takes effect whenever a Minion receives a health buff to adjust health values
+        /// </summary>
+        /// <param name="buff">The buff amount</param>
+        private void ApplyHealthBuff(int buff)
+        {
+            MaxHealth += buff;
+            CurrentHealth = CurrentHealth + buff;
+
+            //just in case the minion dies when the buffs wear off
+            if (CurrentHealth <= 0)
+            {
+                Die();
+            }
+        }
 
         /// <summary>
         /// IAttacker AttackTarget
@@ -119,11 +167,11 @@ namespace CardGame.Model.Cards
             //Check for Death
             if (CurrentHealth <= 0)
             {
-                Kill();
+                Die();
             }
         }
 
-        private void Kill()
+        private void Die()
         {
             IsDead = true;
             CurrentHealth = 0;
