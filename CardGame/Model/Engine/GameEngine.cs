@@ -37,6 +37,8 @@ namespace CardGame.Model.Engine
         {
             var currentPlayer = GameState.CurrentPlayer;
             GameEventManager.TurnStart(currentPlayer);
+
+            currentPlayer.DrawCard();
         }
 
         public void EndTurn()
