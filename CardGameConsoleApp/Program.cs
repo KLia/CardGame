@@ -34,19 +34,19 @@ namespace CardGameConsoleApp
             const string className = "TriggersController";
 
             GameEventManager.RegisterForEventTurnStart(minions[0],
-                () =>
+                (player) =>
                     DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {minions[0], 2}));
 
             GameEventManager.RegisterForEventDeath(minions[0], (target) => { Console.WriteLine($"------------- {((ICard)target).Id} is DEAD"); });
 
             GameEventManager.RegisterForEventTurnStart(minions[1],
-                () =>
+                (player) =>
                     DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {minions[1], 5}));
 
             GameEventManager.RegisterForEventTurnEnd(minions[0],
-                () =>
+                (player) =>
                     DelegateFactory.RunMethod(fullyQualifiedName, className, "DealDamage",
                         new object[] {minions[0], 12}));
             GameEventManager.RegisterForEventCardDrawn(minions[1],

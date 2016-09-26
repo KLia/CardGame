@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardGame.Model.Cards;
 using CardGame.Model.Cards.Interfaces;
+using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Engine
 {
@@ -57,12 +58,12 @@ namespace CardGame.Model.Engine
 
 
         //Event Handlers
-        public delegate void TurnStartHandler();
+        public delegate void TurnStartHandler(IPlayer player);
 
         public static TurnStartHandler TurnStart;
         internal static List<Tuple<ICard, TurnStartHandler>> onTurnStartListeners;
 
-        public delegate void TurnEndHandler();
+        public delegate void TurnEndHandler(IPlayer player);
 
         public static TurnEndHandler TurnEnd;
         internal static List<Tuple<ICard, TurnEndHandler>> onTurnEndListeners;
@@ -162,7 +163,7 @@ namespace CardGame.Model.Engine
 
 
         //Trigger the event handlers
-        public static void OnTurnStart()
+        public static void OnTurnStart(IPlayer player)
         {
             if (!onTurnStartListeners.Any())
             {
@@ -172,11 +173,11 @@ namespace CardGame.Model.Engine
             var listeners = onTurnStartListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
             foreach (var listener in listeners.Select(c => c.Item2))
             {
-                listener();
+                listener(player);
             }
         }
 
-        public static void OnTurnEnd()
+        public static void OnTurnEnd(IPlayer player)
         {
             if (!onTurnEndListeners.Any())
             {
@@ -186,7 +187,7 @@ namespace CardGame.Model.Engine
             var listeners = onTurnEndListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
             foreach (var listener in listeners.Select(c => c.Item2))
             {
-                listener();
+                listener(player);
             }
         }
 

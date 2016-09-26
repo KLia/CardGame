@@ -35,13 +35,14 @@ namespace CardGame.Model.Engine
 
         public void StartTurn()
         {
-            GameEventManager.TurnStart();
+            var currentPlayer = GameState.CurrentPlayer;
+            GameEventManager.TurnStart(currentPlayer);
         }
 
         public void EndTurn()
         {
             //trigger end turn events first
-            GameEventManager.TurnEnd();
+            GameEventManager.TurnEnd(GameState.CurrentPlayer);
 
             //swap CurrentPlayer and increment turn number
             GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player ? GameState.Opponent : GameState.Player;
