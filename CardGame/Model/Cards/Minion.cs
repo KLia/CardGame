@@ -90,7 +90,7 @@ namespace CardGame.Model.Cards
             }
 
             var abort = false;
-            GameEventManager.OnAttack(this, target, out abort);
+            GameEventManager.Attack(this, target, out abort);
 
             if (!abort)
             {
@@ -109,8 +109,7 @@ namespace CardGame.Model.Cards
             CurrentHealth -= damage;
 
             //OnGetHit events
-            GameEventManager.OnGetHit(this, damage);
-            GameEventManager.OnOtherGetHit(this, damage);
+            GameEventManager.GetHit(this, damage);
 
             //Check for Death
             if (CurrentHealth <= 0)
@@ -123,14 +122,13 @@ namespace CardGame.Model.Cards
         {
             IsDead = true;
             //OnDeath events
-            GameEventManager.OnDeath(this);
-            GameEventManager.OnOtherDeath(this);
+            GameEventManager.Death(this);
 
             //Unregister GameEvents
             GameEventManager.UnregisterForEvents(this);
 
             //move to graveyard
-
+            //todo - move to graveyard
         }
 
 
@@ -155,8 +153,7 @@ namespace CardGame.Model.Cards
                 CurrentHealth += heal;
             }
 
-            GameEventManager.OnHealed(this, heal);
-            GameEventManager.OnOtherHealed(this, heal);
+            GameEventManager.Healed(this, heal);
         }
     }
 }

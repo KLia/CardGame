@@ -87,7 +87,6 @@ namespace CardGame.Model.Engine
                 case CardType.Minion:
                     MoveCard(card, player, GameBoardZone.Hand, player, GameBoardZone.Board, boardPos);
                     GameEventManager.CardPlayed(card);
-                    GameEventManager.OtherCardPlayed(card);
                     break;
 
                 case CardType.Spell:
