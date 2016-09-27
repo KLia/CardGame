@@ -16,6 +16,5 @@ namespace CardGame.Model.Cards.Interfaces
         int PermanentCostBuff { get; set; }
         CardType Type { get; set; }
         CardSubType SubType { get; set; }
-        List<CardTrigger> Triggers { get; set; }
     }
 }

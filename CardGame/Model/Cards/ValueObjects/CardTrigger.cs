@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using CardGame.Model.Engine;
 
 namespace CardGame.Model.Cards.ValueObjects
 {
     public class CardTrigger
     {
         public TriggerType Type { get; set; }
-        public string MethodClass { get; set; }
-        public string MethodName { get; set; }
-        public List<TriggerMethodParam> MethodParams { get; set; }
     }
 }

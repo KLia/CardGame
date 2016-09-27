@@ -9,22 +9,21 @@ namespace CardGame.Model.Cards
 {
     public abstract class Minion : Card, IAttacker, IDamageable
     {
-        protected Minion() : this("", 0, null, 0, 0, CardSubType.None, null)
+        protected Minion() : this("", 0, null, 0, 0, CardSubType.None)
         {
         }
 
-        protected Minion(IPlayer player, List<CardTrigger> triggers)
-            : this("", 0, player, 0, 0, CardSubType.None, triggers)
+        protected Minion(IPlayer player)
+            : this("", 0, player, 0, 0, CardSubType.None)
         {
         }
 
-        protected Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None, null)
+        protected Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None)
         {
         }
 
-        protected Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType,
-            List<CardTrigger> triggers) :
-            base(name, baseCost, player, CardType.Minion, subType, triggers)
+        protected Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType) :
+            base(name, baseCost, player, CardType.Minion, subType)
         {
             BaseAttack = attack;
             TemporaryAttackBuff = 0;

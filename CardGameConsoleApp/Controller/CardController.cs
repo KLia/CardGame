@@ -33,29 +33,7 @@ namespace CardGameConsoleApp.Controller
                                   Name = n.Name,
                                   BaseCost = c.Cost,
                                   BaseAttack = c.Attack,
-                                  BaseHealth = c.Health,
-                                  Triggers = new List<CardTrigger>
-                        {
-                            new CardTrigger
-                            {
-                                Type = TriggerType.OnTurnStart,
-                                MethodName = "DealDamage",
-                                MethodClass = "Triggers",
-                                MethodParams = new List<TriggerMethodParam>
-                                {
-                                    new TriggerMethodParam
-                                    {
-                                        ParamName = "target",
-                                        ParamValue = null
-                                    },
-                                    new TriggerMethodParam
-                                    {
-                                        ParamName = "damage",
-                                        ParamValue = "2"
-                                    }
-                                }
-                            }
-                        }
+                                  BaseHealth = c.Health
                               };
 
 

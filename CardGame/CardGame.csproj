@@ -53,7 +53,6 @@
     <Compile Include="Model\Cards\ValueObjects\CardTrigger.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardType.cs" />
     <Compile Include="Model\Cards\ValueObjects\StatusEffect.cs" />
-    <Compile Include="Model\Cards\ValueObjects\TriggerMethodParam.cs" />
     <Compile Include="Model\Cards\ValueObjects\TriggerType.cs" />
     <Compile Include="Model\Decks\Deck.cs" />
     <Compile Include="Model\Decks\IDeck.cs" />
