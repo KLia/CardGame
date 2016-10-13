@@ -14,22 +14,29 @@ namespace CardGame.Model.Engine
         public static Random RngRandom { get; private set; }
         public static  IGameState GameState { get; private set; }
 
-        public static void Initialize(IPlayer player, IPlayer opponent, IPlayer currentPlayer, int seed = 1)
+        public static void Initialize(IPlayer player, IPlayer opponent, IGameState state, int seed = 1)
         {
             RngRandom = new Random(seed);
             GameEventManager.Initialize();
-            GameState = new GameState(player, opponent, currentPlayer);
+            GameState = state;
         }
 
-        public static void StartGame(IPlayer player1, IPlayer player2)
+        public static void Uninitialize()
+        {
+            RngRandom = null;
+            GameEventManager.Uninitialize();
+            GameState = null;
+        }
+
+        public static void StartGame(IPlayer player1, IPlayer player2, int cardsToDraw)
         {
             //shuffle players' decks
             player1.Deck.Shuffle();
             player2.Deck.Shuffle();
 
             //draw cards
-            player1.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
-            player2.DrawCards(GameConstants.DRAW_CARDS_AT_GAME_START, true);
+            player1.DrawCards(cardsToDraw, true);
+            player2.DrawCards(cardsToDraw, true);
         }
 
         public static void StartTurn()

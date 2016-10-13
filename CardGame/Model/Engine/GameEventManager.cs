@@ -42,6 +42,39 @@ namespace CardGame.Model.Engine
             onSpellTargetListeners = new List<Tuple<ICard, SpellTargetHandler>>();
         }
 
+        public static void Uninitialize()
+        {
+            TurnStart -= OnTurnStart;
+            onTurnStartListeners = null;
+
+            TurnEnd -= OnTurnEnd;
+            onTurnEndListeners = null;
+
+            CardDrawn -= OnCardDrawn;
+            onCardDrawnListeners = null;
+
+            Attack -= OnAttack;
+            onAttackListeners = null;
+
+            Healed -= OnHealed;
+            onHealedListeners = null;
+
+            GetHit -= OnGetHit;
+            onGetHitListeners = null;
+
+            Death -= OnDeath;
+            onDeathEventListeners = null;
+
+            CardPlayed -= OnCardPlayed;
+            onCardPlayedListeners = null;
+
+            SpellCast -= OnSpellCast;
+            onSpellCastListeners = null;
+
+            SpellTarget -= OnSpellTarget;
+            onSpellTargetListeners = null;
+        }
+
         public static void UnregisterForEvents(ICard card)
         {
             onTurnStartListeners.RemoveAll(c => c.Item1.Id == card.Id);

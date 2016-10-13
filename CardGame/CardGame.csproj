@@ -11,7 +11,8 @@
     <AssemblyName>CardGame</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -65,7 +68,6 @@
     <Compile Include="Model\Engine\Interfaces\IGameBoard.cs" />
     <Compile Include="Model\Engine\Interfaces\IGameEngine.cs" />
     <Compile Include="Model\Engine\Interfaces\IGameState.cs" />
-    <Compile Include="Model\Engine\ValueObjects\Zone.cs" />
     <Compile Include="Model\Players\Interfaces\IPlayer.cs" />
     <Compile Include="Model\Players\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

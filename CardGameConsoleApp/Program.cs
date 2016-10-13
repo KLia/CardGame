@@ -22,7 +22,7 @@ namespace CardGameConsoleApp
             var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);
             var p2 = new Player(2, "P2", /*GameConstants.STARTING_MANA*/10, deck2);
 
-            GameEngine.Initialize(p1, p2, p1);
+            GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1));
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
             //=========================================//

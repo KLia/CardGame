@@ -50,7 +50,7 @@ namespace CardGameTests.Model.Engine
         [Test]
         public void OnStartTurn_CardHasNoTriggers_NothingHappens()
         {
-            //Assign
+            //Arrange
 
             //Act
             GameEventManager.OnTurnStart(_player1.Object);
@@ -62,7 +62,7 @@ namespace CardGameTests.Model.Engine
         [Test]
         public void OnStartTurn_CardHasOnStartTurnTrigger_TriggerFires()
         {
-            //Assign
+            //Arrange
             var value = false;
             GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => TestTrigger(out value));
 
@@ -78,7 +78,7 @@ namespace CardGameTests.Model.Engine
         [Test]
         public void OnStartTurn_CardHasBothOnStartTurnTriggerAndOnStartEndTrigger_OnlyValue1IsTrue()
         {
-            //Assign
+            //Arrange
             var value1 = false;
             var value2 = false;
             GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => TestTrigger(out value1));
@@ -93,6 +93,5 @@ namespace CardGameTests.Model.Engine
 
             UnregisterTriggers();
         }
-
     }
 }
