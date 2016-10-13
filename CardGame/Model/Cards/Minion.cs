@@ -91,7 +91,10 @@ namespace CardGame.Model.Cards
         /// <summary>
         /// Attach all the event triggers associated with this card
         /// </summary>
-        public abstract void AttachEvents();
+        public void AttachEvents()
+        {
+            //will be overridden by the inheriting minions
+        }
 
         /// <summary>
         /// Add StatusEffects to this Minion
