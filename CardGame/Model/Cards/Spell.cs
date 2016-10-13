@@ -1,19 +1,13 @@
-﻿using System.Collections.Generic;
-using CardGame.Model.Cards.Interfaces;
+﻿using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
-using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
-    public abstract class Spell : Card
+    public abstract class Spell : Card, ISpell
     {
-        protected Spell() : this("", 0, null, CardSubType.None)
+        protected Spell()
         {
-        }
-
-        protected Spell(string name, int baseCost, IPlayer player, CardSubType subType)
-            : base(name, baseCost, player, CardType.Spell, subType)
-        {
+            Type = CardType.Spell;
         }
 
         public abstract void Cast(IDamageable target = null);

@@ -7,33 +7,17 @@ using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
-    public abstract class Minion : Card, IAttacker, IDamageable
+    public abstract class Minion : Card, IMinion, IAttacker, IDamageable
     {
-        protected Minion() : this("", 0, null, 0, 0, CardSubType.None)
+        protected Minion()
         {
-        }
-
-        protected Minion(IPlayer player)
-            : this("", 0, player, 0, 0, CardSubType.None)
-        {
-        }
-
-        protected Minion(string name, int baseCost, IPlayer player) : this(name, baseCost, player, 0, 0, CardSubType.None)
-        {
-        }
-
-        protected Minion(string name, int baseCost, IPlayer player, int attack, int baseHealth, CardSubType subType) :
-            base(name, baseCost, player, CardType.Minion, subType)
-        {
-            BaseAttack = attack;
+            Type = CardType.Minion;
+            
             TemporaryAttackBuff = 0;
             PermanentAttackBuff = 0;
 
-            BaseHealth = Math.Min(1, baseHealth);
             TemporaryHealthBuff = 0;
             PermanentHealthBuff = 0;
-            MaxHealth = BaseHealth + TemporaryHealthBuff + PermanentHealthBuff;
-            CurrentHealth = MaxHealth;
             IsDead = false;
 
             StatusEffects |= StatusEffect.Exhausted;

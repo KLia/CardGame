@@ -13,11 +13,8 @@ namespace CardGameConsoleApp
             BaseAttack = 1;
             BaseHealth = 1;
         }
-        public new void AttachEvents()
-        {
-        }
 
-        public override void RegisterTriggers()
+        public new void AttachEvents()
         {
             GameEventManager.RegisterForEventTurnStart(this, OnTurnStart);
         }

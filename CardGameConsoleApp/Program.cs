@@ -26,6 +26,9 @@ namespace CardGameConsoleApp
             GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1));
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
+
+            var loader = new ScriptLoader.ScriptLoader();
+            loader.LoadScript();
             //=========================================//
 
             foreach (var m in minions)

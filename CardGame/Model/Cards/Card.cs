@@ -11,17 +11,12 @@ namespace CardGame.Model.Cards
         private static int _playOrder = 0;
         public static int CurrentPlayOrder => _playOrder++;
 
-        protected Card(string name, int baseCost, IPlayer player, CardType type, CardSubType subType)
+        protected Card()
         {
             _id++;
             Id = _id;
-            PlayerOwner = player;
-            Name = name;
-            BaseCost = baseCost;
             TemporaryCostBuff = 0;
             PermanentCostBuff = 0;
-            Type = type;
-            SubType = subType;
         }
 
         public int Id { get; }
@@ -37,6 +32,5 @@ namespace CardGame.Model.Cards
 
         public CardType Type { get; set; }
         public CardSubType SubType { get; set; }
-        public abstract void RegisterTriggers();
     }
 }
