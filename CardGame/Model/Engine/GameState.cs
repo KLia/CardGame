@@ -17,6 +17,11 @@ namespace CardGame.Model.Engine
         public IPlayer Player { get; set; }
         public IPlayer Opponent { get; set; }
         public IPlayer CurrentPlayer { get; set; }
-        public int Turn { get; set; }
+        public int Turn { get; private set; }
+
+        public void IncrementTurn()
+        {
+            Turn++;
+        }
     }
 }

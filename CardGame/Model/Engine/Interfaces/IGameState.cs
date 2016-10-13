@@ -6,6 +6,8 @@ namespace CardGame.Model.Engine.Interfaces
     {IPlayer Player { get; set; }
         IPlayer Opponent { get; set; }
         IPlayer CurrentPlayer { get; set; }
-        int Turn { get; set; }
+        int Turn { get; }
+
+        void IncrementTurn();
     }
 }

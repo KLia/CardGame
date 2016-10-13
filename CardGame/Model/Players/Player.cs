@@ -4,6 +4,7 @@ using CardGame.Model.Cards;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Decks;
+using CardGame.Model.Decks.Interfaces;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players.Interfaces;

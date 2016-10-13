@@ -54,7 +54,7 @@ namespace CardGame.Model.Engine
 
             //swap CurrentPlayer and increment turn number
             GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player ? GameState.Opponent : GameState.Player;
-            GameState.Turn++;
+            GameState.IncrementTurn();
         }
 
         /// <summary>
