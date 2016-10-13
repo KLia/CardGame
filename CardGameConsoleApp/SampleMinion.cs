@@ -11,7 +11,7 @@ namespace CardGameConsoleApp
             BaseAttack = 1;
             BaseHealth = 1;
         }
-        public override void AttachEvents()
+        public new void AttachEvents()
         {
         }
     }

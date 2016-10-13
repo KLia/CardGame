@@ -56,7 +56,7 @@
     <Compile Include="Model\Cards\ValueObjects\TriggerMethodParam.cs" />
     <Compile Include="Model\Cards\ValueObjects\TriggerType.cs" />
     <Compile Include="Model\Decks\Deck.cs" />
-    <Compile Include="Model\Decks\IDeck.cs" />
+    <Compile Include="Model\Decks\Interfaces\IDeck.cs" />
     <Compile Include="Model\Engine\GameBoard.cs" />
     <Compile Include="Model\Engine\GameBoardZone.cs" />
     <Compile Include="Model\Engine\ValueObjects\GameConstants.cs" />

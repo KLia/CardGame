@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
 
-namespace CardGame.Model.Decks
+namespace CardGame.Model.Decks.Interfaces
 {
     public interface IDeck
     {
