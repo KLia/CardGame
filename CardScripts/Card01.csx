@@ -1,4 +1,4 @@
-#r "..\CardGame\bin\Debug\CardGame.dll"
+#r "..\\CardGame\\bin\\Debug\\CardGame.dll"
 using CardGame.Model.Cards;
 
 public class Card01 : Minion
@@ -10,8 +10,8 @@ public class Card01 : Minion
         BaseCost = 2;
     }
 	
-	public string ToString() {
-		Console.WriteLine($"FROM INSIDE SCRIPT - Minion: BaseAttack=@BaseAttack, BaseHealth=@BaseHealth, BaseCost=@BaseCost");
+	public void ToString() {
+		Console.WriteLine($"FROM INSIDE SCRIPT - Minion: BaseAttack={BaseAttack}, BaseHealth={BaseHealth}, BaseCost={BaseCost}");
 	}
 }
 
