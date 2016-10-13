@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using CardGame.Model.Cards;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
 using CardGame.Model.Engine;
@@ -15,8 +16,8 @@ namespace CardGameConsoleApp
     {
         private static void Main(string[] args)
         {
-            //===Initialize============================//
-            var minions = CardController.GetInstance().GetAllMinionsList(1);
+            //===Initialize============================//\
+            var minions = new List<Minion> {new SampleMinion(), new SampleMinion()};//CardController.GetInstance().GetAllMinionsList(1);
             var deck1 = new Deck(new List<ICard>(minions));
             var deck2 = new Deck(new List<ICard>(minions));
             var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);

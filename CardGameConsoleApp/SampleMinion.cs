@@ -7,7 +7,9 @@ namespace CardGameConsoleApp
     {
         public SampleMinion()
         {
-            BaseCost = 0;
+            BaseCost = 1;
+            BaseAttack = 1;
+            BaseHealth = 1;
         }
         public override void AttachEvents()
         {

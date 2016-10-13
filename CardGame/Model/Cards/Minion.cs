@@ -30,7 +30,7 @@ namespace CardGame.Model.Cards
             TemporaryAttackBuff = 0;
             PermanentAttackBuff = 0;
 
-            BaseHealth = baseHealth;
+            BaseHealth = Math.Min(1, baseHealth);
             TemporaryHealthBuff = 0;
             PermanentHealthBuff = 0;
             MaxHealth = BaseHealth + TemporaryHealthBuff + PermanentHealthBuff;
@@ -42,36 +42,38 @@ namespace CardGame.Model.Cards
 
         private int _tempHealthBuff = 0;
         private int _permHealthBuff = 0;
+        private int _tempAttackBuff = 0;
+        private int _permAttackBuff = 0;
 
         public int BaseAttack { get; set; }
 
         public int TemporaryAttackBuff
         {
-            get { return _tempHealthBuff; }
+            get { return _tempAttackBuff; }
             set
             {
                 if (value == 0)
                 {
-                    value = -_tempHealthBuff;
+                    //reset Attack Buff
+                    value = -_tempAttackBuff;
                 }
 
-                _tempHealthBuff = value;
-                ApplyHealthBuff(value);
+                _tempAttackBuff = value;
             }
         }
 
         public int PermanentAttackBuff
         {
-            get { return _permHealthBuff; }
+            get { return _permAttackBuff; }
             set
             {
                 if (value == 0)
                 {
-                    value = -_permHealthBuff;
+                    //reset Attack Buff
+                    value = -_permAttackBuff;
                 }
 
-                _permHealthBuff = value;
-                ApplyHealthBuff(value);
+                _permAttackBuff = value;
             }
         }
 
