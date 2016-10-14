@@ -35,6 +35,9 @@ namespace CardGame.Model.Engine
             CardPlayed += OnCardPlayed;
             onCardPlayedListeners = new List<Tuple<ICard, CardPlayedHandler>>();
 
+            MinionSummoned += OnMinionSummoned;
+            onMinionSummonedListeners = new List<Tuple<ICard, MinionSummonedHandler>>();
+
             SpellCast += OnSpellCast;
             onSpellCastListeners = new List<Tuple<ICard, SpellCastHandler>>();
 
@@ -68,6 +71,9 @@ namespace CardGame.Model.Engine
             CardPlayed -= OnCardPlayed;
             onCardPlayedListeners = null;
 
+            MinionSummoned -= OnMinionSummoned;
+            onMinionSummonedListeners = null;
+
             SpellCast -= OnSpellCast;
             onSpellCastListeners = null;
 
@@ -85,6 +91,7 @@ namespace CardGame.Model.Engine
             onGetHitListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onDeathEventListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onCardPlayedListeners.RemoveAll(c => c.Item1.Id == card.Id);
+            onMinionSummonedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onSpellCastListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onSpellTargetListeners.RemoveAll(c => c.Item1.Id == card.Id);
         }
@@ -128,11 +135,15 @@ namespace CardGame.Model.Engine
         public static DeathEventHandler Death;
         internal static List<Tuple<ICard, DeathEventHandler>> onDeathEventListeners;
         
-
         public delegate void CardPlayedHandler(ICard card);
 
         public static CardPlayedHandler CardPlayed;
         internal static List<Tuple<ICard, CardPlayedHandler>> onCardPlayedListeners;
+        
+        public delegate void MinionSummonedHandler(IMinion card);
+
+        public static MinionSummonedHandler MinionSummoned;
+        internal static List<Tuple<ICard, MinionSummonedHandler>> onMinionSummonedListeners;
 
         public delegate void SpellCastHandler(Spell spell, IDamageable target, out bool abort);
 
@@ -182,8 +193,10 @@ namespace CardGame.Model.Engine
         public static void RegisterForEventCardPlayed(ICard card, CardPlayedHandler callback)
         {
             onCardPlayedListeners.Add(new Tuple<ICard, CardPlayedHandler>(card, callback));
+        }public static void RegisterForEventMinionSummoned(ICard card, MinionSummonedHandler callback)
+        {
+            onMinionSummonedListeners.Add(new Tuple<ICard, MinionSummonedHandler>(card, callback));
         }
-
         public static void RegisterForEventSpellCast(ICard card, SpellCastHandler callback)
         {
             onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(card, callback));
@@ -338,7 +351,24 @@ namespace CardGame.Model.Engine
                 listener?.Item2(card);
             }
         }
-        
+
+        public static void OnMinionSummoned(IMinion card)
+        {
+            if (!onMinionSummonedListeners.Any())
+            {
+                return;
+            }
+
+            var mainCard = onMinionSummonedListeners.Find(c => c.Item1.Id == card.Id);
+            var listeners = onMinionSummonedListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
+            listeners.Insert(0, mainCard);
+
+            foreach (var listener in listeners)
+            {
+                listener?.Item2(card);
+            }
+        }
+
         public static void OnSpellCast(Spell spell, IDamageable target, out bool abort)
         {
             abort = false; 
