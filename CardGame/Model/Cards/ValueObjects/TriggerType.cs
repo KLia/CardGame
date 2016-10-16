@@ -1,16 +1,21 @@
-﻿namespace CardGame.Model.Cards.ValueObjects
+﻿using System;
+
+namespace CardGame.Model.Cards.ValueObjects
 {
+    [Flags]
     public enum TriggerType
     {
+        None = 0,
         OnTurnStart = 1,
         OnTurnEnd = 2,
-        OnCardDrawn = 3,
-        OnAttack = 4,
-        OnHealed = 5,
-        OnGetHit = 6,
-        OnDeath = 7,
-        OnCardPlayed = 8,
-        OnSpellCast = 9,
-        OnSpellTarget = 10
+        OnCardDrawn = 4,
+        OnAttack = 8,
+        OnHealed = 16,
+        OnGetHit = 32,
+        OnDeath = 64,
+        OnCardPlayed = 128,
+        OnMinionSummoned = 512,
+        OnSpellCast = 1024,
+        OnSpellTarget = 2048
     }
 }
