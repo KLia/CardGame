@@ -1,4 +1,4 @@
-﻿#r "..\\CardGame\\bin\\Release\\CardGame.dll"
+﻿#r "..\\CardGame\\bin\\Debug\\CardGame.dll"
 using CardGame.Model.Cards;
 
 /// <summary>
@@ -6,13 +6,13 @@ using CardGame.Model.Cards;
 /// 
 /// TODO : Implement
 /// </summary>
-public class CARD_NAME : Minion
+public class TemplateMinion : Minion
 {
     private const int MANA_COST = 1;
     private const int ATTACK = 1;
     private const int HEALTH = 1;
 
-    public CARD_NAME()
+    public TemplateMinion()
     {
         BaseAttack = ATTACK;
         BaseHealth = HEALTH;
