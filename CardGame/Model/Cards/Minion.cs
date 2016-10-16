@@ -23,61 +23,19 @@ namespace CardGame.Model.Cards
             StatusEffects |= StatusEffect.Exhausted;
         }
 
-        private int _tempHealthBuff = 0;
-        private int _permHealthBuff = 0;
-        private int _tempAttackBuff = 0;
-        private int _permAttackBuff = 0;
-
         public int BaseAttack { get; set; }
-
-        public int TemporaryAttackBuff
-        {
-            get { return _tempAttackBuff; }
-            set
-            {
-                if (value == 0)
-                {
-                    //reset Attack Buff
-                    value = -_tempAttackBuff;
-                }
-
-                _tempAttackBuff = value;
-            }
-        }
-
-        public int PermanentAttackBuff
-        {
-            get { return _permAttackBuff; }
-            set
-            {
-                if (value == 0)
-                {
-                    //reset Attack Buff
-                    value = -_permAttackBuff;
-                }
-
-                _permAttackBuff = value;
-            }
-        }
-
+        public int TemporaryAttackBuff { get; set; }
+        public int PermanentAttackBuff { get; set; }
         public int CurrentAttack => Math.Min(0, BaseAttack + TemporaryAttackBuff + PermanentAttackBuff);
 
         public int BaseHealth { get; set; }
         public int TemporaryHealthBuff { get; set; }
         public int PermanentHealthBuff { get; set; }
-        public int MaxHealth { get; set; }
+        public int MaxHealth => BaseHealth + TemporaryHealthBuff + PermanentHealthBuff;
         public int CurrentHealth { get; set; }
         public bool IsDead { get; set; }
 
         public bool CanAttack => StatusEffects.HasFlag(StatusEffect.Exhausted);
-
-        /// <summary>
-        /// Attach all the event triggers associated with this card
-        /// </summary>
-        public void AttachEvents()
-        {
-            //will be overridden by the inheriting minions
-        }
 
         /// <summary>
         /// Add StatusEffects to this Minion
@@ -94,24 +52,31 @@ namespace CardGame.Model.Cards
         /// </summary>
         public void RemoveStatusEffects(StatusEffect effects)
         {
-            StatusEffects = StatusEffects & ~effects;
+            StatusEffects &= ~effects;
         }
 
 
         /// <summary>
-        /// Takes effect whenever a Minion receives a health buff to adjust health values
+        /// Reset the Temporary Health Buffs and adjust CurrentHealth
         /// </summary>
-        /// <param name="buff">The buff amount</param>
-        private void ApplyHealthBuff(int buff)
+        public void ResetTemporaryHealthBuff()
         {
-            MaxHealth += buff;
-            CurrentHealth = CurrentHealth + buff;
+            CurrentHealth -= TemporaryHealthBuff;
+            TemporaryHealthBuff = 0;
 
             //just in case the minion dies when the buffs wear off
             if (CurrentHealth <= 0)
             {
                 Die();
             }
+        }
+
+        /// <summary>
+        /// Reset the Temporary Attack Buffs
+        /// </summary>
+        public void ResetTemporaryAttackBuff()
+        {
+            TemporaryHealthBuff = 0;
         }
 
         /// <summary>
