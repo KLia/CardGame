@@ -10,7 +10,8 @@ namespace CardGame.Model.Players.Interfaces
     {
         int Id { get; set; }
         string Name { get; set; }
-        int Mana { get; set; }
+        int TotalMana { get; set; }
+        int CurrentMana { get; set; }
         IDeck Deck { get; set; }
         List<ICard> CardsInHand { get; set; }
         List<ICard> CardsInPlay { get; set; }

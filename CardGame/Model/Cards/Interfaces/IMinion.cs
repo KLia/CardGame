@@ -1,7 +1,11 @@
-﻿namespace CardGame.Model.Cards.Interfaces
+﻿using CardGame.Model.Cards.ValueObjects;
+
+namespace CardGame.Model.Cards.Interfaces
 {
-    public interface IMinion : ICard
+    public interface IMinion : ICard, IAttacker, IDamageable
     {
-        void AttachEvents();
+        void ApplyStatusEffect(StatusEffect effects);
+        void RemoveStatusEffect(StatusEffect effects);
+
     }
 }

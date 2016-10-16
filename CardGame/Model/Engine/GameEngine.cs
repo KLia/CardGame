@@ -42,6 +42,13 @@ namespace CardGame.Model.Engine
         public static void StartTurn()
         {
             var currentPlayer = GameState.CurrentPlayer;
+
+            //increase the TotalMana if it's not already at max
+            if (currentPlayer.TotalMana < GameConstants.TOTAL_MANA)
+            {
+                currentPlayer.TotalMana++;
+            }
+
             GameEventManager.TurnStart(currentPlayer);
 
             currentPlayer.DrawCard();
@@ -51,6 +58,17 @@ namespace CardGame.Model.Engine
         {
             //trigger end turn events first
             GameEventManager.TurnEnd(GameState.CurrentPlayer);
+
+            //Remove all temporary buffs on the minions
+            foreach (var minion in GameState.CurrentPlayer.CardsInPlay)
+            {
+                var m = minion as Minion;
+                if (m != null)
+                {
+                    m.ResetTemporaryAttackBuff();
+                    m.ResetTemporaryHealthBuff();
+                }
+            }
 
             //swap CurrentPlayer and increment turn number
             GameState.CurrentPlayer = GameState.CurrentPlayer == GameState.Player ? GameState.Opponent : GameState.Player;

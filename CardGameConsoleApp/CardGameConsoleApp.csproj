@@ -181,6 +181,10 @@
     </Compile>
     <Compile Include="SampleMinion.cs" />
     <Compile Include="ScriptLoader\ScriptLoader.cs" />
+    <None Include="Cards\Minions\MinionWithAura.csx" />
+    <None Include="Cards\Minions\MinionWithBattlecry.csx" />
+    <None Include="Cards\Minions\project.json" />
+    <None Include="Cards\Minions\TemplateMinion.csx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

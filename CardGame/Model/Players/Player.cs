@@ -15,7 +15,8 @@ namespace CardGame.Model.Players
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Mana { get; set; }
+        public int TotalMana { get; set; }
+        public int CurrentMana { get; set; }
         public IDeck Deck { get; set; }
 
         public List<ICard> CardsInHand { get; set; }
@@ -26,7 +27,8 @@ namespace CardGame.Model.Players
         {
             Id = id;
             Name = name;
-            Mana = mana;
+            TotalMana = mana;
+            CurrentMana = mana;
             Deck = deck;
             CardsInHand = new List<ICard>(GameConstants.MAX_CARDS_IN_HAND);
             CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
@@ -85,7 +87,7 @@ namespace CardGame.Model.Players
                 throw new InvalidOperationException("The card you're trying to play is not in your hand");
             }
 
-            if (Mana < card.CurrentCost)
+            if (CurrentMana < card.CurrentCost)
             {
                 throw new InvalidOperationException("Not enough Mana");
             }
@@ -99,7 +101,7 @@ namespace CardGame.Model.Players
             //move from hand to board, assign PlayOrder, PlayerOwner Owner and decrease mana
             card.PlayOrder = Cards.Card.CurrentPlayOrder;
             card.PlayerOwner = this;
-            Mana -= card.CurrentCost;
+            CurrentMana -= card.CurrentCost;
 
             //play events
             switch (card.Type)
@@ -117,15 +119,15 @@ namespace CardGame.Model.Players
             }
         }
 
-        private void SummonMinion(ICard card, int boardPos)
+        private void SummonMinion(ICard card, int boardPos, bool isForcedSummoned = false)
         {
             MoveCard(card, GameBoardZone.Hand, GameBoardZone.Board, boardPos);
 
-            //attach events
-            var minion = card as Minion;
-            minion?.AttachEvents();
-
-            GameEventManager.CardPlayed(card);
+            //Trigger the on CardPlayed Event - if the card is not forced summoned
+            if (!isForcedSummoned)
+            {
+                GameEventManager.CardPlayed(card);
+            }
         }
 
         private void CastSpell(ICard card, IDamageable target)

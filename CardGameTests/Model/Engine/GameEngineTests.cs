@@ -23,13 +23,13 @@ namespace CardGameTests.Model.Engine
         {
             _p1 = new Mock<IPlayer>(MockBehavior.Strict);
             _p1.Setup(p => p.Id).Returns(1);
-            _p1.Setup(p => p.Mana).Returns(0);
+            _p1.Setup(p => p.CurrentMana).Returns(0);
             _p1.Setup(p => p.Deck.Shuffle());
             _p1.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
 
             _p2 = new Mock<IPlayer>(MockBehavior.Strict);
             _p2.Setup(p => p.Id).Returns(1);
-            _p2.Setup(p => p.Mana).Returns(0);
+            _p2.Setup(p => p.CurrentMana).Returns(0);
             _p2.Setup(p => p.Deck.Shuffle());
             _p2.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
 

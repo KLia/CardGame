@@ -7,7 +7,7 @@ using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
-    public abstract class Minion : Card, IMinion, IAttacker, IDamageable
+    public abstract class Minion : Card, IMinion
     {
         protected Minion()
         {
@@ -35,14 +35,14 @@ namespace CardGame.Model.Cards
         public int CurrentHealth { get; set; }
         public bool IsDead { get; set; }
 
-        public bool CanAttack => StatusEffects.HasFlag(StatusEffect.Exhausted);
+        public bool CanAttack => !StatusEffects.HasFlag(StatusEffect.Exhausted | StatusEffect.CantAttack);
 
         /// <summary>
         /// Add StatusEffects to this Minion
         /// </summary>
         private StatusEffect StatusEffects { get; set; }
 
-        public void ApplyStatusEffects(StatusEffect effects)
+        public void ApplyStatusEffect(StatusEffect effects)
         {
             StatusEffects |= effects;
         }
@@ -50,7 +50,7 @@ namespace CardGame.Model.Cards
         /// <summary>
         /// Remove StatusEffects from this Minion
         /// </summary>
-        public void RemoveStatusEffects(StatusEffect effects)
+        public void RemoveStatusEffect(StatusEffect effects)
         {
             StatusEffects &= ~effects;
         }
@@ -167,6 +167,17 @@ namespace CardGame.Model.Cards
             }
 
             GameEventManager.Healed(this, heal);
+        }
+
+        /// <summary>
+        /// Removes and StatusEffects, TriggerEvents, Temporary/Permanent Buffs
+        /// </summary>
+        public void Silence()
+        {
+            StatusEffects.ResetAll();
+            ResetTemporaryAttackBuff();
+            ResetTemporaryHealthBuff();
+            GameEventManager.UnregisterForEvents(this);
         }
     }
 }

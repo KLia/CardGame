@@ -6,6 +6,7 @@
         int TemporaryHealthBuff { get; set; }
         int PermanentHealthBuff { get; set; }
         int CurrentHealth { get; set; }
+        void ResetTemporaryHealthBuff();
         bool IsDead { get; set; }
         void TakeDamage (int damage);
         void Die();

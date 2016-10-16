@@ -8,5 +8,6 @@
 
         public static int DRAW_CARDS_AT_GAME_START = 3;
         public static int STARTING_MANA = 1;
+        public static int TOTAL_MANA = 10;
     }
 }

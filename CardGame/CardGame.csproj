@@ -105,6 +105,7 @@
     <Compile Include="Model\Cards\Interfaces\IDamageable.cs" />
     <Compile Include="Model\Cards\Interfaces\IMinion.cs" />
     <Compile Include="Model\Cards\Interfaces\ISpell.cs" />
+    <Compile Include="Model\Cards\Interfaces\ITriggerable.cs" />
     <Compile Include="Model\Cards\Minion.cs" />
     <Compile Include="Model\Cards\Spell.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardSubType.cs" />

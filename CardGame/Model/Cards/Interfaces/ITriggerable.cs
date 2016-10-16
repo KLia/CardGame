@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CardGame.Model.Cards.ValueObjects;
 
 namespace CardGame.Model.Cards.Interfaces
 {
-    interface ITriggerable
+    public interface ITriggerable
     {
+        TriggerType TriggerTypes { get; }
+        void AttachEvent();
     }
 }
