@@ -49,5 +49,10 @@ namespace CardGameConsoleApp
             base.Silence();
             OnSummon(this);
         }
+
+        public void OnMinionSummoned(ICard minion)
+        {
+            
+        }
     }
 }

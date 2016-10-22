@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3FD6649C-5FC5-472C-AF34-46BB17AEBE66}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{133A9E3C-D411-41A2-BE9D-E2A9159E28A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CardGameConsoleApp</RootNamespace>
-    <AssemblyName>CardGameConsoleApp</AssemblyName>
+    <RootNamespace>CardScriptLoader</RootNamespace>
+    <AssemblyName>CardScriptLoader</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -148,9 +145,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Reflection.Metadata, Version=1.0.18.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\ScriptCs.Engine.Roslyn.0.16.1\lib\net45\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
@@ -163,64 +158,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\CardController.cs" />
-    <Compile Include="Controller\DeckController.cs" />
-    <Compile Include="Controller\TriggersController.cs" />
-    <Compile Include="DBML\Card.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Card.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Delegates\DelegateFactory.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CardScriptHost.cs" />
+    <Compile Include="CardScriptPack.cs" />
+    <Compile Include="CardScriptPackContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="SampleMinion.cs" />
-    <Compile Include="ScriptLoader\CardScriptPack.cs" />
-    <Compile Include="ScriptLoader\CardScriptPackContext.cs" />
-    <Compile Include="ScriptLoader\ScriptLoader.cs" />
-    <None Include="Cards\Minions\BasicMinion.csx" />
-    <None Include="Cards\Minions\Minion1.csx" />
-    <None Include="Cards\Minions\Minion2Cost.csx" />
-    <None Include="Cards\Minions\MinionWithAura.csx" />
-    <None Include="Cards\Minions\MinionWithBattlecry.csx" />
-    <None Include="Cards\Minions\MinionWithDeathEvent.csx" />
-    <None Include="Cards\Minions\TemplateMinion.csx" />
+    <Compile Include="ScriptLoader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="DBML\Card.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Card.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CardGame\CardGame.csproj">
-      <Project>{2F14A09B-3222-433D-B3B1-6686B74917D3}</Project>
+      <Project>{2f14a09b-3222-433d-b3b1-6686b74917d3}</Project>
       <Name>CardGame</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CardScriptLoader\CardScriptLoader.csproj">
-      <Project>{133a9e3c-d411-41a2-be9d-e2a9159e28a4}</Project>
-      <Name>CardScriptLoader</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DBML\Card.dbml.layout">
-      <DependentUpon>Card.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

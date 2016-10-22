@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Scriptcs.CardGame</id>
+    <version>1.0</version>
+    <title>Card Game Engine</title>
+    <authors>Keith Lia</authors>
+    <owners>Keith Lia</owners>
+    <licenseUrl>http://www.license.com</licenseUrl>
+    <projectUrl>http://www.projecturl.com</projectUrl>
+    <iconUrl>http://www.iconurl.com</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Card Game Engine</description>
+    <releaseNotes>Nothing has changed</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>card game engine</tags>
+  </metadata>
+  <files>
+  </files>
+</package>

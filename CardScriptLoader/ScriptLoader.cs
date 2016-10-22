@@ -4,10 +4,10 @@ using System.Linq;
 using ScriptCs;
 using ScriptCs.Contracts;
 using ScriptCs.Engine.Mono;
-using ScriptCs.Hosting;
 using ScriptCs.Engine.Roslyn;
+using ScriptCs.Hosting;
 
-namespace CardGameConsoleApp.ScriptLoader
+namespace CardScriptLoader
 {
     public class ScriptLoader
     {
@@ -49,8 +49,8 @@ namespace CardGameConsoleApp.ScriptLoader
 
            var result = _executor?.Execute(script);
 
-            if (result?.CompileExceptionInfo != null) throw new Exception(result.CompileExceptionInfo.ToString());
-            if (result?.ExecuteExceptionInfo != null) throw new Exception(result.ExecuteExceptionInfo.ToString());
+            if (result?.CompileExceptionInfo != null) throw new Exception("Compilation fail");
+            if (result?.ExecuteExceptionInfo != null) throw new Exception("Execution fail");
         }
     }
 }
