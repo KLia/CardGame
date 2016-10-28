@@ -1,4 +1,7 @@
 *.vs
 *.suo
+*.csproj.user
+
 bin/
 obj/
+packages/
