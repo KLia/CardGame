@@ -27,6 +27,10 @@ namespace CardGame.Model.Decks
         {
             Cards.Add(card);
         }
+        public void AddCards(IList<ICard> cards)
+        {
+            Cards.AddRange(cards);
+        }
 
         public void RemoveCard(ICard card)
         {

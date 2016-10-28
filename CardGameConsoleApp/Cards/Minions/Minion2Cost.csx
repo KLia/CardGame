@@ -6,13 +6,13 @@ using CardGame.Model.Cards;
 /// 
 /// TODO : Implement
 /// </summary>
-public class TemplateMinion : Minion
+public class Minion2Cost : Minion
 {
-    private const int MANA_COST = 1;
-    private const int ATTACK = 1;
-    private const int HEALTH = 1;
-
-    public TemplateMinion()
+    private const int MANA_COST = 2;
+    private const int ATTACK = 2;
+    private const int HEALTH = 2;
+    
+    public Minion2Cost()
     {
         BaseAttack = ATTACK;
         BaseHealth = HEALTH;

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using CardGame.Model.Cards;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Decks;
 using CardGame.Model.Engine;
-using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players;
-using CardGameConsoleApp.Controller;
 using CardGameConsoleApp.Delegates;
 
 namespace CardGameConsoleApp
 {
-    class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
-            //===Initialize============================//\
-            var minions = new List<Minion> {new SampleMinion(), new SampleMinion()};//CardController.GetInstance().GetAllMinionsList(1);
+            //===Initialize============================//
+            var minions = new List<Minion> {new SampleMinion(), new SampleMinion()};
+                //CardController.GetInstance().GetAllMinionsList(1);
             var deck1 = new Deck(new List<ICard>(minions));
             var deck2 = new Deck(new List<ICard>(minions));
             var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);
@@ -27,13 +27,18 @@ namespace CardGameConsoleApp
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
 
-            var loader = new ScriptLoader.ScriptLoader();
-            loader.LoadScript();
+            //invoke script loader
+            var filenames =
+                Directory.GetFiles("C:\\Users\\keith\\Documents\\GitHub\\CardGame\\CardGameConsoleApp\\Cards\\Minions");
+            p1.Deck.AddCards(CardScriptLoader.CardScriptLoader.GetCards(filenames));
+
+
             //=========================================//
 
             foreach (var m in minions)
             {
-                Console.WriteLine($"Name: {m.Name}; BaseCost: {m.BaseCost}; BaseAttack: {m.BaseAttack}; BaseHealth: {m.BaseHealth}");
+                Console.WriteLine(
+                    $"Name: {m.Name}; BaseCost: {m.BaseCost}; BaseAttack: {m.BaseAttack}; BaseHealth: {m.BaseHealth}");
             }
 
             //===Game Events===========================//
@@ -45,7 +50,8 @@ namespace CardGameConsoleApp
                     DelegateFactory.RunMethod(fullyQualifiedName, className, "Heal",
                         new object[] {minions[0], 2}));
 
-            GameEventManager.RegisterForEventDeath(minions[0], (target) => { Console.WriteLine($"------------- {((ICard)target).Id} is DEAD"); });
+            GameEventManager.RegisterForEventDeath(minions[0],
+                (target) => { Console.WriteLine($"------------- {((ICard) target).Id} is DEAD"); });
 
             GameEventManager.RegisterForEventTurnStart(minions[1],
                 (player) =>
@@ -84,11 +90,11 @@ namespace CardGameConsoleApp
             }
             catch
             {
-                
+
             }
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
-            
+
             Console.ReadKey();
         }
     }

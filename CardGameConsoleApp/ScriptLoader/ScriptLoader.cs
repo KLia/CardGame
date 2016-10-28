@@ -1,56 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ScriptCs;
-using ScriptCs.Contracts;
-using ScriptCs.Engine.Mono;
-using ScriptCs.Hosting;
-using ScriptCs.Engine.Roslyn;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using ScriptCs;
+//using ScriptCs.Contracts;
+//using ScriptCs.Engine.Mono;
+//using ScriptCs.Hosting;
+//using ScriptCs.Engine.Roslyn;
 
-namespace CardGameConsoleApp.ScriptLoader
-{
-    public class ScriptLoader
-    {
-        public void LoadScript()
-        {
-            var console = (IConsole)new ScriptConsole();
-            var logProvider = new ColoredConsoleLogProvider(LogLevel.Info, console);
+//namespace CardGameConsoleApp.ScriptLoader
+//{
+//    public class ScriptLoader
+//    {
+//        private static ScriptExecutor _executor;
 
-            var builder = new ScriptServicesBuilder(console, logProvider);
+//        public static void LoadScript()
+//        {
+//            var console = (IConsole)new ScriptConsole();
+//            var logProvider = new ColoredConsoleLogProvider(LogLevel.Info, console);
 
-            SetEngine(builder);
-            var services = builder.Build();
+//            var builder = new ScriptServicesBuilder(console, logProvider);
 
-            var executor = (ScriptExecutor)services.Executor;
-            executor.Initialize(Enumerable.Empty<string>(), Enumerable.Empty<IScriptPack>());
-            ExecuteLooseScript(executor);
-            ExecuteFile(executor);
-        }
+//            SetEngine(builder);
+//            var services = builder.Build();
 
-        public static void ExecuteLooseScript(ScriptExecutor executor)
-        {
-            var script = @"Console.WriteLine(""Hello from scriptcs"")";
-            executor.ExecuteScript(script);
-        }
+//            _executor = (ScriptExecutor)services.Executor;
+//            _executor.Initialize(Enumerable.Empty<string>(), new List<IScriptPack> { new CardScriptPack() });
+//        }
 
-        public static void ExecuteFile(ScriptExecutor executor)
-        {
-            executor.Execute("..\\..\\..\\CardScripts\\Card01.csx");
-        }
+//        private static void SetEngine(ScriptServicesBuilder builder)
+//        {
+//            var useMono = Type.GetType("Mono.Runtime") != null;
+//            if (useMono)
+//            {
+//                builder.ScriptEngine<MonoScriptEngine>();
+//            }
+//            else
+//            {
+//                builder.ScriptEngine<CSharpScriptEngine>();
+//            }
+//        }
 
-        private static void SetEngine(ScriptServicesBuilder builder)
-        {
-            var useMono = Type.GetType("Mono.Runtime") != null;
-            if (useMono)
-            {
-                builder.ScriptEngine<MonoScriptEngine>();
-            }
-            else
-            {
-                builder.ScriptEngine<CSharpScriptEngine>();
-            }
-        }
-    }
-}
+//        public static void ExecuteFile(string script)
+//        {
+//            if (_executor == null)
+//            {
+//                LoadScript();
+//            }
+
+//           var result = _executor?.Execute(script);
+
+//            if (result?.CompileExceptionInfo != null) throw new Exception(result.CompileExceptionInfo.ToString());
+//            if (result?.ExecuteExceptionInfo != null) throw new Exception(result.ExecuteExceptionInfo.ToString());
+//        }
+//    }
+//}

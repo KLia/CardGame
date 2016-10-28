@@ -2,17 +2,17 @@
 using CardGame.Model.Cards;
 
 /// <summary>
-/// Implements CARD_NAME Minion
+/// Implements Minion1
 /// 
 /// TODO : Implement
 /// </summary>
-public class TemplateMinion : Minion
+public class Minion1 : Minion
 {
     private const int MANA_COST = 1;
     private const int ATTACK = 1;
     private const int HEALTH = 1;
 
-    public TemplateMinion()
+    public Minion1()
     {
         BaseAttack = ATTACK;
         BaseHealth = HEALTH;

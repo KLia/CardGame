@@ -1,4 +1,4 @@
-﻿#r "..\\CardGame\\bin\\Debug\\CardGame.dll"
+﻿#r "C:\Users\keith\Documents\GitHub\CardGame\CardGame\bin\Debug\CardGame.dll"
 using CardGame.Model.Cards;
 
 /// <summary>

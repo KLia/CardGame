@@ -7,6 +7,7 @@ namespace CardGame.Model.Decks.Interfaces
     {
         List<ICard> Cards { get; }
         void AddCard (ICard card);
+        void AddCards(IList<ICard> cards);
         void RemoveCard(ICard card);
         void RemoveCard(int index);
         void Shuffle();
