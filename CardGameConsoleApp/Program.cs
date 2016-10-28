@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -9,11 +8,10 @@ using CardGame.Model.Decks;
 using CardGame.Model.Engine;
 using CardGame.Model.Players;
 using CardGameConsoleApp.Delegates;
-using CardScriptLoader;
 
 namespace CardGameConsoleApp
 {
-    class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
