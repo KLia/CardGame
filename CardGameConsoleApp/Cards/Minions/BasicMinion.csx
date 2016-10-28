@@ -1,5 +1,5 @@
-﻿#r "C:\Users\keith\Documents\GitHub\CardGame\CardGame\bin\Debug\CardGame.dll"
-using CardGame.Model.Cards;
+﻿//#r "C:\Users\keith\Documents\GitHub\CardGame\CardGame\bin\Debug\CardGame.dll"
+//using CardGame.Model.Cards;
 /// <summary>
 /// Implements BasicMinion Minion
 /// 

@@ -18,8 +18,7 @@ namespace CardScriptLoader
         {
         }
 
-        public dynamic InputAmbient { get; set; }
-        public dynamic OutputAmbient { get; set; }
+        public dynamic CardContext { get; set; }
     }
 
     class CardScriptHostFactory : IScriptHostFactory
@@ -34,8 +33,7 @@ namespace CardScriptLoader
         {
             Host = new CardScriptHost(scriptPackManager, new ScriptEnvironment(scriptArgs))
             {
-                InputAmbient = _globs["InputAmbient"],
-                OutputAmbient = _globs["OutputAmbient"]
+                CardContext = _globs["CardContext"]
             };
             return Host;
         }
@@ -62,7 +60,7 @@ namespace CardScriptLoader
             var services = builder.Build();
 
             var executor = (ScriptExecutor)services.Executor;
-            executor.Initialize(Enumerable.Empty<string>(), new[] {new CardScriptPack()});
+            executor.Initialize(Enumerable.Empty<string>(), Enumerable.Empty<IScriptPack>());
             
             var result = executor.ExecuteScript(code);
             ReturnValue = result.ReturnValue;

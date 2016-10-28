@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Scriptcs.CardGame</id>
+    <id>CardGame</id>
     <version>1.0</version>
-    <title>Card Game Engine</title>
+    <title>Card Game</title>
     <authors>Keith Lia</authors>
     <owners>Keith Lia</owners>
-    <licenseUrl>http://www.license.com</licenseUrl>
-    <projectUrl>http://www.projecturl.com</projectUrl>
-    <iconUrl>http://www.iconurl.com</iconUrl>
+    <licenseUrl>https://github.com/KLia/CardGame</licenseUrl>
+    <projectUrl>https://github.com/KLia/CardGame</projectUrl>
+    <iconUrl>https://github.com/KLia/CardGame</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Card Game Engine</description>
-    <releaseNotes>Nothing has changed</releaseNotes>
+    <description>Card Game Engine 1.0</description>
+    <releaseNotes>Nothing has changes</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>card game engine</tags>
+    <tags>Card Game Engine</tags>
   </metadata>
-  <files>
+   <files>
+    <file src="CardGame.dll" target="bin\Debug\CardGame.dll" />
   </files>
 </package>
