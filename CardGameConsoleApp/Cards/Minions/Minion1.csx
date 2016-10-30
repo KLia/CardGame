@@ -1,7 +1,4 @@
-﻿#r "C:\Users\keith\Documents\GitHub\CardGame\CardGame\bin\Debug\CardGame.dll"
-using CardGame.Model.Cards;
-
-/// <summary>
+﻿/// <summary>
 /// Implements Minion1
 /// 
 /// TODO : Implement

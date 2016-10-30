@@ -26,12 +26,13 @@ namespace CardGame.Model.Cards
         public int BaseAttack { get; set; }
         public int TemporaryAttackBuff { get; set; }
         public int PermanentAttackBuff { get; set; }
-        public int CurrentAttack => Math.Min(0, BaseAttack + TemporaryAttackBuff + PermanentAttackBuff);
+
+        public int CurrentAttack => Math.Min(0, BaseAttack + TemporaryAttackBuff + PermanentAttackBuff + PlayerOwner.AreaBuffs.AreaAttackBuff);
 
         public int BaseHealth { get; set; }
         public int TemporaryHealthBuff { get; set; }
         public int PermanentHealthBuff { get; set; }
-        public int MaxHealth => BaseHealth + TemporaryHealthBuff + PermanentHealthBuff;
+        public int MaxHealth => BaseHealth + TemporaryHealthBuff + PermanentHealthBuff + PlayerOwner.AreaBuffs.AreaHealthBuff;
         public int CurrentHealth { get; set; }
         public bool IsDead { get; set; }
 

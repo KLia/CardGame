@@ -27,7 +27,7 @@ namespace CardGameConsoleApp
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
 
-            //invoke script loader
+            //invoke script loaderz
             var filenames =
                 Directory.GetFiles("C:\\Users\\keith\\Documents\\GitHub\\CardGame\\CardGameConsoleApp\\Cards\\Minions");
             p1.Deck.AddCards(CardScriptLoader.CardScriptLoader.GetCards(filenames));

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
+using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Decks;
 using CardGame.Model.Decks.Interfaces;
 using CardGame.Model.Engine;
@@ -12,6 +13,7 @@ namespace CardGame.Model.Players.Interfaces
         string Name { get; set; }
         int TotalMana { get; set; }
         int CurrentMana { get; set; }
+        AreaBuff AreaBuffs { get; set; }
         IDeck Deck { get; set; }
         List<ICard> CardsInHand { get; set; }
         List<ICard> CardsInPlay { get; set; }

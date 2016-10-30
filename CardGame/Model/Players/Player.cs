@@ -17,19 +17,29 @@ namespace CardGame.Model.Players
         public string Name { get; set; }
         public int TotalMana { get; set; }
         public int CurrentMana { get; set; }
+        public AreaBuff AreaBuffs { get; set; }
         public IDeck Deck { get; set; }
 
         public List<ICard> CardsInHand { get; set; }
         public List<ICard> CardsInPlay { get; set; }
         public List<ICard> CardsInGraveyard { get; set; }
 
-        public Player(int id, string name, int mana, IDeck deck)
+        public Player(int id, string name, IDeck deck) : this(id, name, 0, deck, new AreaBuff())
+        {
+        }
+
+        public Player(int id, string name, int mana, IDeck deck) : this(id, name, mana, deck, new AreaBuff())
+        {
+        }
+
+        public Player(int id, string name, int mana, IDeck deck, AreaBuff areaBuffs)
         {
             Id = id;
+            Deck = deck;
             Name = name;
             TotalMana = mana;
             CurrentMana = mana;
-            Deck = deck;
+            AreaBuffs = areaBuffs;
             CardsInHand = new List<ICard>(GameConstants.MAX_CARDS_IN_HAND);
             CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
             CardsInGraveyard = new List<ICard>();

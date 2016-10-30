@@ -1,10 +1,8 @@
-﻿#r "C:\Users\keith\Documents\GitHub\CardGame\CardGame\bin\Debug\CardGame.dll"
-using CardGame.Model.Cards;
-
+﻿
 /// <summary>
 /// Implements MinionWithAura Minion
 /// 
-/// All friendly minions get +2 Attack
+/// All friendly minions get +1 Attack
 /// 
 /// TODO : Implement
 /// </summary>
@@ -28,16 +26,7 @@ public class MinionWithAura : Minion
     {
         if (card == this)
         {
-            var all = GameEngine.GameState.Player.CardsInPlay;
-
-            foreach (var c in all)
-            {
-                var a = c as Minion;
-                if (a != null)
-                {
-                    a.PermanentAttackBuff += 2;
-                }
-            }
+            card.PlayerOwner.AreaBuffs.AreaAttackBuff += 1;
         }
     }
 
@@ -45,16 +34,7 @@ public class MinionWithAura : Minion
     {
         if (card == this)
         {
-            var all = GameEngine.GameState.Player.CardsInPlay;
-
-            foreach (var c in all)
-            {
-                var a = c as Minion;
-                if (a != null)
-                {
-                    a.PermanentAttackBuff -= 2;
-                }
-            }
+            card.PlayerOwner.AreaBuffs.AreaAttackBuff -= 1;
         }
     }
 

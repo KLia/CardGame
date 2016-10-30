@@ -100,6 +100,7 @@
     <Compile Include="Model\Cards\Interfaces\ITriggerable.cs" />
     <Compile Include="Model\Cards\Minion.cs" />
     <Compile Include="Model\Cards\Spell.cs" />
+    <Compile Include="Model\Cards\ValueObjects\AreaBuff.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardSubType.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardTrigger.cs" />
     <Compile Include="Model\Cards\ValueObjects\CardType.cs" />
