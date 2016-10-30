@@ -23,5 +23,10 @@ namespace CardGame.Model.Engine
         {
             Turn++;
         }
+
+        public void SwapCurrentPlayer()
+        {
+            CurrentPlayer = CurrentPlayer == Player ? Opponent : Player;
+        }
     }
 }

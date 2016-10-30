@@ -9,5 +9,6 @@ namespace CardGame.Model.Engine.Interfaces
         int Turn { get; }
 
         void IncrementTurn();
+        void SwapCurrentPlayer();
     }
 }
