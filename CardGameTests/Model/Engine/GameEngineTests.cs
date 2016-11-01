@@ -85,6 +85,24 @@ namespace CardGameTests.Model.Engine
             _p1.Verify(p => p.DrawCard(It.IsAny<bool>()), Times.Once);
         }
 
+        [TestCase(0, 1)]
+        [TestCase(1, 2)]
+        [TestCase(2, 3)]
+        [TestCase(3, 4)]
+        [TestCase(4, 5)]
+        [TestCase(9, 10)]
+        public void StartTurn_TotalManaIsNotAtMax_IncrementTotalMana(int input, int expected)
+        {
+            //Arrange
+            _p1.SetupGet(p => p.TotalMana).Returns(input);
+
+            //Act
+            GameEngine.StartTurn();
+
+            //Assert
+            _p1.VerifySet(p => p.TotalMana = expected);
+        }
+
         [Test]
         public void StartTurn_TotalManaIsAtMax_TotalManaOnlyInvokedOnce()
         {
@@ -96,6 +114,7 @@ namespace CardGameTests.Model.Engine
 
             //Assert
             _p1.Verify(p => p.TotalMana, Times.Once);
+            Assert.That(_p1.Object.TotalMana, Is.EqualTo(GameConstants.TOTAL_MANA));
         }
 
         [Test]
