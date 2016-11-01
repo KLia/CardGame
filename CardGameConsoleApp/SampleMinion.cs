@@ -10,6 +10,7 @@ namespace CardGameConsoleApp
 {
     public class SampleMinion : Minion, ITriggerable
     {
+        private int turnPlayed;
         public SampleMinion()
         {
             BaseCost = 1;
@@ -33,6 +34,8 @@ namespace CardGameConsoleApp
                 {
                     ((Minion) card).PlayerOwner.CurrentMana++;
                 }
+
+                turnPlayed = GameEngine.GameState.Turn;
             }
         }
 
@@ -53,6 +56,14 @@ namespace CardGameConsoleApp
         public void OnMinionSummoned(ICard minion)
         {
             
+        }
+
+        public void OnTurnEnd(ICard card)
+        {
+            if (GameEngine.GameState.Turn == turnPlayed + 1)
+            {
+                //do stuff
+            }
         }
     }
 }
