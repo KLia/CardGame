@@ -1,6 +1,8 @@
 *.vs
 *.suo
 *.csproj.user
+*.user*
+*settings*
 
 bin/
 obj/

@@ -1,11 +1,10 @@
-﻿using System;
-using CardGame.Model.Cards.Interfaces;
+﻿using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Engine;
 using CardGame.Model.Players.Interfaces;
 using Moq;
 using NUnit.Framework;
 
-namespace CardGameTests.Model.Engine
+namespace CardGameTests.UnitTests.Model.Engine
 {
     [TestFixture]
     public class GameEventManagerTests

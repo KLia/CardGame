@@ -1,7 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
-using CardGame.Model.Decks;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.Interfaces;
 using CardGame.Model.Engine.ValueObjects;
@@ -9,7 +7,7 @@ using CardGame.Model.Players.Interfaces;
 using Moq;
 using NUnit.Framework;
 
-namespace CardGameTests.Model.Engine
+namespace CardGameTests.UnitTests.Model.Engine
 {
     [TestFixture]
     public class GameEngineTests

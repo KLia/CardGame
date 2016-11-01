@@ -86,8 +86,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Model\Engine\GameEngineTests.cs" />
-    <Compile Include="Model\Engine\GameEventManagerTests.cs" />
+    <Compile Include="UnitTests\Model\Engine\GameEngineTests.cs" />
+    <Compile Include="UnitTests\Model\Engine\GameEventManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
