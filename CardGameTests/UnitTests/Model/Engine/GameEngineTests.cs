@@ -27,7 +27,8 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p1.Setup(p => p.TotalMana).Returns(It.IsAny<int>);
             _p1.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p1.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
-            _p1.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
+            _p1.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(It.IsAny<List<ICard>>());
+            _p1.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _p2 = new Mock<IPlayer>(MockBehavior.Strict);
             _p2.Setup(p => p.Id).Returns(1);
@@ -38,12 +39,15 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p2.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p2.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
             _p2.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
+            _p2.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _gameState = new Mock<IGameState>(MockBehavior.Strict);
             _gameState.Setup(gs => gs.Player).Returns(_p1.Object);
             _gameState.Setup(gs => gs.Opponent).Returns(_p2.Object);
             _gameState.Setup(gs => gs.CurrentPlayer).Returns(_p1.Object);
             _gameState.Setup(gs => gs.Turn).Returns(It.IsAny<int>);
+            _gameState.Setup(gs => gs.SwapCurrentPlayer());
+            _gameState.Setup(gs => gs.IncrementTurn());
 
             GameEngine.Initialize(_p1.Object, _p2.Object, _gameState.Object);
         }
@@ -132,6 +136,38 @@ namespace CardGameTests.UnitTests.Model.Engine
 
             //Assert
             Assert.That(value, Is.True);
+        }
+
+        [Test]
+        public void EndTurn_CardWithTurnEndEvent_ValueIsSetToTrue()
+        {
+            //Arrange
+            var value = false;
+
+            var card = new Mock<ICard>(MockBehavior.Strict);
+            card.Setup(c => c.Id).Returns(1);
+            card.Setup(c => c.PlayOrder).Returns(1);
+
+            GameEventManager.RegisterForEventTurnEnd(card.Object, (player) => value = true);
+
+            //Act
+            GameEngine.EndTurn();
+
+            //Assert
+            Assert.That(value, Is.True);
+        }
+
+        [Test]
+        public void EndTurn_SwapCurrentPlayerAndIncrementTurnAreInvoked()
+        {
+            //Arrange
+
+            //Act
+            GameEngine.EndTurn();
+
+            //Assert
+            _gameState.Verify(gs => gs.SwapCurrentPlayer(), Times.Once);
+            _gameState.Verify(gs => gs.IncrementTurn(), Times.Once);
         }
     }
 }
