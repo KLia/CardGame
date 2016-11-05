@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Engine;
+using CardGame.Model.Engine.ValueObjects;
 using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
@@ -37,6 +38,22 @@ namespace CardGame.Model.Cards
         public bool IsDead { get; set; }
 
         public bool CanAttack => !StatusEffects.HasFlag(StatusEffect.Exhausted | StatusEffect.CantAttack);
+
+        public override void PlayCard(int boardPos, IDamageable target = null)
+        {
+            if (PlayerOwner.CardsInPlay.Count == GameConstants.MAX_CARDS_IN_PLAY)
+            {
+                throw new InvalidOperationException(
+                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
+            }
+
+            base.PlayCard(boardPos, target);
+
+            MoveCard(GameBoardZone.Hand, GameBoardZone.Board, boardPos);
+
+            //Trigger the on CardPlayed Event 
+            GameEventManager.CardPlayed(this);
+        }
 
         /// <summary>
         /// Add StatusEffects to this Minion

@@ -14,7 +14,7 @@ namespace CardGame.Model.Engine
         public static Random RngRandom { get; private set; }
         public static  IGameState GameState { get; private set; }
 
-        public static void Initialize(IPlayer player, IPlayer opponent, IGameState state, int seed = 1)
+        public static void Initialize(IPlayer player, IPlayer opponent, IGameState state, int seed = 910414)
         {
             RngRandom = new Random(seed);
             GameEventManager.Initialize();
@@ -60,9 +60,9 @@ namespace CardGame.Model.Engine
             GameEventManager.TurnEnd(GameState.CurrentPlayer);
 
             //Remove all temporary buffs on the minions
-            foreach (var minion in GameState.CurrentPlayer.CardsInPlay)
+            foreach (var card in GameState.CurrentPlayer.CardsInPlay)
             {
-                var m = minion as Minion;
+                var m = card as IMinion;
                 if (m != null)
                 {
                     m.ResetTemporaryAttackBuff();
@@ -89,7 +89,7 @@ namespace CardGame.Model.Engine
                 throw new InvalidOperationException("It is not currently your turn");
             }
 
-            player.PlayCard(card, boardPos, target);
+            card.PlayCard(boardPos, target);
         }
 
         public static void MoveCard(ICard card, IPlayer sourcePlayer, GameBoardZone sourceZone, IPlayer destPlayer, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)

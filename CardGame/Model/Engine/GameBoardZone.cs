@@ -13,7 +13,7 @@ namespace CardGame.Model.Engine
         Deck = 0,
         Hand = 1,
         Board = 2,
-        Graveyard = 3,
+        Graveyard = 3
     }
 
     public static class GameBoardZoneExtensions
