@@ -14,7 +14,7 @@ namespace CardGameTests.UnitTests.Model.Engine
         private Mock<ICard> _card0;
         private Mock<ICard> _card1;
 
-        private static int counter;
+        private static int _counter;
 
         [SetUp]
         public void Setup()
@@ -44,15 +44,15 @@ namespace CardGameTests.UnitTests.Model.Engine
 
         private static void IncrementCounter(out int value)
         {
-            counter++;
-            value = counter;
+            _counter++;
+            value = _counter;
         }
 
         private void UnregisterTriggers()
         {
             GameEventManager.UnregisterForEvents(_card0.Object);
             GameEventManager.UnregisterForEvents(_card1.Object);
-            counter = 0;
+            _counter = 0;
         }
 
         [Test]
@@ -106,14 +106,14 @@ namespace CardGameTests.UnitTests.Model.Engine
         public void OnStartTurn_CardHasTwoOnStartTurnTriggers_ValueIs2()
         {
             //Arrange
-            GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => IncrementCounter(out counter));
-            GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => IncrementCounter(out counter));
+            GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => IncrementCounter(out _counter));
+            GameEventManager.RegisterForEventTurnStart(_card0.Object, (player) => IncrementCounter(out _counter));
 
             //Act
             GameEventManager.OnTurnStart(_player1.Object);
 
             //Assert
-            Assert.That(counter, Is.EqualTo(2));
+            Assert.That(_counter, Is.EqualTo(2));
 
             UnregisterTriggers();
         }
