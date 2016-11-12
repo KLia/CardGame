@@ -3,6 +3,7 @@
 *.csproj.user
 *.user*
 *settings*
+*.DotSettings.user
 
 bin/
 obj/
