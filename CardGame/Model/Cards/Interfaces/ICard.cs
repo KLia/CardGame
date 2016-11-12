@@ -17,7 +17,8 @@ namespace CardGame.Model.Cards.Interfaces
         int PermanentCostBuff { get; set; }
         CardType Type { get; set; }
         CardSubType SubType { get; set; }
+        GameBoardZone Zone { get; set; }
+        int ZonePos { get; set; }
         void PlayCard(int boardPos, IDamageable target = null);
-        void MoveCard(GameBoardZone sourceZone, GameBoardZone destZone, int boardPos = -1, bool isCopy = false);
     }
 }

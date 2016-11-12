@@ -46,13 +46,11 @@ namespace CardGame.Model.Cards
                 throw new InvalidOperationException(
                     $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
             }
+            
+            PlayerOwner.MoveCard(this, GameBoardZone.Hand, GameBoardZone.Board, boardPos);
 
-            base.PlayCard(boardPos, target);
-
-            MoveCard(GameBoardZone.Hand, GameBoardZone.Board, boardPos);
-
-            //Trigger the on CardPlayed Event 
-            GameEventManager.CardPlayed(this);
+            //Trigger the on MinionSummoned Event 
+            GameEventManager.MinionSummoned(this, target);
         }
 
         /// <summary>
