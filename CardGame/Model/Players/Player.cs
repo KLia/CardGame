@@ -52,7 +52,8 @@ namespace CardGame.Model.Players
             //if player already has maximum  number of cards in hand, burn this card
             if (CardsInHand.Count == GameConstants.MAX_CARDS_IN_HAND)
             {
-                throw new InvalidOperationException($"Cannot have more than {GameConstants.MAX_CARDS_IN_HAND} cards in hand");
+                throw new InvalidOperationException(
+                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_HAND} cards in hand");
             }
 
             //add card to hand
@@ -101,7 +102,7 @@ namespace CardGame.Model.Players
             {
                 throw new InvalidOperationException("Not enough Mana");
             }
-            
+
             //play events		
             card.PlayCard(boardPos, target);
 
@@ -109,6 +110,52 @@ namespace CardGame.Model.Players
             card.PlayOrder = Card.CurrentPlayOrder;
             CurrentMana -= card.CurrentCost;
             GameEventManager.CardPlayed(card);
+        }
+
+        /// <summary>		      
+        /// Moves the card from one board zone to another		
+        /// </summary>		
+        /// <param name="card">The card to move</param>		
+        /// <param name="sourceZone">From which board zone</param>		
+        /// <param name="destZone">To which board zone</param>		
+        /// <param name="boardPos">If it is dropped in a specific position, use it</param>		
+        /// <param name="isCopy">If it should be copies rather than moved, do not remove it from source zone</param>		
+        public void MoveCard(ICard card, GameBoardZone sourceZone, GameBoardZone destZone, int boardPos = -1,
+            bool isCopy = false)
+        {
+            var source = sourceZone.GetPlayerBoardZone(this);
+            var dest = destZone.GetPlayerBoardZone(this);
+
+            if (!source.Contains(card))
+            {
+                throw new InvalidOperationException("Card does not exist in source");
+            }
+
+            if (destZone == GameBoardZone.Hand && dest.Count >= GameConstants.MAX_CARDS_IN_HAND)
+            {
+                throw new InvalidOperationException("Hand is full");
+            }
+
+            if (destZone == GameBoardZone.Board && dest.Count >= GameConstants.MAX_CARDS_IN_PLAY)
+            {
+                throw new InvalidOperationException("Board is full");
+            }
+
+            //remove the card if we are not copying		
+            if (!isCopy)
+            {
+                source.Remove(card);
+            }
+
+            //insert into the correct position		
+            if (boardPos > -1 && boardPos < dest.Count)
+            {
+                dest.Insert(boardPos, card);
+            }
+            else
+            {
+                dest.Add(card);
+            }
         }
     }
 }

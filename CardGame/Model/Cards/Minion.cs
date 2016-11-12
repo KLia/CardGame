@@ -47,7 +47,7 @@ namespace CardGame.Model.Cards
                     $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
             }
             
-            //PlayerOwner.MoveCard(this, GameBoardZone.Hand, GameBoardZone.Board, boardPos);
+            PlayerOwner.MoveCard(this, GameBoardZone.Hand, GameBoardZone.Board, boardPos);
 
             //Trigger the on MinionSummoned Event 
             GameEventManager.MinionSummoned(this, target);
