@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;

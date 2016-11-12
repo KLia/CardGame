@@ -17,7 +17,7 @@ namespace CardGame.Model.Cards
         {
             bool abort;
 
-            PlayerOwner.MoveCard(this, GameBoardZone.Hand, GameBoardZone.Graveyard);
+            //PlayerOwner.MoveCard(this, GameBoardZone.Hand, GameBoardZone.Graveyard);
             GameEventManager.SpellCast(this, target, out abort);
 
             if (!abort)
