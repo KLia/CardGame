@@ -15,7 +15,6 @@ namespace CardGame.Model.Cards.ValueObjects
         OnDeath = 64,
         OnCardPlayed = 128,
         OnMinionSummoned = 512,
-        OnSpellCast = 1024,
-        OnSpellTarget = 2048
+        OnSpellCast = 1024
     }
 }

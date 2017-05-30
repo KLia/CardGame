@@ -34,5 +34,22 @@ namespace CardGame.Model.Engine
                     throw new ArgumentOutOfRangeException(nameof(zone), zone, null);
             }
         }
+
+        public static string Stringify(this GameBoardZone zone)
+        {
+            switch (zone)
+            {
+                case GameBoardZone.Deck:
+                    return "Deck";
+                case GameBoardZone.Hand:
+                    return "Hand";
+                case GameBoardZone.Board:
+                    return "Board";
+                case GameBoardZone.Graveyard:
+                    return "Graveyard";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(zone), zone, null);
+            }
+        }
     }
 }

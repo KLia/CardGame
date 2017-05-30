@@ -84,11 +84,31 @@ namespace CardGame.Model.Players
             return cards;
         }
 
-        private void CastSpell(ICard card, IDamageable target)
+        /// <summary>		
+        /// Called whenever a player plays a card from their hand		
+        /// </summary>		
+        /// <param name="card">The card being played</param>		
+        /// <param name="boardPos">The new position on the board where the card is dropped</param>		
+        /// <param name="target">The card to attack, if any</param>		
+        public void PlayCard(ICard card, int boardPos, IDamageable target = null)
         {
+            if (!CardsInHand.Contains(card))
+            {
+                throw new InvalidOperationException("The card you're trying to play is not in your hand");
+            }
 
+            if (CurrentMana < card.CurrentCost)
+            {
+                throw new InvalidOperationException("Not enough Mana");
+            }
+            
+            //play events		
+            card.PlayCard(boardPos, target);
+
+            //move from hand to board, assign PlayOrder, PlayerOwner Owner and decrease mana		
+            card.PlayOrder = Card.CurrentPlayOrder;
+            CurrentMana -= card.CurrentCost;
+            GameEventManager.CardPlayed(card);
         }
-
-       
     }
 }
