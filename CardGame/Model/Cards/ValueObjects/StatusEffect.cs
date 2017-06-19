@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CardGame.Model.Cards.ValueObjects
 {
@@ -15,13 +17,33 @@ namespace CardGame.Model.Cards.ValueObjects
     public static class StatusEffectExtensions
     {
         /// <summary>
+        /// Create an IEnumerable for all StatusEffect. Used as a helper function
+        /// </summary>
+        /// <returns></returns>
+        private static IEnumerable<StatusEffect> GetAllStatusEffects()
+        {
+            return (StatusEffect[]) Enum.GetValues(typeof(StatusEffect));
+        }
+
+        /// <summary>
         /// Resets all Status Effects except for EXHAUSTED - that cannot be removed
         /// </summary>
         /// <param name="flags">The StatusEffect variable we want to remove all effects from</param>
         /// <returns></returns>
         public static StatusEffect ResetAll(this StatusEffect flags)
         {
-            return flags & (~StatusEffect.CantAttack & ~StatusEffect.Charge & StatusEffect.Shield & ~StatusEffect.Taunt);
+            return GetAllStatusEffects()
+                .Where(effect => effect != StatusEffect.Exhausted)
+                .Aggregate(flags, (current, effect) => current & ~effect);
+
+            // ---- Equivalent to:
+            //foreach (StatusEffect effect in GetAllStatusEffects())
+            //{
+            //    if (effect != StatusEffect.Exhausted)
+            //    {
+            //        flags = flags & ~effect;
+            //    }
+            //}
         }
     }
 }

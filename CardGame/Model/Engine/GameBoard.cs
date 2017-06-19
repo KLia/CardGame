@@ -2,6 +2,7 @@
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Engine.Interfaces;
 using CardGame.Model.Engine.ValueObjects;
+using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Engine
 {
@@ -9,15 +10,17 @@ namespace CardGame.Model.Engine
     {
         public GameBoard()
         {
-            Player1PlayZone = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
+            PlayerBoardCards = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
 
-            Player2PlayZone = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
+            OpponentBoardCards = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
         }
 
-        public List<ICard> Player1PlayZone { get; set; }
-        public List<ICard> Player2PlayZone { get; set; }
+        public List<ICard> PlayerBoardCards { get; set; }
+        public List<ICard> OpponentBoardCards { get; set; }
 
-        public List<ICard> Player1Graveyard { get; set; }
-        public List<ICard> Player2Graveyard { get; set; }
+        public List<ICard> GetPlayerBoardCards(IPlayer player)
+        {
+            return GameBoardZone.Board.GetPlayerBoardZone(player);
+        }
     }
 }

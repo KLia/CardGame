@@ -22,8 +22,10 @@ namespace CardGameConsoleApp
             var deck2 = new Deck(new List<ICard>(minions));
             var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);
             var p2 = new Player(2, "P2", /*GameConstants.STARTING_MANA*/10, deck2);
+            minions[0].PlayerOwner = p1;
+            minions[1].PlayerOwner = p2;
 
-            GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1));
+            GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1, new GameBoard()));
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
 
@@ -31,6 +33,9 @@ namespace CardGameConsoleApp
             var filenames =
                 Directory.GetFiles("C:\\Users\\keith\\Documents\\GitHub\\CardGame\\CardGameConsoleApp\\Cards\\Minions");
             p1.Deck.AddCards(CardScriptLoader.CardScriptLoader.GetCards(filenames));
+
+            Console.WriteLine($"Cards in P1's deck: {p1.Deck.Cards.Count}");
+            Console.WriteLine($"Cards in P2's deck: {p2.Deck.Cards.Count}");
 
 
             //=========================================//
@@ -68,10 +73,11 @@ namespace CardGameConsoleApp
                         new object[] {card, 1}));
             //=========================================//
 
-            p1.PlayCard(minions[0], 0);
-            p2.PlayCard(minions[1], 0);
+            minions[0].PlayCard(0);
+            minions[1].PlayCard(0);
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");
+            Console.WriteLine($"Minion {minions[0].Id} taking 2 damage");
             minions[0].TakeDamage(2);
             Console.WriteLine($"Minion {minions[0].Id} BaseHealth: {minions[0].CurrentHealth}");
             Console.WriteLine($"Minion {minions[1].Id} BaseHealth: {minions[1].CurrentHealth}");

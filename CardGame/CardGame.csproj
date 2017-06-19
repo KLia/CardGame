@@ -107,7 +107,11 @@
     <Compile Include="Model\Cards\ValueObjects\StatusEffect.cs" />
     <Compile Include="Model\Cards\ValueObjects\TriggerType.cs" />
     <Compile Include="Model\Decks\Deck.cs" />
+    <Compile Include="Model\Decks\GameDeck.cs" />
+    <Compile Include="Model\Decks\GameDeckCardCount.cs" />
+    <Compile Include="Model\Decks\GameDeckContext.cs" />
     <Compile Include="Model\Decks\Interfaces\IDeck.cs" />
+    <Compile Include="Model\Decks\Interfaces\IGameDeck.cs" />
     <Compile Include="Model\Engine\GameBoard.cs" />
     <Compile Include="Model\Engine\GameBoardZone.cs" />
     <Compile Include="Model\Engine\ValueObjects\GameConstants.cs" />

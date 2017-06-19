@@ -16,10 +16,13 @@ namespace CardGame.Model.Players.Interfaces
         AreaBuff AreaBuffs { get; set; }
         IDeck Deck { get; set; }
         List<ICard> CardsInHand { get; set; }
-        List<ICard> CardsInPlay { get; set; }
+        //List<ICard> CardsInPlay { get; set; }
         List<ICard> CardsInGraveyard { get; set; }
         ICard DrawCard(bool isMulligan = false);
         List<ICard> DrawCards(int count, bool isMulligan = false);
         void PlayCard(ICard card, int boardPos, IDamageable target = null);
+
+        void MoveCard(ICard card, GameBoardZone sourceZone, GameBoardZone destZone, int boardPos = -1,
+            bool isCopy = false);
     }
 }

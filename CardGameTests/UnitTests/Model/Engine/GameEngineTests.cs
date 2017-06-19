@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.Interfaces;
@@ -28,7 +30,7 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p1.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p1.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
             _p1.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(It.IsAny<List<ICard>>());
-            _p1.SetupProperty(p => p.CardsInPlay, new List<ICard>());
+            //_p1.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _p2 = new Mock<IPlayer>(MockBehavior.Strict);
             _p2.Setup(p => p.Id).Returns(1);
@@ -39,7 +41,7 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p2.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p2.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
             _p2.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
-            _p2.SetupProperty(p => p.CardsInPlay, new List<ICard>());
+            //_p2.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _gameState = new Mock<IGameState>(MockBehavior.Strict);
             _gameState.Setup(gs => gs.Player).Returns(_p1.Object);
@@ -56,6 +58,19 @@ namespace CardGameTests.UnitTests.Model.Engine
         public void TearDown()
         {
             GameEngine.Uninitialize();
+        }
+
+        [Test]
+        public void RngRandom_GetRandom_ReturnsRandomInt()
+        {
+            //Arrange
+            int i;
+
+            //Act
+            i = GameEngine.RngRandom.Next(1,1);
+
+            //Assert
+            Assert.That(i, Is.EqualTo(1));
         }
 
         [Test]
@@ -168,6 +183,58 @@ namespace CardGameTests.UnitTests.Model.Engine
             //Assert
             _gameState.Verify(gs => gs.SwapCurrentPlayer(), Times.Once);
             _gameState.Verify(gs => gs.IncrementTurn(), Times.Once);
+        }
+
+        [Test]
+        public void EndTurn_CardsInPlayContainsMinions_ResetTemporaryBuffers()
+        {
+            //Arrange
+            var m1 = new Mock<IMinion>();
+            m1.Setup(m => m.ResetTemporaryAttackBuff());
+            m1.Setup(m=>m.ResetTemporaryHealthBuff());
+            var cardsInPlay = new List<ICard>(1) {m1.Object};
+            //_p1.Setup(p => p.CardsInPlay).Returns(cardsInPlay);
+
+            //Act
+            GameEngine.EndTurn();
+
+            //Assert
+            m1.Verify(m => m.ResetTemporaryAttackBuff(), Times.Once);
+            m1.Verify(m => m.ResetTemporaryHealthBuff(), Times.Once);
+        }
+
+        [Test]
+        public void PlayCard_NotPlayersTurn_ThrowInvalidOperationException()
+        {
+            //Arrange
+            var card = new Mock<ICard>(MockBehavior.Strict);
+            card.Setup(c => c.Id).Returns(1);
+            card.Setup(c => c.PlayerOwner).Returns(_p1.Object);
+
+            _gameState.Setup(gs => gs.CurrentPlayer).Returns(_p2.Object);
+
+            //Act
+            
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => GameEngine.PlayCard(_p1.Object, card.Object, -1, null));
+        }
+
+        [Test]
+        public void PlayCard_PlayersTurn_NoExceptionThrownAndPlayerPlaysCard()
+        {
+            //Arrange
+            var card = new Mock<ICard>(MockBehavior.Strict);
+            card.Setup(c => c.Id).Returns(1);
+            card.Setup(c => c.PlayerOwner).Returns(_p1.Object);
+            card.Setup(c => c.PlayCard(It.IsAny<int>(), It.IsAny<IDamageable>()));
+
+            _gameState.Setup(gs => gs.CurrentPlayer).Returns(_p1.Object);
+
+            //Act
+            GameEngine.PlayCard(_p1.Object, card.Object, -1, null);
+
+            //Assert
+            card.Verify(c => c.PlayCard(-1, null), Times.Once);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CardGame.Model.Players
         public IDeck Deck { get; set; }
 
         public List<ICard> CardsInHand { get; set; }
-        public List<ICard> CardsInPlay { get; set; }
+       // public List<ICard> CardsInPlay { get; set; }
         public List<ICard> CardsInGraveyard { get; set; }
 
         public Player(int id, string name, IDeck deck) : this(id, name, 0, deck, new AreaBuff())
@@ -41,7 +41,7 @@ namespace CardGame.Model.Players
             CurrentMana = mana;
             AreaBuffs = areaBuffs;
             CardsInHand = new List<ICard>(GameConstants.MAX_CARDS_IN_HAND);
-            CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
+            //CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
             CardsInGraveyard = new List<ICard>();
         }
 
@@ -52,7 +52,8 @@ namespace CardGame.Model.Players
             //if player already has maximum  number of cards in hand, burn this card
             if (CardsInHand.Count == GameConstants.MAX_CARDS_IN_HAND)
             {
-                throw new InvalidOperationException($"Cannot have more than {GameConstants.MAX_CARDS_IN_HAND} cards in hand");
+                throw new InvalidOperationException(
+                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_HAND} cards in hand");
             }
 
             //add card to hand
@@ -84,12 +85,12 @@ namespace CardGame.Model.Players
             return cards;
         }
 
-        /// <summary>
-        /// Called whenever a player plays a card from their hand
-        /// </summary>
-        /// <param name="card">The card being played</param>
-        /// <param name="boardPos">The new position on the board where the card is dropped</param>
-        /// <param name="target">The card to attack, if any</param>
+        /// <summary>		
+        /// Called whenever a player plays a card from their hand		
+        /// </summary>		
+        /// <param name="card">The card being played</param>		
+        /// <param name="boardPos">The new position on the board where the card is dropped</param>		
+        /// <param name="target">The card to attack, if any</param>		
         public void PlayCard(ICard card, int boardPos, IDamageable target = null)
         {
             if (!CardsInHand.Contains(card))
@@ -102,71 +103,25 @@ namespace CardGame.Model.Players
                 throw new InvalidOperationException("Not enough Mana");
             }
 
-            if (CardsInPlay.Count == GameConstants.MAX_CARDS_IN_PLAY)
-            {
-                throw new InvalidOperationException(
-                    $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
-            }
+            //play events		
+            card.PlayCard(boardPos, target);
 
-            //move from hand to board, assign PlayOrder, PlayerOwner Owner and decrease mana
-            card.PlayOrder = Cards.Card.CurrentPlayOrder;
-            card.PlayerOwner = this;
+            //move from hand to board, assign PlayOrder, PlayerOwner Owner and decrease mana		
+            card.PlayOrder = Card.CurrentPlayOrder;
             CurrentMana -= card.CurrentCost;
-
-            //play events
-            switch (card.Type)
-            {
-                case CardType.Minion:
-                    SummonMinion(card, boardPos);
-                    break;
-
-                case CardType.Spell:
-                    CastSpell(card, target);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            GameEventManager.CardPlayed(card);
         }
 
-        private void SummonMinion(ICard card, int boardPos, bool isForcedSummoned = false)
-        {
-            MoveCard(card, GameBoardZone.Hand, GameBoardZone.Board, boardPos);
-
-            //Trigger the on CardPlayed Event - if the card is not forced summoned
-            if (!isForcedSummoned)
-            {
-                GameEventManager.CardPlayed(card);
-            }
-        }
-
-        private void CastSpell(ICard card, IDamageable target)
-        {
-            bool abort;
-
-            MoveCard(card, GameBoardZone.Hand, GameBoardZone.Graveyard);
-            GameEventManager.SpellCast((Spell) card, target, out abort);
-
-            if (!abort)
-            {
-                ((Spell) card).Cast(target);
-
-                if (target != null)
-                {
-                    GameEventManager.SpellTarget(target);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Moves the card from one board zone to another
-        /// </summary>
-        /// <param name="card">The card to move</param>
-        /// <param name="sourceZone">From which board zone</param>
-        /// <param name="destZone">To which board zone</param>
-        /// <param name="boardPos">If it is dropped in a specific position, use it</param>
-        /// <param name="isCopy">If it should be copies rather than moved, do not remove it from source zone</param>
-        public void MoveCard(ICard card, GameBoardZone sourceZone, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)
+        /// <summary>		      
+        /// Moves the card from one board zone to another		
+        /// </summary>		
+        /// <param name="card">The card to move</param>		
+        /// <param name="sourceZone">From which board zone</param>		
+        /// <param name="destZone">To which board zone</param>		
+        /// <param name="boardPos">If it is dropped in a specific position, use it</param>		
+        /// <param name="isCopy">If it should be copies rather than moved, do not remove it from source zone</param>		
+        public void MoveCard(ICard card, GameBoardZone sourceZone, GameBoardZone destZone, int boardPos = -1,
+            bool isCopy = false)
         {
             var source = sourceZone.GetPlayerBoardZone(this);
             var dest = destZone.GetPlayerBoardZone(this);
@@ -186,13 +141,13 @@ namespace CardGame.Model.Players
                 throw new InvalidOperationException("Board is full");
             }
 
-            //remove the card if we are not copying
+            //remove the card if we are not copying		
             if (!isCopy)
             {
                 source.Remove(card);
             }
 
-            //insert into the correct position
+            //insert into the correct position		
             if (boardPos > -1 && boardPos < dest.Count)
             {
                 dest.Insert(boardPos, card);

@@ -40,9 +40,6 @@ namespace CardGame.Model.Engine
 
             SpellCast += OnSpellCast;
             onSpellCastListeners = new List<Tuple<ICard, SpellCastHandler>>();
-
-            SpellTarget += OnSpellTarget;
-            onSpellTargetListeners = new List<Tuple<ICard, SpellTargetHandler>>();
         }
 
         public static void Uninitialize()
@@ -76,9 +73,6 @@ namespace CardGame.Model.Engine
 
             SpellCast -= OnSpellCast;
             onSpellCastListeners = null;
-
-            SpellTarget -= OnSpellTarget;
-            onSpellTargetListeners = null;
         }
 
         public static void UnregisterForEvents(ICard card)
@@ -93,7 +87,6 @@ namespace CardGame.Model.Engine
             onCardPlayedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onMinionSummonedListeners.RemoveAll(c => c.Item1.Id == card.Id);
             onSpellCastListeners.RemoveAll(c => c.Item1.Id == card.Id);
-            onSpellTargetListeners.RemoveAll(c => c.Item1.Id == card.Id);
         }
 
 
@@ -140,20 +133,15 @@ namespace CardGame.Model.Engine
         public static CardPlayedHandler CardPlayed;
         internal static List<Tuple<ICard, CardPlayedHandler>> onCardPlayedListeners;
         
-        public delegate void MinionSummonedHandler(IMinion card);
+        public delegate void MinionSummonedHandler(IMinion card, IDamageable target);
 
         public static MinionSummonedHandler MinionSummoned;
         internal static List<Tuple<ICard, MinionSummonedHandler>> onMinionSummonedListeners;
 
-        public delegate void SpellCastHandler(Spell spell, IDamageable target, out bool abort);
+        public delegate void SpellCastHandler(ISpell spell, IDamageable target, out bool abort);
 
         public static SpellCastHandler SpellCast;
         internal static List<Tuple<ICard, SpellCastHandler>> onSpellCastListeners;
-
-        public delegate void SpellTargetHandler(IDamageable target);
-
-        public static SpellTargetHandler SpellTarget;
-        internal static List<Tuple<ICard, SpellTargetHandler>> onSpellTargetListeners;
 
         //Register for events
         public static void RegisterForEventTurnStart(ICard card, TurnStartHandler callback)
@@ -200,11 +188,6 @@ namespace CardGame.Model.Engine
         public static void RegisterForEventSpellCast(ICard card, SpellCastHandler callback)
         {
             onSpellCastListeners.Add(new Tuple<ICard, SpellCastHandler>(card, callback));
-        }
-
-        public static void RegisterForEventSpellTarget(ICard card, SpellTargetHandler callback)
-        {
-            onSpellTargetListeners.Add(new Tuple<ICard, SpellTargetHandler>(card, callback));
         }
 
 
@@ -352,7 +335,7 @@ namespace CardGame.Model.Engine
             }
         }
 
-        public static void OnMinionSummoned(IMinion card)
+        public static void OnMinionSummoned(IMinion card, IDamageable target)
         {
             if (!onMinionSummonedListeners.Any())
             {
@@ -360,16 +343,17 @@ namespace CardGame.Model.Engine
             }
 
             var mainCard = onMinionSummonedListeners.Find(c => c.Item1.Id == card.Id);
-            var listeners = onMinionSummonedListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
+            var listeners =
+                onMinionSummonedListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
             listeners.Insert(0, mainCard);
 
             foreach (var listener in listeners)
             {
-                listener?.Item2(card);
+                listener?.Item2(card, target);
             }
         }
 
-        public static void OnSpellCast(Spell spell, IDamageable target, out bool abort)
+        public static void OnSpellCast(ISpell spell, IDamageable target, out bool abort)
         {
             abort = false; 
 
@@ -381,22 +365,7 @@ namespace CardGame.Model.Engine
             var listeners = onSpellCastListeners.OrderBy(c => c.Item1.PlayOrder).ToList();
             foreach (var listener in listeners)
             {
-                listener.Item2(spell, target, out abort);
-            }
-        }
-
-        public static void OnSpellTarget(IDamageable target)
-        {
-            if (!onSpellTargetListeners.Any())
-            {
-                return;
-            }
-
-            var card = target as ICard;
-            if (card != null)
-            {
-                var listener = onSpellTargetListeners.Find(c => c.Item1.Id == card.Id);
-                listener.Item2(target);
+                listener?.Item2(spell, target, out abort);
             }
         }
     }

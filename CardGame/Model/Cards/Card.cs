@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
+using CardGame.Model.Engine;
 using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
@@ -15,6 +16,10 @@ namespace CardGame.Model.Cards
         {
             _id++;
             Id = _id;
+
+            ZonePos = -1;
+            Zone = GameBoardZone.Deck;
+
             TemporaryCostBuff = 0;
             PermanentCostBuff = 0;
         }
@@ -28,9 +33,18 @@ namespace CardGame.Model.Cards
         public int BaseCost { get; set; }
         public int TemporaryCostBuff { get; set; }
         public int PermanentCostBuff { get; set; }
-        public int CurrentCost => BaseCost + TemporaryCostBuff + PermanentCostBuff;
+        public int CurrentCost => Math.Min(0, BaseCost - TemporaryCostBuff - PermanentCostBuff);
 
         public CardType Type { get; set; }
         public CardSubType SubType { get; set; }
+        public GameBoardZone Zone { get; set; }
+        public int ZonePos { get; set; }
+
+        /// <summary>
+        /// Called whenever a player plays a card from their hand
+        /// </summary
+        /// <param name="boardPos">The new position on the board where the card is dropped</param>
+        /// <param name="target">The card to attack, if any</param>
+        public abstract void PlayCard(int boardPos, IDamageable target = null);
     }
 }
