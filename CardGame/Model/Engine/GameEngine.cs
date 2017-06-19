@@ -60,7 +60,7 @@ namespace CardGame.Model.Engine
             GameEventManager.TurnEnd(GameState.CurrentPlayer);
 
             //Remove all temporary buffs on the minions
-            foreach (var card in GameState.CurrentPlayer.CardsInPlay)
+            foreach (var card in GameState.GameBoard.GetPlayerBoardCards(GameState.CurrentPlayer))
             {
                 var m = card as IMinion;
                 if (m != null)
@@ -89,7 +89,7 @@ namespace CardGame.Model.Engine
                 throw new InvalidOperationException("It is not currently your turn");
             }
 
-            card.PlayCard(boardPos, target);
+            player.PlayCard(card, boardPos, target);
         }
 
         public static void MoveCard(ICard card, IPlayer sourcePlayer, GameBoardZone sourceZone, IPlayer destPlayer, GameBoardZone destZone, int boardPos = -1, bool isCopy = false)

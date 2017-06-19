@@ -7,6 +7,7 @@ namespace CardGame.Model.Engine.Interfaces
         IPlayer Opponent { get; set; }
         IPlayer CurrentPlayer { get; set; }
         int Turn { get; }
+        IGameBoard GameBoard { get; }
 
         void IncrementTurn();
         void SwapCurrentPlayer();

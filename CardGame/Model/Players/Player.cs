@@ -21,7 +21,7 @@ namespace CardGame.Model.Players
         public IDeck Deck { get; set; }
 
         public List<ICard> CardsInHand { get; set; }
-        public List<ICard> CardsInPlay { get; set; }
+       // public List<ICard> CardsInPlay { get; set; }
         public List<ICard> CardsInGraveyard { get; set; }
 
         public Player(int id, string name, IDeck deck) : this(id, name, 0, deck, new AreaBuff())
@@ -41,7 +41,7 @@ namespace CardGame.Model.Players
             CurrentMana = mana;
             AreaBuffs = areaBuffs;
             CardsInHand = new List<ICard>(GameConstants.MAX_CARDS_IN_HAND);
-            CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
+            //CardsInPlay = new List<ICard>(GameConstants.MAX_CARDS_IN_PLAY);
             CardsInGraveyard = new List<ICard>();
         }
 

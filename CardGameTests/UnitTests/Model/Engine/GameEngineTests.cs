@@ -30,7 +30,7 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p1.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p1.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
             _p1.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(It.IsAny<List<ICard>>());
-            _p1.SetupProperty(p => p.CardsInPlay, new List<ICard>());
+            //_p1.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _p2 = new Mock<IPlayer>(MockBehavior.Strict);
             _p2.Setup(p => p.Id).Returns(1);
@@ -41,7 +41,7 @@ namespace CardGameTests.UnitTests.Model.Engine
             _p2.SetupProperty(p => p.TotalMana, It.IsAny<int>());
             _p2.Setup(p => p.DrawCard(It.IsAny<bool>())).Returns(It.IsAny<ICard>());
             _p2.Setup(p => p.DrawCards(It.IsAny<int>(), It.IsAny<bool>())).Returns(new List<ICard>());
-            _p2.SetupProperty(p => p.CardsInPlay, new List<ICard>());
+            //_p2.SetupProperty(p => p.CardsInPlay, new List<ICard>());
 
             _gameState = new Mock<IGameState>(MockBehavior.Strict);
             _gameState.Setup(gs => gs.Player).Returns(_p1.Object);
@@ -193,7 +193,7 @@ namespace CardGameTests.UnitTests.Model.Engine
             m1.Setup(m => m.ResetTemporaryAttackBuff());
             m1.Setup(m=>m.ResetTemporaryHealthBuff());
             var cardsInPlay = new List<ICard>(1) {m1.Object};
-            _p1.Setup(p => p.CardsInPlay).Returns(cardsInPlay);
+            //_p1.Setup(p => p.CardsInPlay).Returns(cardsInPlay);
 
             //Act
             GameEngine.EndTurn();

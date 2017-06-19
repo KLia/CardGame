@@ -27,7 +27,9 @@ namespace CardGame.Model.Engine
                 case GameBoardZone.Hand:
                     return player.CardsInHand;
                 case GameBoardZone.Board:
-                    return player.CardsInPlay;
+                    return player == GameEngine.GameState.Player
+                        ? GameEngine.GameState.GameBoard.PlayerBoardCards
+                        : GameEngine.GameState.GameBoard.OpponentBoardCards;
                 case GameBoardZone.Graveyard:
                     return player.CardsInGraveyard;
                 default:

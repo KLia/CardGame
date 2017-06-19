@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.ValueObjects;
-using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
@@ -41,7 +39,7 @@ namespace CardGame.Model.Cards
 
         public override void PlayCard(int boardPos, IDamageable target = null)
         {
-            if (PlayerOwner.CardsInPlay.Count == GameConstants.MAX_CARDS_IN_PLAY)
+            if (GameBoardZone.Board.GetPlayerBoardZone(PlayerOwner).Count == GameConstants.MAX_CARDS_IN_PLAY)
             {
                 throw new InvalidOperationException(
                     $"Cannot have more than {GameConstants.MAX_CARDS_IN_PLAY} cards in play");
@@ -157,7 +155,7 @@ namespace CardGame.Model.Cards
             GameEventManager.UnregisterForEvents(this);
 
             //move to graveyard
-            GameEngine.MoveCard(this, PlayerOwner, GameBoardZone.Board, PlayerOwner, GameBoardZone.Graveyard);
+            PlayerOwner.MoveCard(this, GameBoardZone.Board, GameBoardZone.Graveyard);
         }
 
 
