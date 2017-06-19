@@ -27,7 +27,7 @@ namespace CardGame.Model.Decks
             };
         }
 
-        public List<ICard> GetCards()
+        public IEnumerable<ICard> GetCards()
         {
             return _cards;
         }
@@ -105,6 +105,16 @@ namespace CardGame.Model.Decks
             }
         }
 
+        /// <summary>
+        /// After playing a new card, we need to arrange the card order on the board to match their new position
+        /// (For example, there are 5 cards in play, and a new card is played in position 2. All cards in position 2 
+        /// onwards must increment their position to match the new one. So, 2->3, 3->4, 4->5, 5->6).
+        /// The same happens if a card is removed from the board, somehow.
+        /// </summary>
+        /// <param name="player">The player whose board is being affected</param>
+        /// <param name="zone">Which player zone (or board)</param>
+        /// <param name="boardPos">Which position is the new card played at, or old card is removed from</param>
+        /// <param name="isAdd">If yes, increment, else decrement</param>
         private void ArrangeCardOrder(IPlayer player, GameBoardZone zone, int boardPos, bool isAdd)
         {
             //Find all cards with the parameter's criteria, and add 
