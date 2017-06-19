@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using CardGame.Model.Cards.Interfaces;
-using ScriptCs;
-using ScriptCs.Contracts;
-using ScriptCs.Engine.Mono;
-using ScriptCs.Engine.Roslyn;
-using ScriptCs.Hosting;
 
 namespace CardScriptLoader
 {
@@ -29,6 +23,7 @@ namespace CardScriptLoader
             var rv = sb.Execute(code);
             Console.WriteLine("---- OutThing ----");
             Console.WriteLine(context.Cards);
+            Console.WriteLine($"Number of Cards loaded: {context.Cards.Count}");
             Console.WriteLine("---- Return Value ----");
             Console.WriteLine(rv);
 
