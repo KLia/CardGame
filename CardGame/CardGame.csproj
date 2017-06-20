@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Cards\Card.cs" />
+    <Compile Include="Model\Engine\GameEventRegistrator.cs" />
     <Compile Include="Model\Cards\Interfaces\IAttacker.cs" />
     <Compile Include="Model\Cards\Interfaces\ICard.cs" />
     <Compile Include="Model\Cards\Interfaces\IDamageable.cs" />

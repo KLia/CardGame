@@ -8,7 +8,7 @@ using CardGame.Model.Players.Interfaces;
 
 namespace CardGameConsoleApp
 {
-    public class SampleMinion : Minion, ITriggerable
+    public class SampleMinion : Minion
     {
         private int turnPlayed;
         public SampleMinion()
@@ -18,7 +18,7 @@ namespace CardGameConsoleApp
             BaseHealth = 1;
         }
 
-        public void OnTurnStart(IPlayer player)
+        public override void OnTurnStart(IPlayer player)
         {
             if (player.TotalMana < GameConstants.TOTAL_MANA)
             {
@@ -26,7 +26,7 @@ namespace CardGameConsoleApp
             }
         }
 
-        public void OnSummon(ICard card)
+        public override void OnMinionSummoned(IMinion card, IDamageable target)
         {
             if (card == this)
             {
@@ -39,18 +39,18 @@ namespace CardGameConsoleApp
             }
         }
 
-        public TriggerType TriggerTypes => TriggerType.OnTurnStart;
+        public new TriggerType TriggerTypes => TriggerType.OnTurnStart;
 
         public void AttachEvent()
         {
             GameEventManager.RegisterForEventTurnStart(this, OnTurnStart);
-            GameEventManager.RegisterForEventCardPlayed(this, OnSummon);
+            GameEventManager.RegisterForEventCardPlayed(this, OnMinionSummoned);
         }
 
         public new void Silence()
         {
             base.Silence();
-            OnSummon(this);
+            OnMinionSummoned(this);
         }
 
         public void OnMinionSummoned(ICard minion)

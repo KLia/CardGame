@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CardGame.Model.Cards.ValueObjects
 {
@@ -16,5 +17,17 @@ namespace CardGame.Model.Cards.ValueObjects
         OnCardPlayed = 128,
         OnMinionSummoned = 512,
         OnSpellCast = 1024
+    }
+
+    public static class TriggerTypeExtensions
+    {
+        /// <summary>
+        /// Create an IEnumerable for all TriggerTypes. Used as a helper function
+        /// </summary>
+        /// <returns></returns>
+        internal static IEnumerable<TriggerType> GetAllTriggerTypes()
+        {
+            return (TriggerType[]) Enum.GetValues(typeof(TriggerType));
+        }
     }
 }

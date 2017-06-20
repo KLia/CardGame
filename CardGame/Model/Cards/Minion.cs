@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Reflection;
 using CardGame.Model.Cards.Interfaces;
 using CardGame.Model.Cards.ValueObjects;
 using CardGame.Model.Engine;
 using CardGame.Model.Engine.ValueObjects;
+using CardGame.Model.Players.Interfaces;
 
 namespace CardGame.Model.Cards
 {
@@ -11,7 +13,7 @@ namespace CardGame.Model.Cards
         protected Minion()
         {
             Type = CardType.Minion;
-            
+
             TemporaryAttackBuff = 0;
             PermanentAttackBuff = 0;
 
@@ -20,6 +22,7 @@ namespace CardGame.Model.Cards
             IsDead = false;
 
             StatusEffects |= StatusEffect.Exhausted;
+            GameEventRegistrator.RegisterEvents(this, GetMinionType());
         }
 
         public int BaseAttack { get; set; }
@@ -34,8 +37,27 @@ namespace CardGame.Model.Cards
         public int MaxHealth => BaseHealth + TemporaryHealthBuff + PermanentHealthBuff + PlayerOwner.AreaBuffs.AreaHealthBuff;
         public int CurrentHealth { get; set; }
         public bool IsDead { get; set; }
+        public TriggerType TriggerTypes { get; set; }
 
         public bool CanAttack => !StatusEffects.HasFlag(StatusEffect.Exhausted | StatusEffect.CantAttack);
+
+        public static Type GetMinionType()
+        {
+            return typeof(Minion);
+        }
+
+        // To be overridden by extending implementations
+        public virtual void OnTurnStart(IPlayer player) { }
+        public virtual void OnTurnEnd(IPlayer player) { }
+        public virtual void OnCardDrawn(ICard card) { }
+        public virtual void OnAttack(IAttacker attacker, IDamageable target, out bool abort) { abort = false; }
+        public virtual void OnHealed(IDamageable target, int heal) { }
+        public virtual void OnGetHit(IDamageable target, int damage) { }
+        public virtual void OnDeath(IDamageable target) { }
+        public virtual void OnCardPlayed(ICard card) { }
+        public virtual void OnMinionSummoned(IMinion card, IDamageable target) { }
+        public virtual void OnSpellCast(ISpell spell, IDamageable target, out bool abort) { abort = false; }
+        //================================================
 
         public override void PlayCard(int boardPos, IDamageable target = null)
         {
@@ -55,7 +77,7 @@ namespace CardGame.Model.Cards
         /// Add StatusEffects to this Minion
         /// </summary>
         private StatusEffect StatusEffects { get; set; }
-
+        
         public void ApplyStatusEffect(StatusEffect effects)
         {
             StatusEffects |= effects;
@@ -141,7 +163,7 @@ namespace CardGame.Model.Cards
         /// <summary>
         /// IDamageable Die
         /// The minion dies when health reaches 0.
-        /// Trigger Death events, unregister all the events associated with it and move the card to the graveyard
+        /// Trigger Death events, unregister all the events associated with it and move the minion to the graveyard
         /// </summary>
         public void Die()
         {

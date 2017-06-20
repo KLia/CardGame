@@ -3,7 +3,6 @@ using System.Linq;
 using CardGame.Model.Cards;
 using CardGame.Model.Cards.ValueObjects;
 using CardGameConsoleApp.DBML;
-using CardTrigger = CardGame.Model.Cards.ValueObjects.CardTrigger;
 
 namespace CardGameConsoleApp.Controller
 {
