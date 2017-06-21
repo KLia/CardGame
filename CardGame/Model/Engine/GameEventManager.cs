@@ -320,13 +320,13 @@ namespace CardGame.Model.Engine
 
         public static void OnCardPlayed(ICard card)
         {
-            if (!onCardDrawnListeners.Any())
+            if (!onCardPlayedListeners.Any())
             {
                 return;
             }
 
-            var mainCard = onCardDrawnListeners.Find(c => c.Item1.Id == card.Id);
-            var listeners = onCardDrawnListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
+            var mainCard = onCardPlayedListeners.Find(c => c.Item1.Id == card.Id);
+            var listeners = onCardPlayedListeners.Where(c => c.Item1.Id != card.Id).OrderBy(c => c.Item1.PlayOrder).ToList();
             listeners.Insert(0, mainCard);
 
             foreach (var listener in listeners)
