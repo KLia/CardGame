@@ -26,10 +26,12 @@ namespace CardGame.Model.Decks
         public void AddCard(ICard card)
         {
             Cards.Add(card);
+            _topDeckIndex += 1;
         }
         public void AddCards(IList<ICard> cards)
         {
             Cards.AddRange(cards);
+            _topDeckIndex += cards.Count;
         }
 
         public void RemoveCard(ICard card)

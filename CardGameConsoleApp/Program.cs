@@ -16,16 +16,19 @@ namespace CardGameConsoleApp
         private static void Main(string[] args)
         {
             //===Initialize============================//
-            var minions = new List<Minion> {new SampleMinion(), new SampleMinion()};
                 //CardController.GetInstance().GetAllMinionsList(1);
-            var deck1 = new Deck(new List<ICard>(minions));
-            var deck2 = new Deck(new List<ICard>(minions));
+            var deck1 = new Deck();
+            var deck2 = new Deck();
             var p1 = new Player(1, "P1", /*GameConstants.STARTING_MANA*/10, deck1);
             var p2 = new Player(2, "P2", /*GameConstants.STARTING_MANA*/10, deck2);
+            
+            GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1, new GameBoard()));
+            var minions = new List<Minion> { new SampleMinion(), new SampleMinion() };
+
+            deck1.AddCards(new List<ICard>(minions));
+            deck2.AddCards(new List<ICard>(minions));
             minions[0].PlayerOwner = p1;
             minions[1].PlayerOwner = p2;
-
-            GameEngine.Initialize(p1, p2, new GameState(p1, p2, p1, new GameBoard()));
             p1.CardsInHand.Add(minions[0]);
             p2.CardsInHand.Add(minions[1]);
 
