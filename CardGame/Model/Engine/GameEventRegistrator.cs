@@ -12,10 +12,18 @@ namespace CardGame.Model.Engine
             {
                 //Check the type of "triggerable" object, compared to typeof(BaseClass)
                 //if different, then the method was implemented by the extending class, and we register its event
-                if (triggerable.GetType().GetMethod(triggerType.ToString()).DeclaringType == baseType)
+                try
                 {
-                    continue;
+                    if (triggerable.GetType().GetMethod(triggerType.ToString()).DeclaringType == baseType)
+                    {
+                        continue;
+                    }
                 }
+                catch
+                {
+                    // Put here for the "None" TriggerType. Otherwise, method with that name is not found, and an exception is thrown
+                }
+
 
                 switch (triggerType)
                 {
