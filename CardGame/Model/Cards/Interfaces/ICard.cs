@@ -11,8 +11,8 @@ namespace CardGame.Model.Cards.Interfaces
         int PlayOrder { get; set; }
         IPlayer PlayerOwner { get; set; }
         string Name { get; set; }
-        int BaseCost { get; set; }
-        int CurrentCost { get; }
+        int BaseManaCost { get; set; }
+        int CurrentManaCost { get; }
         int TemporaryCostBuff { get; set; }
         int PermanentCostBuff { get; set; }
         CardType Type { get; set; }

@@ -13,7 +13,7 @@ namespace CardGameConsoleApp
         private int turnPlayed;
         public SampleMinion()
         {
-            BaseCost = 1;
+            BaseManaCost = 1;
             BaseAttack = 1;
             BaseHealth = 1;
         }

@@ -46,7 +46,7 @@ namespace CardGameConsoleApp
             foreach (var m in minions)
             {
                 Console.WriteLine(
-                    $"Name: {m.Name}; BaseCost: {m.BaseCost}; BaseAttack: {m.BaseAttack}; BaseHealth: {m.BaseHealth}");
+                    $"Name: {m.Name}; BaseManaCost: {m.BaseManaCost}; BaseAttack: {m.BaseAttack}; BaseHealth: {m.BaseHealth}");
             }
 
             //===Game Events===========================//

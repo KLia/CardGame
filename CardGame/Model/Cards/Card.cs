@@ -30,10 +30,10 @@ namespace CardGame.Model.Cards
         public IPlayer PlayerOwner { get; set; }
 
         public string Name { get; set; }
-        public int BaseCost { get; set; }
+        public int BaseManaCost { get; set; }
         public int TemporaryCostBuff { get; set; }
         public int PermanentCostBuff { get; set; }
-        public int CurrentCost => Math.Min(0, BaseCost - TemporaryCostBuff - PermanentCostBuff);
+        public int CurrentManaCost => Math.Min(0, BaseManaCost + TemporaryCostBuff + PermanentCostBuff);
 
         public CardType Type { get; set; }
         public CardSubType SubType { get; set; }

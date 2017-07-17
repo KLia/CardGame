@@ -30,7 +30,7 @@ namespace CardGameConsoleApp.Controller
                               select new SampleMinion()
                               {
                                   Name = n.Name,
-                                  BaseCost = c.Cost,
+                                  BaseManaCost = c.Cost,
                                   BaseAttack = c.Attack,
                                   BaseHealth = c.Health
                               };
@@ -51,7 +51,7 @@ namespace CardGameConsoleApp.Controller
             //        select new Spell()
             //        {
             //            Name = n.Name,
-            //            BaseCost = c.BaseCost
+            //            BaseManaCost = c.BaseManaCost
             //        });
 
             //    return spells.ToList();
